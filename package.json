@@ -1,0 +1,35 @@
+{
+	"name": "party-favor-front-end",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"start": "webpack-dev-server --mode development --open",
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/devonnavon/party-favor-front-end.git"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/devonnavon/party-favor-front-end/issues"
+	},
+	"homepage": "https://github.com/devonnavon/party-favor-front-end#readme",
+	"dependencies": {
+		"vue": "^2.6.11"
+	},
+	"devDependencies": {
+		"@babel/core": "^7.10.5",
+		"@babel/preset-env": "^7.10.4",
+		"babel-loader": "^8.1.0",
+		"html-webpack-plugin": "^4.3.0",
+		"vue-loader": "^15.9.3",
+		"vue-template-compiler": "^2.6.11",
+		"webpack": "^4.44.0",
+		"webpack-cli": "^3.3.12",
+		"webpack-dev-server": "^3.11.0"
+	}
+}
