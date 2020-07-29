@@ -24,6 +24,14 @@ module.exports = {
 				test: /\.css$/,
 				use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader'],
 			},
+			{
+				test: /\.(png|svg|jpg|gif)$/,
+				use: ['file-loader'],
+			},
+			{
+				test: /\.(woff|woff2|eot|ttf|otf)$/,
+				use: ['file-loader'],
+			},
 		],
 	},
 	plugins: [
@@ -36,4 +44,7 @@ module.exports = {
 			template: './src/index.html',
 		}),
 	],
+	// devServer: {
+	// 	contentBase: './src',
+	// },
 };

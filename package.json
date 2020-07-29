@@ -1,10 +1,10 @@
 {
-	"name": "party-favor-front-end",
+	"name": "sorekara",
 	"version": "1.0.0",
 	"description": "",
 	"main": "index.js",
 	"scripts": {
-		"start": "webpack-dev-server --mode development --open",
+		"start": "webpack-dev-server --hot --mode development --watch",
 		"build": "webpack --mode production"
 	},
 	"repository": {
@@ -27,6 +27,7 @@
 		"autoprefixer": "^9.8.5",
 		"babel-loader": "^8.1.0",
 		"css-loader": "^4.1.0",
+		"file-loader": "^6.0.0",
 		"html-webpack-plugin": "^4.3.0",
 		"mini-css-extract-plugin": "^0.9.0",
 		"postcss-cli": "^7.1.1",

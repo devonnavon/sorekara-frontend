@@ -3,7 +3,9 @@
 @tailwind utilities;
 
 /* Custom css */
+
 @font-face {
 	font-family: Karrik-Regular;
 	src: url(./Karrik-Regular.woff) format('woff');
+	font-style: normal;
 }
