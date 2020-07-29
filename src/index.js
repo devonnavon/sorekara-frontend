@@ -2,6 +2,8 @@ import Vue from 'vue';
 
 import AppComponent from './App/index.vue';
 
+import './style.css';
+
 const vm = new Vue({
 	el: '#app',
 	components: {
