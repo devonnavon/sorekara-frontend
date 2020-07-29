@@ -1,8 +1,6 @@
 <!-- src/App/index.vue -->
 <template>
 	<div>
-		<github-input></github-input>
-		<github-output></github-output>
 		<div class="max-w-sm rounded overflow-hidden shadow-lg">
 			<img
 				class="w-full"
@@ -34,5 +32,13 @@
 		</div>
 	</div>
 </template>
-<script src="./script.js"></script>
-<style scoped src="./style.css"></style>
+<script>
+export default {
+	name: 'App',
+	components: {},
+	data() {
+		return {};
+	},
+};
+</script>
+<style></style>
