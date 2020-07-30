@@ -1,53 +1,34 @@
 <template>
 	<div class="font-sans antialiased" id="app">
-		<nav class="flex items-center justify-between flex-wrap bg-white p-6">
-			<div class="flex items-center flex-no-shrink text-orange mr-6">
+		<nav class="flex items-center justify-between flex-no-wrap bg-white p-6">
+			<div class="flex items-center">
 				<img class="object-contain" src="src/assets/logo.svg" />
 			</div>
 			<div class="block sm:hidden">
 				<button
 					@click="toggle"
-					class="flex items-center px-3 py-2 border rounded text-orange-lighter border-white-light hover:text-white hover:border-white"
+					class="flex items-center flex-shrink-1 px-3 py-2 ml-5 border rounded text-orange-lighter border-white-light hover:text-white hover:border-white"
 				>
-					<svg
+					<!-- <svg
 						class="fill-current h-3 w-3"
 						viewBox="0 0 20 20"
 						xmlns="http://www.w3.org/2000/svg"
 					>
 						<title>Menu</title>
 						<path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
-					</svg>
+					</svg> -->
+					<IconifyIcon :icon="icons.enterIcon" :style="{ color: '#4c5b61' }" />
 				</button>
 			</div>
 			<div
 				:class="open ? 'block' : 'hidden'"
-				class="w-full flex-grow sm:flex sm:items-center sm:w-auto"
+				class="w-full flex-grow sm:flex sm:items-center sm:w-auto justify-end self-end"
 			>
-				<div class="text-sm sm:flex-grow">
-					<a
-						href="#responsive-header"
-						class="no-underline block mt-4 sm:inline-block sm:mt-0 text-white-lighter hover:text-white mr-4"
-					>
-						Docs
-					</a>
-					<a
-						href="#responsive-header"
-						class="no-underline block mt-4 sm:inline-block sm:mt-0 text-white-lighter hover:text-white mr-4"
-					>
-						Examples
-					</a>
-					<a
-						href="#responsive-header"
-						class="no-underline block mt-4 sm:inline-block sm:mt-0 text-white-lighter hover:text-white"
-					>
-						Blog
-					</a>
-				</div>
-				<div>
+				<div class="self-end">
 					<a
 						href="#"
-						class="no-underline inline-block text-sm px-4 py-2 leading-none border rounded text-orange border-white hover:border-transparent hover:text-white hover:bg-white mt-4 sm:mt-0"
-						>Download</a
+						class="no-underline inline-block text-base px-4 leading-none border rounded text-orange border-white hover:text-opacity-60 mt-4 sm:mt-0 font-display font-semibold self-end"
+						>LOG IN / SIGN UP</a
 					>
 				</div>
 			</div>
@@ -57,12 +38,21 @@
 
 <script>
 // import logo from './../../assets/logo.svg';
+import IconifyIcon from '@iconify/vue';
+import enterIcon from '@iconify/icons-gg/enter';
 
 export default {
 	name: 'app-header',
-	components: {},
-	data: {
-		open: false,
+	components: {
+		IconifyIcon,
+	},
+	data() {
+		return {
+			open: false,
+			icons: {
+				enterIcon,
+			},
+		};
 	},
 	methods: {
 		toggle() {

@@ -9,7 +9,11 @@ module.exports = {
 			orange: '#E85A0B',
 			white: '#FFFFFF',
 		},
-		extend: {},
+		extend: {
+			opacity: {
+				'60': '0.60',
+			},
+		},
 	},
 	variants: {},
 	plugins: [],
