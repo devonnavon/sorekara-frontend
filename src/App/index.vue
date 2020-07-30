@@ -2,6 +2,7 @@
 <template>
 	<div>
 		<app-header></app-header>
+		<div>WHYs</div>
 	</div>
 </template>
 <script>

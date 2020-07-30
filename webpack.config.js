@@ -1,9 +1,12 @@
 //webpack.config.js
+
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const webpack = require('webpack');
 
 module.exports = {
+	entry: ['./src/index.js'],
 	module: {
 		rules: [
 			{
@@ -35,16 +38,15 @@ module.exports = {
 		],
 	},
 	plugins: [
+		new webpack.HotModuleReplacementPlugin(),
 		new VueLoaderPlugin(),
 		new MiniCssExtractPlugin({
-			filename: 'styles.css',
-			chunkFilename: 'styles.css',
+			filename: 'style.css',
+			chunkFilename: 'style.css',
 		}),
 		new HtmlWebPackPlugin({
 			template: './src/index.html',
+			inject: true,
 		}),
 	],
-	// devServer: {
-	// 	contentBase: './src',
-	// },
 };

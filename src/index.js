@@ -1,6 +1,6 @@
 import Vue from 'vue';
 
-import AppComponent from './App/index.vue';
+import AppComponent from './app/index.vue';
 
 import './assets/style.css';
 
