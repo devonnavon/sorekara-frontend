@@ -6,7 +6,9 @@
 export default {
   name: "TheAnswerList",
   components: {},
-
+  props: {
+    textInfo: Object,
+  },
   data() {
     return {};
   },
