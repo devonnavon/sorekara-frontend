@@ -4,7 +4,7 @@
 </template>
 <script>
 export default {
-  name: "App",
+  name: "TheLanding",
   components: {},
   data() {
     return {};

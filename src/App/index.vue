@@ -1,22 +1,22 @@
 <!-- src/App/index.vue -->
 <template>
-	<div>
-		<app-header></app-header>
-		<div>WHYs</div>
-	</div>
+  <div>
+    <TheHeader></TheHeader>
+    <div>WHYs</div>
+  </div>
 </template>
 <script>
-import appHeader from '../components/layout/app-header.vue';
+import TheHeader from "../components/layout/TheHeader.vue";
 
 export default {
-	name: 'App',
-	components: {
-		'app-header': appHeader,
-	},
+  name: "App",
+  components: {
+    TheHeader: TheHeader,
+  },
 
-	data() {
-		return {};
-	},
+  data() {
+    return {};
+  },
 };
 </script>
 <style></style>
