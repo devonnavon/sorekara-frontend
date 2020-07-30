@@ -2,7 +2,7 @@
 	<div class="font-sans antialiased" id="app">
 		<nav class="flex items-center justify-between flex-wrap bg-white p-6">
 			<div class="flex items-center flex-no-shrink text-orange mr-6">
-				<span class="font-semibold text-xl tracking-tight">so-re ka-ra</span>
+				<img class="object-contain" src="src/assets/logo.svg" />
 			</div>
 			<div class="block sm:hidden">
 				<button
@@ -56,6 +56,8 @@
 </template>
 
 <script>
+// import logo from './../../assets/logo.svg';
+
 export default {
 	name: 'app-header',
 	components: {},
