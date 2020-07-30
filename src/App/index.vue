@@ -2,16 +2,18 @@
 <template>
   <div>
     <TheHeader></TheHeader>
-    <div>WHYs</div>
+    <TheHome></TheHome>
   </div>
 </template>
 <script>
 import TheHeader from "../components/layout/TheHeader.vue";
+import TheHome from "../pages/TheHome/index.vue";
 
 export default {
   name: "App",
   components: {
-    TheHeader: TheHeader,
+    TheHeader,
+    TheHome,
   },
 
   data() {
