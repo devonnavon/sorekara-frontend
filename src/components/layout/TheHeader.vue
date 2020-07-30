@@ -7,8 +7,9 @@
 			<div class="block sm:hidden">
 				<button
 					@click="toggle"
-					class="flex items-center flex-shrink-1 px-3 py-2 ml-5 border rounded text-orange-lighter border-white-light hover:text-white hover:border-white"
+					class="flex items-center flex-shrink-1 pt-2 ml-5"
 				>
+					<!-- border rounded text-orange-lighter border-white-light hover:text-white hover:border-white -->
 					<!-- <svg
 						class="fill-current h-3 w-3"
 						viewBox="0 0 20 20"
@@ -17,7 +18,10 @@
 						<title>Menu</title>
 						<path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
 					</svg> -->
-					<IconifyIcon :icon="icons.enterIcon" :style="{ color: '#4c5b61' }" />
+					<IconifyIcon
+						:icon="icons.enterIcon"
+						class="text-orange fill-current h-6 w-6"
+					/>
 				</button>
 			</div>
 			<div

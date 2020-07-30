@@ -13,6 +13,10 @@ module.exports = {
 			opacity: {
 				'60': '0.60',
 			},
+
+			fontWeight: {
+				extra: 550,
+			},
 		},
 	},
 	variants: {},
