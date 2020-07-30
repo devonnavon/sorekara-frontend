@@ -19,6 +19,7 @@
 	},
 	"homepage": "https://github.com/devonnavon/party-favor-front-end#readme",
 	"dependencies": {
+		"dotenv": "^8.2.0",
 		"vue": "^2.6.11"
 	},
 	"devDependencies": {

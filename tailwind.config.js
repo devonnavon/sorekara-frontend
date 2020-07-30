@@ -17,6 +17,9 @@ module.exports = {
 			fontWeight: {
 				extra: 550,
 			},
+			animation: {
+				'spin-slow': 'spin 12s linear infinite',
+			},
 		},
 	},
 	variants: {},
