@@ -6,7 +6,7 @@
 			</div>
 			<div class="block sm:hidden">
 				<button
-					@click="toggle"
+					@click="showModal"
 					class="flex items-center flex-shrink-1 pt-2 ml-5"
 				>
 					<!-- border rounded text-orange-lighter border-white-light hover:text-white hover:border-white -->
@@ -17,7 +17,7 @@
 					>
 						<title>Menu</title>
 						<path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
-					</svg> -->
+          </svg>-->
 					<IconifyIcon
 						:icon="icons.enterIcon"
 						class="text-orange fill-current h-6 w-6"
@@ -25,10 +25,9 @@
 				</button>
 			</div>
 			<div
-				:class="open ? 'block' : 'hidden'"
-				class="w-full flex-grow sm:flex sm:items-center sm:w-auto justify-end self-end"
+				class="w-full flex-grow sm:flex sm:items-center sm:w-auto justify-end self-end hidden sm:show"
 			>
-				<div class="self-end">
+				<div class="self-end" @click="showModal">
 					<a
 						href="#"
 						class="no-underline inline-block text-base px-4 leading-none border rounded text-orange border-white hover:text-opacity-60 mt-4 sm:mt-0 font-display font-semibold self-end"
@@ -37,6 +36,7 @@
 				</div>
 			</div>
 		</nav>
+		<BaseModal v-show="isModalVisible" @close="closeModal" />
 	</div>
 </template>
 
@@ -44,23 +44,28 @@
 // import logo from './../../assets/logo.svg';
 import IconifyIcon from '@iconify/vue';
 import enterIcon from '@iconify/icons-gg/enter';
+import BaseModal from '../event/BaseModal.vue';
 
 export default {
 	name: 'app-header',
 	components: {
 		IconifyIcon,
+		BaseModal,
 	},
 	data() {
 		return {
-			open: false,
 			icons: {
 				enterIcon,
 			},
+			isModalVisible: false,
 		};
 	},
 	methods: {
-		toggle() {
-			this.open = !this.open;
+		showModal() {
+			this.isModalVisible = true;
+		},
+		closeModal() {
+			this.isModalVisible = false;
 		},
 	},
 };

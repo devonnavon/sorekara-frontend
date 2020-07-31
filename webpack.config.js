@@ -1,9 +1,10 @@
 //webpack.config.js
-
+// const path = require('path');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const webpack = require('webpack');
+const Dotenv = require('dotenv-webpack');
 
 module.exports = {
 	entry: ['./src/index.js'],
@@ -38,6 +39,7 @@ module.exports = {
 		],
 	},
 	plugins: [
+		new Dotenv(),
 		new webpack.HotModuleReplacementPlugin(),
 		new VueLoaderPlugin(),
 		new MiniCssExtractPlugin({
