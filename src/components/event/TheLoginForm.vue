@@ -2,42 +2,50 @@
 <template>
 	<div>
 		<form class="">
-			<div class="text-center relative">
+			<div class="text-center relative pb-5">
 				<div class="flex items-center justify-center"></div>
 				<h2 class="text-4xl tracking-tight">
-					Sign in!
+					Log in!
 				</h2>
 				<span class="text-sm"
-					>or
-					<a href="#" class="text-blue-500">
-						register a new account
+					>or register a
+					<a href="#" class="underline hover:text-opacity-60">
+						new account
 					</a>
 				</span>
 			</div>
 			<div class="flex flex-wrap -mx-3 mb-6">
-				<div class="w-full md:w-full px-3 mb-6">
+				<div class="w-full md:w-full px-3 mb-6 text-opacity-60">
 					<label
 						class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-						for="Password"
-						>Email address</label
+						for="Login"
+						>Username or Email address</label
 					>
 					<input
-						class="appearance-none block w-full bg-white text-gray-900 font-medium border border-gray-400 rounded-lg py-3 px-3 leading-tight focus:outline-none"
-						type="email"
+						v-model="login"
+						class="appearance-none block w-full bg-white text-gray-900 font-semibold border border-gray-400 rounded-lg py-3 px-3 leading-tight focus:outline-none"
+						type="text"
 						required
 					/>
 				</div>
 				<div class="w-full md:w-full px-3 mb-6">
 					<label
-						class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+						class="block uppercase tracking-wide text-xs font-bold mb-2 text-opacity-60"
 						for="Password"
 						>Password</label
 					>
 					<input
-						class="appearance-none block w-full bg-white text-gray-900 font-medium border border-gray-400 rounded-lg py-3 px-3 leading-tight focus:outline-none"
+						v-model="password"
+						class="appearance-none block w-full bg-white font-medium border border-gray-400 rounded-lg py-3 px-3 leading-tight focus:outline-none"
 						type="password"
 						required
 					/>
+				</div>
+				<div
+					v-if="signInErrors"
+					class="w-full md:w-full mb-6 text-xs font-base"
+				>
+					{{ signInErrors }}
 				</div>
 				<div class="w-full flex items-center justify-between px-3 mb-3 ">
 					<label for="remember" class="flex items-center w-1/2">
@@ -52,9 +60,10 @@
 				</div>
 				<div class="w-full md:w-full px-3 mb-6">
 					<button
+						@click="signIn"
 						class="appearance-none block w-full bg-blue-600 text-gray-100 font-bold border border-gray-200 rounded-lg py-3 px-3 leading-tight hover:bg-blue-500 focus:outline-none focus:bg-white focus:border-gray-500"
 					>
-						Sign in
+						Log in
 					</button>
 				</div>
 				<div class="mx-auto -mb-6 pb-1">
@@ -109,12 +118,39 @@
 	</div>
 </template>
 <script>
+import axios from 'axios';
+import bus from '../../bus';
+
 export default {
 	name: 'TheLoginForm',
 	components: {},
 	props: {},
 	data() {
-		return {};
+		return {
+			signInErrors: false,
+			login: '',
+			password: '',
+		};
+	},
+	methods: {
+		async signIn() {
+			let variables = { login: this.login, password: this.password };
+			let response = await axios.post(process.env.API_URL, {
+				query: `
+                mutation ($login: String!, $password: String!) {
+                    signIn(login: $login, password: $password) {
+                    token
+                    }
+                }
+                `,
+				variables,
+			});
+			if (response.data.errors) {
+				this.signInErrors = response.data.errors[0].message;
+			} else {
+				bus.$emit('login-success', response.data.data.signIn.token);
+			}
+		},
 	},
 };
 </script>

@@ -1,14 +1,14 @@
 <!-- landing -->
 <template>
-  <div></div>
+	<div>welcome home!</div>
 </template>
 <script>
 export default {
-  name: "TheLanding",
-  components: {},
-  data() {
-    return {};
-  },
+	name: 'TheHome',
+	components: {},
+	data() {
+		return {};
+	},
 };
 </script>
 <style></style>
