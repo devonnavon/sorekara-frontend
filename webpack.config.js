@@ -39,7 +39,7 @@ module.exports = {
 		],
 	},
 	plugins: [
-		new Dotenv(),
+		new Dotenv({ silent: false }),
 		new webpack.HotModuleReplacementPlugin(),
 		new VueLoaderPlugin(),
 		new MiniCssExtractPlugin({

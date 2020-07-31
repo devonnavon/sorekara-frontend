@@ -6,8 +6,6 @@ import AppComponent from './App/index.vue';
 
 import './assets/style.css';
 
-console.log(process.env);
-
 const vm = new Vue({
 	el: '#app',
 	components: {

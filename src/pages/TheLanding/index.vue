@@ -41,7 +41,6 @@ export default {
 		bus.$on('question-click', this.focusAnswer);
 	},
 	async mounted() {
-		console.log(process.env);
 		this.qAndA = await this.requestLandingTextData();
 	},
 	methods: {
@@ -57,7 +56,7 @@ export default {
 			this.$set(this.qAndA, index, item);
 		},
 		async requestLandingTextData() {
-			let r = await axios.post('http://localhost:8000/api', {
+			let r = await axios.post(process.env.API_URL, {
 				query: `
             query {
               landingTexts  {
