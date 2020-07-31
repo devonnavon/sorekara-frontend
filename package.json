@@ -27,6 +27,7 @@
 	"devDependencies": {
 		"@babel/core": "^7.10.5",
 		"@babel/preset-env": "^7.10.4",
+		"@iconify/icons-carbon": "^1.0.4",
 		"@iconify/icons-gg": "^1.0.0",
 		"@iconify/vue": "^1.0.2",
 		"autoprefixer": "^9.8.5",
