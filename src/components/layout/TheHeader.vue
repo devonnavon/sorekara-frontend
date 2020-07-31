@@ -36,21 +36,28 @@
 				</div>
 			</div>
 		</nav>
-		<BaseModal v-show="isModalVisible" @close="closeModal" />
+		<TheLoginModal v-show="isModalVisible" />
 	</div>
 </template>
 
 <script>
 // import logo from './../../assets/logo.svg';
+import bus from '../../bus';
 import IconifyIcon from '@iconify/vue';
 import enterIcon from '@iconify/icons-gg/enter';
-import BaseModal from '../event/BaseModal.vue';
+import TheLoginModal from '../event/TheLoginModal.vue';
 
 export default {
 	name: 'app-header',
 	components: {
 		IconifyIcon,
-		BaseModal,
+		TheLoginModal,
+	},
+	created() {
+		bus.$on('modal-close', this.closeModal);
+	},
+	destroyed() {
+		bus.$off('modal-close', this.closeModal);
 	},
 	data() {
 		return {
