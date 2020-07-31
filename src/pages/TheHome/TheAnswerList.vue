@@ -2,9 +2,14 @@
 <template>
 	<div>
 		<div v-for="(text, index) in textInfo" :key="index">
-			<div>{{ text.title }}</div>
-			<div>{{ text.answer }}</div>
-			<div v-if="text.focused">Hey there ScoTT</div>
+			<div class="font-display w-100% sm:w-2/5">
+				<div class="text-orange text-xl sm:text-lg font-semibold pb-3">
+					{{ text.title }}
+				</div>
+				<div class="text-orange font-semibold text-sm pb-10">
+					{{ text.answer }}
+				</div>
+			</div>
 		</div>
 	</div>
 </template>

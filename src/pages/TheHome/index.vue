@@ -1,12 +1,12 @@
 <!-- src/pages/TheHome/index.vue -->
 <template>
 	<div class="p-6">
-		<div class="grid grid-cols-2 gap-4">
+		<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pb-20">
 			<TheQuestionList
 				:textInfo="qAndA"
 				:title="questionTitle"
 			></TheQuestionList>
-			<TheCallToAction></TheCallToAction>
+			<TheCallToAction class="order-first sm:order-last"></TheCallToAction>
 		</div>
 		<div><TheAnswerList :textInfo="qAndA"></TheAnswerList></div>
 	</div>

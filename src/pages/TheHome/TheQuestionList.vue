@@ -1,8 +1,12 @@
 <!-- src/pages/TheHome/TheQuestionList.vue -->
 <template>
 	<div class="font-display">
-		<h1 class="text-orange text-lg pb-10 font-semibold">{{ title }}</h1>
-		<div class="grid grid-cols-2 gap-4 text-orange font-semibold text-sm">
+		<h1 class="text-orange text-xl sm:text-lg pb-10 font-semibold">
+			{{ title }}
+		</h1>
+		<div
+			class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-orange font-semibold text-sm"
+		>
 			<div
 				v-for="(text, index) in textInfo"
 				:key="index"
