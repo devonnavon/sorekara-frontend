@@ -1,11 +1,17 @@
 <!-- landing -->
 <template>
-	<div>welcome home!</div>
+	<div class="p-6">
+		<TheEventTable></TheEventTable>
+	</div>
 </template>
 <script>
+import TheEventTable from './TheEventTable.vue';
+
 export default {
 	name: 'TheHome',
-	components: {},
+	components: {
+		TheEventTable,
+	},
 	data() {
 		return {};
 	},
