@@ -5,7 +5,7 @@ export const request = async (query, variables, headers = {}) => {
 		let response = await axios.post(
 			process.env.API_URL,
 			{ query, variables },
-			headers
+			{ headers }
 		);
 		if (response.data.errors) {
 			return {
@@ -13,7 +13,7 @@ export const request = async (query, variables, headers = {}) => {
 				status: response.status,
 			};
 		}
-		return response;
+		return response.data;
 	} catch (err) {
 		return { errors: 'Failed to fetch. Please try again.' };
 	}

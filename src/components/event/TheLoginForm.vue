@@ -138,14 +138,14 @@ export default {
 		},
 		async signIn() {
 			this.validate();
-			if (!signInErrors) {
+			if (!this.signInErrors) {
 				//pointless now, will use when we add validation errors
 				let response = await this.$api.auth.signIn(this.login, this.password);
 
 				if (response.errors) {
 					this.signInErrors = response.errors;
 				} else {
-					bus.$emit('login-success', response.token);
+					bus.$emit('login-success', response.data.signIn.token);
 					bus.$emit('modal-close');
 				}
 			}

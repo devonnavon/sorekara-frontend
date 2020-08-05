@@ -1,7 +1,5 @@
 import { request, token } from './common';
 
-const headers = token();
-
 const events = async () => {
 	const query = `
         query {
@@ -15,6 +13,7 @@ const events = async () => {
             }
         }
     `;
+	const headers = token();
 	return await request(query, {}, headers);
 };
 

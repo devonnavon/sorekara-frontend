@@ -172,7 +172,7 @@ export default {
 				if (response.errors) {
 					this.signInErrors = response.errors;
 				} else {
-					bus.$emit('login-success', response.token);
+					bus.$emit('login-success', response.data.signIn.token);
 					bus.$emit('modal-close');
 				}
 			}
