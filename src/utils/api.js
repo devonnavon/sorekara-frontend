@@ -15,13 +15,11 @@ const signIn = async (variables) => {
 		if (response.data.errors) {
 			return { errors: response.data.errors[0].message };
 		} else {
-			// bus.$emit("login-success", response.data.data.signIn.token);
 			const token = response.data.data.signIn.token;
 			return { token };
 		}
 	} catch (err) {
-		console.log('hey');
-		console.log(err);
+		return { errors };
 	}
 };
 // signUp(username: String!, email: String!, password: String!): Token!

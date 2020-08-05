@@ -6,6 +6,8 @@
 
 @font-face {
 	font-family: 'Karrik-Regular';
-	src: local('Karrik-Regular'), url('./Karrik-Regular.woff2') format('woff2'),
+	src: url('./Karrik-Regular.woff2') format('woff2'),
 		url('./Karrik-Regular.woff') format('woff');
 }
+
+/* local('Karrik-Regular') */

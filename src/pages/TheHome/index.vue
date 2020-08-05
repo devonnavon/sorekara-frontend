@@ -1,20 +1,20 @@
 <!-- landing -->
 <template>
-	<div class="p-6">
-		<TheEventTable></TheEventTable>
-	</div>
+  <div class="pt-6 lg:p-6">
+    <TheEventTable></TheEventTable>
+  </div>
 </template>
 <script>
-import TheEventTable from './TheEventTable.vue';
+import TheEventTable from "./TheEventTable.vue";
 
 export default {
-	name: 'TheHome',
-	components: {
-		TheEventTable,
-	},
-	data() {
-		return {};
-	},
+  name: "TheHome",
+  components: {
+    TheEventTable,
+  },
+  data() {
+    return {};
+  },
 };
 </script>
 <style></style>
