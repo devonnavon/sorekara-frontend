@@ -1,6 +1,6 @@
 <!-- src/pages/TheHome/index.vue -->
 <template>
-	<div class="pt-6 md:p-6">
+	<div class="pt-6 md:p-8">
 		<div class="grid grid-cols-1 md:grid-cols-2 gap-4 pb-20">
 			<TheQuestionList
 				:textInfo="qAndA"

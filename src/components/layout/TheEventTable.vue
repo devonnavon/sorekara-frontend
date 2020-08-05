@@ -45,7 +45,7 @@
 					/>
 				</td>
 				<td
-					class="w-full lg:w-2/5 py-6 px-2 lg:px-0 lg:p-6 lg:pl-0 border border-b-0 text-center block border-opacity-60 font-display text-base text-orange lg:align-top lg:table-cell relative lg:static lg:mb-0 lg:text-left lg:border-r-0 lg:border-l-0 lg:border-t-1 lg:border-orange lg:border-b-1 lg:pr-2"
+					class="w-full lg:w-2/5 py-6 px-2 lg:px-0 lg:p-6 lg:pl-0 border border-b-0 text-center block border-opacity-60 font-display text-base text-orange lg:align-top lg:table-cell relative lg:static lg:mb-0 lg:text-left lg:border-r-0 lg:border-l-0 lg:border-t-1 lg:border-orange lg:border-b-1 lg:pr-4"
 				>
 					<span
 						class="lg:hidden absolute top-0 left-0 px-2 py-1 text-xs uppercase block"
@@ -54,7 +54,7 @@
 					{{ event.description }}
 				</td>
 				<td
-					class="w-full lg:w-1/6 p-3 pl-0 border border-b-0 text-center block border-opacity-60 font-display text-base text-orange lg:align-top lg:table-cell relative lg:static lg:mb-0 lg:text-left lg:border-r-0 lg:border-l-0 lg:border-t-1 lg:border-b-1 lg:border-orange lg:py-6"
+					class="w-full lg:w-1/6 lg:p-3 lg:pl-0 border border-b-0 text-center block border-opacity-60 font-display text-base text-orange lg:align-top lg:table-cell relative lg:static lg:mb-0 lg:text-left lg:border-r-0 lg:border-l-0 lg:border-t-1 lg:border-b-1 lg:border-orange py-6 px-2 lg:pt-6"
 				>
 					<span
 						class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs uppercase"
@@ -65,7 +65,7 @@
 					}}</span>
 				</td>
 				<td
-					class="w-full lg:w-auto p-3 pl-0 lg:pr-0 border border-b-0 text-center block border-opacity-60 font-display text-base text-orange lg:align-top lg:table-cell relative lg:static lg:mb-0 lg:text-left lg:border-r-0 lg:border-l-0 lg:border-t-1 lg:border-orange lg:relative lg:pt-6 lg:pb-1"
+					class="w-full lg:w-auto p-3 lg:pl-0 lg:pr-0 border border-b-0 text-center block border-opacity-60 font-display text-base text-orange lg:align-top lg:table-cell relative lg:static lg:mb-0 lg:text-left lg:border-r-0 lg:border-l-0 lg:border-t-1 lg:border-orange lg:relative lg:pt-6 lg:pb-1 pt-6 pb-2"
 				>
 					<IconifyIcon
 						:icon="icons.settingOutlined"
@@ -78,14 +78,14 @@
 
 					<span class="py-1 px-3 pl-0 text-base inline"
 						>{{ event.password }}
-						<button>
+						<!-- <button>
 							<IconifyIcon
 								:icon="icons.eyeOutlined"
 								class="text-orange fill-current h-6 w-6 inline"
 							/>
-						</button>
+						</button> -->
 					</span>
-					<div class="flex justify-end align-bottom pt-8">
+					<div class="flex justify-end align-bottom pt-5 lg:pt-8">
 						<button
 							class="appearance-none block w-auto border border-dotted py-1 px-2 mr-5 leading-tight transition ease-in duration-200 hover:bg-orange hover:text-white focus:bg-orange focus:text-white focus:bg-orange focus:text-white lg:mb-3"
 						>
@@ -187,7 +187,6 @@ export default {
 	},
 	data() {
 		return {
-			xxx: [],
 			events: [],
 			icons: {
 				eyeOutlined,
