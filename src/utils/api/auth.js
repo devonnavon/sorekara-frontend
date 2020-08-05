@@ -24,4 +24,4 @@ const signUp = async (username, email, password) => {
 	return await request(query, variables);
 };
 
-export default { signIn };
+export default { signIn, signUp };

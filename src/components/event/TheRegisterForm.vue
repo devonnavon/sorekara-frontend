@@ -77,7 +77,7 @@
 
 				<div class="w-full md:w-full px-3 mb-6">
 					<button
-						@click="signIn"
+						@click="signUp"
 						class="appearance-none block w-full bg-blue-600 text-gray-100 font-bold border border-gray-200 rounded-lg py-3 px-3 leading-tight transition ease-in duration-200 hover:bg-orange hover:text-white focus:bg-orange focus:text-white focus:bg-orange focus:text-white"
 					>
 						Sign up
@@ -152,22 +152,29 @@ export default {
 		};
 	},
 	methods: {
-		async signIn() {
-			let variables = { login: this.login, password: this.password };
-			let response = await axios.post(process.env.API_URL, {
-				query: `
-                mutation ($login: String!, $password: String!) {
-                    signIn(login: $login, password: $password) {
-                    token
-                    }
-                }
-                `,
-				variables,
-			});
-			if (response.data.errors) {
-				this.signInErrors = response.data.errors[0].message;
-			} else {
-				bus.$emit('login-success', response.data.data.signIn.token);
+		validate() {
+			this.username = this.username.trim();
+			this.email = this.email.trim();
+			this.signInErrors =
+				this.password !== this.confirmPassword
+					? "Passwords don't match"
+					: false;
+		},
+		async signUp() {
+			this.validate();
+			if (!this.signInErrors) {
+				//there are no sign in errors from our initial validate
+				let response = await this.$api.auth.signUp(
+					this.username,
+					this.email,
+					this.password
+				);
+				if (response.errors) {
+					this.signInErrors = response.errors;
+				} else {
+					bus.$emit('login-success', response.token);
+					bus.$emit('modal-close');
+				}
 			}
 		},
 		switchToLogin() {

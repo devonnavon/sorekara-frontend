@@ -133,6 +133,9 @@ export default {
 		};
 	},
 	methods: {
+		validate() {
+			this.login = this.login.trim();
+		},
 		async signIn() {
 			let response = await this.$api.auth.signIn(this.login, this.password);
 
