@@ -1,176 +1,111 @@
 <template>
-	<table class="border-collapse w-full font-display">
-		<thead>
-			<tr>
-				<th
-					class="text-base text-orange text-left text-opacity-60 hover:text-opacity-100 hidden lg:table-cell"
-				>
-					TITLE
-				</th>
-				<th
-					class="text-base text-orange text-left text-opacity-60 hover:text-opacity-100 hidden lg:table-cell"
-				>
-					DESCRIPTION
-				</th>
-				<th
-					class="text-base text-orange text-left text-opacity-60 hover:text-opacity-100 hidden lg:table-cell"
-				>
-					EVENT DATE
-				</th>
-				<th
-					class="text-base text-orange text-left text-opacity-60 hover:text-opacity-100 hidden lg:table-cell"
-				>
-					PASSWORD
-				</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr
-				v-for="(event, id) in events"
-				:key="id"
-				class="bg-white lg:hover:bg-gray-100 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-10 lg:mb-0 border border-b-1 border-l-0 border-r-0 border-t-0 border-orange"
-			>
-				<td
-					class="w-full py-6 text-xl lg:w-1/6 lg:p-6 lg:pl-0 border border-b-0 text-center block border-opacity-60 font-display lg:text-base text-orange font-normal lg:align-top lg:table-cell relative lg:static lg:mb-0 lg:text-left lg:border-r-0 lg:border-l-0 lg:border-t-1 lg:border-orange lg:border-b-1"
-				>
-					<span
-						class="lg:hidden absolute top-0 left-0 px-2 py-1 text-xs uppercase block"
-						>TITLE</span
+	<div class="p-6 lg:p-0">
+		<h1 class="font-display text-orange text-3xl pb-5 text-left">
+			My Events
+		</h1>
+		<table class="border-collapse w-full font-display">
+			<thead>
+				<tr>
+					<th
+						class="text-base text-orange text-left text-opacity-60 hover:text-opacity-100 hidden lg:table-cell"
 					>
-					{{ event.title }}
+						TITLE
+					</th>
+					<th
+						class="text-base text-orange text-left text-opacity-60 hover:text-opacity-100 hidden lg:table-cell"
+					>
+						DESCRIPTION
+					</th>
+					<th
+						class="text-base text-orange text-left text-opacity-60 hover:text-opacity-100 hidden lg:table-cell"
+					>
+						EVENT DATE
+					</th>
+					<th
+						class="text-base text-orange text-left text-opacity-60 hover:text-opacity-100 hidden lg:table-cell"
+					>
+						PASSWORD
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr
+					v-for="(event, id) in events"
+					:key="id"
+					class="bg-white lg:hover:bg-gray-100 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-10 lg:mb-0 border border-b-1 border-l-0 border-r-0 border-t-0 border-orange"
+				>
+					<td
+						class="w-full py-6 text-xl lg:w-1/6 lg:p-6 lg:pl-0 border border-b-0 text-center block border-opacity-60 font-display lg:text-base text-orange font-normal lg:align-top lg:table-cell relative lg:static lg:mb-0 lg:text-left lg:border-r-0 lg:border-l-0 lg:border-t-1 lg:border-orange lg:border-b-1"
+					>
+						<span
+							class="lg:hidden absolute top-0 left-0 px-2 py-1 text-xs uppercase block"
+							>TITLE</span
+						>
+						{{ event.title }}
 
-					<IconifyIcon
-						:icon="icons.settingOutlined"
-						class="visible lg:invisible text-orange fill-current h-6 w-6 absolute top-0 right-0 m-1"
-					/>
-				</td>
-				<td
-					class="w-full lg:w-2/5 py-6 px-2 lg:px-0 lg:p-6 lg:pl-0 border border-b-0 text-center block border-opacity-60 font-display text-base text-orange lg:align-top lg:table-cell relative lg:static lg:mb-0 lg:text-left lg:border-r-0 lg:border-l-0 lg:border-t-1 lg:border-orange lg:border-b-1 lg:pr-4"
-				>
-					<span
-						class="lg:hidden absolute top-0 left-0 px-2 py-1 text-xs uppercase block"
-						>DESCRIPTION</span
+						<IconifyIcon
+							:icon="icons.settingOutlined"
+							class="visible lg:invisible text-orange fill-current h-6 w-6 absolute top-0 right-0 m-1"
+						/>
+					</td>
+					<td
+						class="w-full lg:w-2/5 py-6 px-2 lg:px-0 lg:p-6 lg:pl-0 border border-b-0 text-center block border-opacity-60 font-display text-base text-orange lg:align-top lg:table-cell relative lg:static lg:mb-0 lg:text-left lg:border-r-0 lg:border-l-0 lg:border-t-1 lg:border-orange lg:border-b-1 lg:pr-4"
 					>
-					{{ event.description }}
-				</td>
-				<td
-					class="w-full lg:w-1/6 lg:p-3 lg:pl-0 border border-b-0 text-center block border-opacity-60 font-display text-base text-orange lg:align-top lg:table-cell relative lg:static lg:mb-0 lg:text-left lg:border-r-0 lg:border-l-0 lg:border-t-1 lg:border-b-1 lg:border-orange py-6 px-2 lg:pt-6"
-				>
-					<span
-						class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs uppercase"
-						>EVENT DATE</span
+						<span
+							class="lg:hidden absolute top-0 left-0 px-2 py-1 text-xs uppercase block"
+							>DESCRIPTION</span
+						>
+						{{ event.description }}
+					</td>
+					<td
+						class="w-full lg:w-1/6 lg:p-3 lg:pl-0 border border-b-0 text-center block border-opacity-60 font-display text-base text-orange lg:align-top lg:table-cell relative lg:static lg:mb-0 lg:text-left lg:border-r-0 lg:border-l-0 lg:border-t-1 lg:border-b-1 lg:border-orange py-6 px-2 lg:pt-6"
 					>
-					<span class="py-1 px-3 pl-0 text-base text-orange">{{
-						event.eventDate
-					}}</span>
-				</td>
-				<td
-					class="w-full lg:w-auto p-3 lg:pl-0 lg:pr-0 border border-b-0 text-center block border-opacity-60 font-display text-base text-orange lg:align-top lg:table-cell relative lg:static lg:mb-0 lg:text-left lg:border-r-0 lg:border-l-0 lg:border-t-1 lg:border-orange lg:relative lg:pt-6 lg:pb-1 pt-6 pb-2"
-				>
-					<IconifyIcon
-						:icon="icons.settingOutlined"
-						class="invisible lg:visible text-orange fill-current h-6 w-6 absolute top-0 right-0 p-1 transform rotate-45 hover:rotate-180 transition-transform duration-1000 ease-out"
-					/>
-					<span
-						class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs uppercase"
-						>PASSWORD</span
+						<span
+							class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs uppercase"
+							>EVENT DATE</span
+						>
+						<span class="py-1 px-3 pl-0 text-base text-orange">{{
+							event.eventDate
+						}}</span>
+					</td>
+					<td
+						class="w-full lg:w-auto p-3 lg:pl-0 lg:pr-0 border border-b-0 text-center block border-opacity-60 font-display text-base text-orange lg:align-top lg:table-cell relative lg:static lg:mb-0 lg:text-left lg:border-r-0 lg:border-l-0 lg:border-t-1 lg:border-orange lg:relative lg:pt-6 lg:pb-1 pt-6 pb-2"
 					>
+						<IconifyIcon
+							:icon="icons.settingOutlined"
+							class="invisible lg:visible text-orange fill-current h-6 w-6 absolute top-0 right-0 p-1 transform rotate-45 hover:rotate-180 transition-transform duration-1000 ease-out"
+						/>
+						<span
+							class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs uppercase"
+							>PASSWORD</span
+						>
 
-					<span class="py-1 px-3 pl-0 text-base inline"
-						>{{ event.password }}
-						<!-- <button>
+						<span class="py-1 px-3 pl-0 text-base inline"
+							>{{ event.password }}
+							<!-- <button>
 							<IconifyIcon
 								:icon="icons.eyeOutlined"
 								class="text-orange fill-current h-6 w-6 inline"
 							/>
 						</button> -->
-					</span>
-					<div class="flex justify-end align-bottom pt-5 lg:pt-8">
-						<button
-							class="appearance-none block w-auto border border-dotted py-1 px-2 mr-5 leading-tight transition ease-in duration-200 hover:bg-orange hover:text-white focus:bg-orange focus:text-white focus:bg-orange focus:text-white lg:mb-3"
-						>
-							PREVIEW
-						</button>
-						<button
-							class="appearance-none block w-auto border border-dotted py-1 px-2 leading-tight transition ease-in duration-200 hover:bg-orange hover:text-white focus:bg-orange focus:text-white focus:bg-orange focus:text-white lg:mb-3"
-						>
-							EDITOR
-						</button>
-					</div>
-				</td>
-			</tr>
-			<!-- template below -->
-			<!-- <tr
-				class="bg-white lg:hover:bg-gray-100 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-10 lg:mb-0 border border-b-1 border-l-0 border-r-0 border-t-0 border-orange"
-			>
-				<td
-					class="w-full py-6 text-xl lg:w-1/6 lg:p-6 lg:pl-0 border border-b-0 text-center block border-opacity-60 font-display lg:text-base text-orange font-normal lg:align-top lg:table-cell relative lg:static lg:mb-0 lg:text-left lg:border-r-0 lg:border-l-0 lg:border-t-1 lg:border-orange lg:border-b-1"
-				>
-					<span
-						class="lg:hidden absolute top-0 left-0 px-2 py-1 text-xs uppercase block"
-						>TITLE</span
-					>
-					KnobHome
-
-					<IconifyIcon
-						:icon="icons.settingOutlined"
-						class="visible lg:invisible text-orange fill-current h-6 w-6 absolute top-0 right-0 m-1"
-					/>
-				</td>
-				<td
-					class="w-full lg:w-2/5 py-6 px-2 lg:px-0 lg:p-6 lg:pl-0 border border-b-0 text-center block border-opacity-60 font-display text-base text-orange lg:align-top lg:table-cell relative lg:static lg:mb-0 lg:text-left lg:border-r-0 lg:border-l-0 lg:border-t-1 lg:border-orange lg:border-b-1"
-				>
-					<span
-						class="lg:hidden absolute top-0 left-0 px-2 py-1 text-xs uppercase block"
-						>DESCRIPTION</span
-					>
-					"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-					eiusmod tempor incididunt ut labore et dolore magna aliqua.
-				</td>
-				<td
-					class="w-full lg:w-1/6 p-3 pl-0 border border-b-0 text-center block border-opacity-60 font-display text-base text-orange lg:align-top lg:table-cell relative lg:static lg:mb-0 lg:text-left lg:border-r-0 lg:border-l-0 lg:border-t-1 lg:border-b-1 lg:border-orange lg:py-6"
-				>
-					<span
-						class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs uppercase"
-						>EVENT DATE</span
-					>
-					<span class="py-1 px-3 pl-0 text-base text-orange">2020-07-28</span>
-				</td>
-				<td
-					class="w-full lg:w-auto p-3 pl-0 lg:pr-0 border border-b-0 text-center block border-opacity-60 font-display text-base text-orange lg:align-top lg:table-cell relative lg:static lg:mb-0 lg:text-left lg:border-r-0 lg:border-l-0 lg:border-t-1 lg:border-orange lg:relative lg:pt-6 lg:pb-1"
-				>
-					<IconifyIcon
-						:icon="icons.settingOutlined"
-						class="invisible lg:visible text-orange fill-current h-6 w-6 absolute top-0 right-0 p-1 transform rotate-45 hover:rotate-180 transition-transform duration-1000 ease-out"
-					/>
-					<span
-						class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs uppercase"
-						>PASSWORD</span
-					>
-
-					<span class="py-1 px-3 pl-0 text-base inline"
-						>yo
-						<IconifyIcon
-							:icon="icons.eyeOutlined"
-							class="text-orange fill-current h-6 w-6 inline"
-						/>
-					</span>
-					<div class="flex justify-end align-bottom pt-8">
-						<button
-							class="appearance-none block w-auto border border-dotted py-1 px-2 mr-5 leading-tight transition ease-in duration-200 hover:bg-orange hover:text-white focus:bg-orange focus:text-white focus:bg-orange focus:text-white lg:mb-3"
-						>
-							PREVIEW
-						</button>
-						<button
-							class="appearance-none block w-auto border border-dotted py-1 px-2 leading-tight transition ease-in duration-200 hover:bg-orange hover:text-white focus:bg-orange focus:text-white focus:bg-orange focus:text-white lg:mb-3"
-						>
-							EDITOR
-						</button>
-					</div>
-				</td>
-			</tr> -->
-		</tbody>
-	</table>
+						</span>
+						<div class="flex justify-end align-bottom pt-5 lg:pt-8">
+							<button
+								class="appearance-none block w-auto border border-dotted py-1 px-2 mr-5 leading-tight transition ease-in duration-200 hover:bg-orange hover:text-white focus:bg-orange focus:text-white focus:bg-orange focus:text-white lg:mb-3"
+							>
+								PREVIEW
+							</button>
+							<button
+								class="appearance-none block w-auto border border-dotted py-1 px-2 leading-tight transition ease-in duration-200 hover:bg-orange hover:text-white focus:bg-orange focus:text-white focus:bg-orange focus:text-white lg:mb-3"
+							>
+								EDITOR
+							</button>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
 	<!-- </body> -->
 </template>
 
@@ -185,19 +120,15 @@ export default {
 	components: {
 		IconifyIcon,
 	},
+	props: { events: Array },
 	data() {
 		return {
-			events: [],
 			icons: {
 				eyeOutlined,
 				eyeInvisibleOutlined,
 				settingOutlined,
 			},
 		};
-	},
-	async created() {
-		let response = await this.$api.event.events();
-		this.events = response.data.events;
 	},
 	methods: {},
 };

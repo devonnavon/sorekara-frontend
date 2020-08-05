@@ -1,7 +1,7 @@
 <!-- home -->
 <template>
 	<div class="pt-6 lg:p-6">
-		<TheEventTable></TheEventTable>
+		<TheEventTable :events="events"></TheEventTable>
 	</div>
 </template>
 <script>
@@ -13,7 +13,11 @@ export default {
 		TheEventTable,
 	},
 	data() {
-		return {};
+		return { events: [] };
+	},
+	async created() {
+		let response = await this.$api.event.events();
+		this.events = response.data.events;
 	},
 };
 </script>
