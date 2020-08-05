@@ -119,9 +119,7 @@
 	</div>
 </template>
 <script>
-// import axios from 'axios';
 import bus from '../../bus';
-import api from '../../utils/api';
 
 export default {
 	name: 'TheLoginForm',
@@ -136,17 +134,11 @@ export default {
 	},
 	methods: {
 		async signIn() {
-			let response = await api.signIn({
-				login: this.login,
-				password: this.password,
-			});
+			let response = await this.$api.auth.signIn(this.login, this.password);
 
 			if (response.errors) {
 				this.signInErrors = response.errors;
 			} else {
-				// localStorage.token = response.token;
-				// bus.token = response.token;
-				// bus.loggedIn = true;
 				bus.$emit('login-success', response.token);
 				bus.$emit('modal-close');
 			}
