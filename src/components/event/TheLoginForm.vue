@@ -137,13 +137,17 @@ export default {
 			this.login = this.login.trim();
 		},
 		async signIn() {
-			let response = await this.$api.auth.signIn(this.login, this.password);
+			this.validate();
+			if (!signInErrors) {
+				//pointless now, will use when we add validation errors
+				let response = await this.$api.auth.signIn(this.login, this.password);
 
-			if (response.errors) {
-				this.signInErrors = response.errors;
-			} else {
-				bus.$emit('login-success', response.token);
-				bus.$emit('modal-close');
+				if (response.errors) {
+					this.signInErrors = response.errors;
+				} else {
+					bus.$emit('login-success', response.token);
+					bus.$emit('modal-close');
+				}
 			}
 		},
 		switchToRegister() {
