@@ -70,7 +70,7 @@
 		</div> -->
 
 	<!--                               -->
-	<table class="border-collapse w-full">
+	<table class="border-collapse w-full font-display">
 		<thead>
 			<tr>
 				<th
@@ -100,7 +100,7 @@
 				class="bg-white lg:hover:bg-gray-100 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-10 lg:mb-0"
 			>
 				<td
-					class="w-full lg:w-auto p-3 text-base text-orange text-left text-center border border-b block lg:text-left lg:table-cell relative lg:static"
+					class="w-full lg:w-auto p-3 border border-b text-center block  border-opacity-60 font-display text-base text-orange font-normal lg:align-top lg:table-cell relative lg:static lg:mb-0 lg:text-left lg:border-r-0 lg:border-l-0 lg:border-t-1 lg:border-b-1 lg:border-orange"
 				>
 					<span
 						class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase"
@@ -109,13 +109,14 @@
 					KnobHome
 				</td>
 				<td
-					class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static"
+					class="w-full lg:w-auto p-3 border border-b text-center block  border-opacity-60 font-display text-base text-orange font-semibold lg:align-top lg:table-cell relative lg:static lg:mb-0 lg:text-left lg:border-r-0 lg:border-l-0 lg:border-t-1 lg:border-b-1 lg:border-orange"
 				>
 					<span
 						class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase"
 						>DESCRIPTION</span
 					>
-					German
+					"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+					eiusmod tempor incididunt ut labore et dolore magna aliqua.
 				</td>
 				<td
 					class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static"
@@ -124,8 +125,8 @@
 						class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase"
 						>EVENT DATE</span
 					>
-					<span class="rounded bg-red-400 py-1 px-3 text-xs font-bold"
-						>deleted</span
+					<span class="py-1 px-3 text-base font-semibold text-orange"
+						>2020-07-28</span
 					>
 				</td>
 				<td

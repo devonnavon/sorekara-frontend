@@ -5,7 +5,7 @@
 /* Custom css */
 
 @font-face {
-	font-family: Karrik-Regular;
-	src: url(./Karrik-Regular.woff) format('woff');
-	font-style: normal;
+	font-family: 'Karrik-Regular';
+	src: local('Karrik-Regular'), url('./Karrik-Regular.woff2') format('woff2'),
+		url('./Karrik-Regular.woff') format('woff');
 }
