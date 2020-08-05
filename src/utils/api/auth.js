@@ -14,11 +14,11 @@ const signIn = async (login, password) => {
 
 const signUp = async (username, email, password) => {
 	const query = `
-    mutation ($username: String!, $email: String!, $password: String!) {
-        signUp (username:$username, email:$email, password:$password) {
-            token
+        mutation ($username: String!, $email: String!, $password: String!) {
+            signUp (username:$username, email:$email, password:$password) {
+                token
+            }
         }
-    }
     `;
 	const variables = { username, email, password };
 	return await request(query, variables);

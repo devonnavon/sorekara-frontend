@@ -18,3 +18,8 @@ export const request = async (query, variables, headers = {}) => {
 		return { errors: 'Failed to fetch. Please try again.' };
 	}
 };
+
+export const token = () => {
+	const token = localStorage.getItem('token');
+	return { 'x-token': token };
+};
