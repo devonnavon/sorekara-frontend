@@ -23,10 +23,9 @@ export const request = async (query, variables, headers = {}) => {
 			if (err.response.data.errors[0].extensions.code === 'UNAUTHENTICATED') {
 				//authentication error, token expired most likely
 				bus.$emit('log-out');
-				return { errors: err.response.data.errors[0].message };
-			} else {
-				console.log(err.response);
 			}
+			console.log(err.response);
+			return { errors: err.response.data.errors[0].message };
 		} else if (err.request) {
 			// client never received a response, or request never left
 			console.log('No response/Request never left.');

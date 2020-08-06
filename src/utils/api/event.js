@@ -51,7 +51,7 @@ const create = async (eventFields) => {
 	const variables = eventFields;
 	const header = token();
 	const response = await request(query, variables, header);
-	return response.data.updateEvent;
+	return response.data.createEvent;
 };
 
 const update = async (eventFields) => {
