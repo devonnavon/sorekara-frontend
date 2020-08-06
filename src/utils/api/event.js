@@ -13,8 +13,8 @@ const events = async () => {
             }
         }
     `;
-	const headers = token();
-	const response = await request(query, {}, headers);
+	const header = token();
+	const response = await request(query, {}, header);
 	if (response.errors) {
 		console.log(response.errors);
 		return [];
@@ -27,7 +27,7 @@ const create = async (eventFields) => {
         mutation(
             $title: String!
             $description: String
-            $eventDate: DateTime
+            $eventDate: Date
             $published: Boolean
             $password: String
             ) {
@@ -49,7 +49,42 @@ const create = async (eventFields) => {
 
     `;
 	const variables = eventFields;
-	return await request(query, variables, header);
+	const header = token();
+	const response = await request(query, variables, header);
+	return response.data.updateEvent;
 };
 
-export default { events, create };
+const update = async (eventFields) => {
+	const query = `
+        mutation(
+            $id: ID!
+            $title: String
+            $description: String
+            $eventDate: Date
+            $published: Boolean
+            $password: String
+            ) {
+            updateEvent(
+                id: $id
+                title: $title
+                description: $description
+                eventDate: $eventDate
+                published: $published
+                password: $password
+            ) {
+                id
+                title
+                description
+                eventDate
+                published
+                password
+            }
+        }
+    `;
+	const variables = eventFields;
+	const header = token();
+	const response = await request(query, variables, header);
+	return response.data.updateEvent;
+};
+
+export default { events, create, update };
