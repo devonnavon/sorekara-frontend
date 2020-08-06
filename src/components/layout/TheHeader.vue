@@ -25,13 +25,13 @@
         <div class="self-end" @click="showModal('Login')">
           <a
             href="#"
-            class="no-underline inline-block text-base px-4 leading-none border rounded text-orange border-white hover:text-opacity-60 mt-4 sm:mt-0 font-display font-semibold self-end"
+            class="no-underline inline-block text-base px-4 leading-none border rounded text-orange border-white hover:text-opacity-60 mt-4 sm:mt-0 font-display self-end"
           >LOG IN</a>
         </div>
         <div class="self-end" @click="showModal('Register')">
           <a
             href="#"
-            class="no-underline inline-block text-base pl-4 leading-none border rounded text-orange border-white hover:text-opacity-60 mt-4 sm:mt-0 font-display font-semibold self-end"
+            class="no-underline inline-block text-base pl-4 leading-none border rounded text-orange border-white hover:text-opacity-60 mt-4 sm:mt-0 font-display self-end"
           >SIGN UP</a>
         </div>
       </div>
@@ -42,7 +42,7 @@
         <div class="self-end" @click="logOut">
           <a
             href="#"
-            class="no-underline inline-block text-base pl-4 leading-none border rounded text-orange border-white hover:text-opacity-60 mt-4 sm:mt-0 font-display font-semibold self-end"
+            class="no-underline inline-block text-base pl-4 leading-none border rounded text-orange border-white hover:text-opacity-60 mt-4 sm:mt-0 font-display self-end"
           >LOG OUT</a>
         </div>
       </div>
@@ -89,8 +89,10 @@ export default {
       this.isModalVisible = true;
     },
     closeModal() {
-      bus.$emit("form-switch", "");
-      this.isModalVisible = false;
+      if (this.isModalVisible) {
+        bus.$emit("form-switch", "");
+        this.isModalVisible = false;
+      }
     },
     logOut() {
       bus.$emit("log-out");

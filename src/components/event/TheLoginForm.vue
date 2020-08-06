@@ -4,7 +4,7 @@
     <form class>
       <div class="text-center relative pb-5">
         <div class="flex items-center justify-center"></div>
-        <h2 class="text-4xl tracking-tight">Log in!</h2>
+        <h2 class="text-4xl">Log in!</h2>
         <span class="text-sm">
           or register a
           <a
@@ -17,24 +17,24 @@
       <div class="flex flex-wrap -mx-3 mb-6">
         <div class="w-full md:w-full px-3 mb-6 text-opacity-60">
           <label
-            class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+            class="block uppercase text-gray-700 text-xs font-bold mb-2"
             for="Login"
           >Username or Email address</label>
           <input
             v-model="login"
-            class="appearance-none block w-full bg-white text-gray-900 font-semibold border border-gray-400 rounded-lg py-3 px-3 leading-tight focus:outline-none"
+            class="appearance-none block w-full bg-white text-gray-900 border border-gray-400 rounded-lg py-3 px-3 leading-tight focus:outline-none"
             type="text"
             required
           />
         </div>
         <div class="w-full md:w-full px-3 mb-6">
           <label
-            class="block uppercase tracking-wide text-xs font-bold mb-2 text-opacity-60"
+            class="block uppercase text-xs font-bold mb-2 text-opacity-60"
             for="Password"
           >Password</label>
           <input
             v-model="password"
-            class="appearance-none block w-full bg-white font-medium border border-gray-400 rounded-lg py-3 px-3 leading-tight focus:outline-none"
+            class="appearance-none block w-full bg-white border border-gray-400 rounded-lg py-3 px-3 focus:outline-none"
             type="password"
             required
           />
@@ -46,13 +46,13 @@
             <span class="text-sm text-gray-700">Remember Me</span>
           </label>
           <div class="w-1/2 text-right">
-            <a href="#" class="text-blue-500 text-sm tracking-tight pb-1">Forget your password?</a>
+            <a href="#" class="text-sm pb-1">Forget your password?</a>
           </div>
         </div>
         <div class="w-full md:w-full px-3 mb-6">
           <button
             @click="signIn"
-            class="appearance-none block w-full bg-blue-600 text-gray-100 font-bold border border-gray-200 rounded-lg py-3 px-3 leading-tight transition ease-in duration-200 hover:bg-orange hover:text-white focus:outline-none focus:bg-orange focus:text-white"
+            class="appearance-none block w-full border border-gray-200 rounded-lg py-3 px-3 transition ease-in duration-200 hover:bg-orange hover:text-white focus:outline-none focus:bg-orange focus:text-white"
           >Log in</button>
         </div>
         <div class="mx-auto -mb-6 pb-1">
@@ -61,7 +61,7 @@
         <div class="flex items-center w-full mt-2">
           <div class="w-full md:w-1/3 px-3 pt-8 mx-2 border-t border-gray-400">
             <button
-              class="appearance-none flex items-center justify-center block w-full bg-gray-100 text-gray-700 shadow border border-gray-500 rounded-lg py-3 px-3 leading-tight hover:bg-gray-200 hover:text-gray-700 focus:outline-none"
+              class="appearance-none flex items-center justify-center block w-full shadow border border-gray-500 rounded-lg py-3 px-3 hover:bg-gray-200 hover:text-gray-700 focus:outline-none"
             >
               <svg class="h-6 w-6 fill-current text-gray-700" viewBox="0 0 512 512">
                 <path
@@ -72,7 +72,7 @@
           </div>
           <div class="w-full md:w-1/3 px-3 pt-8 mx-2">
             <button
-              class="appearance-none flex items-center justify-center block w-full bg-gray-100 text-gray-700 shadow border border-gray-500 rounded-lg py-3 px-3 leading-tight hover:bg-gray-200 hover:text-gray-700 focus:outline-none"
+              class="appearance-none flex items-center justify-center block w-full bg-gray-100 text-gray-700 shadow border border-gray-500 rounded-lg py-3 px-3 hover:bg-gray-200 hover:text-gray-700 focus:outline-none"
             >
               <svg class="h-6 w-6 fill-current text-gray-700" viewBox="0 0 512 512">
                 <path
@@ -83,7 +83,7 @@
           </div>
           <div class="w-full md:w-1/3 px-3 pt-8 mx-2 border-t border-gray-400">
             <button
-              class="appearance-none flex items-center justify-center block w-full bg-gray-100 text-gray-700 shadow border border-gray-500 rounded-lg py-3 px-3 leading-tight hover:bg-gray-200 hover:text-gray-700 focus:outline-none"
+              class="appearance-none flex items-center justify-center block w-full bg-gray-100 text-gray-700 shadow border border-gray-500 rounded-lg py-3 px-3 hover:bg-gray-200 hover:text-gray-700 focus:outline-none"
             >
               <svg class="h-6 w-6 fill-current text-gray-700" viewBox="0 0 512 512">
                 <path
@@ -120,7 +120,6 @@ export default {
       if (!this.signInErrors) {
         //pointless now, will use when we add validation errors
         let response = await this.$api.auth.signIn(this.login, this.password);
-        console.log(response);
         if (response.errors || !response.data) {
           this.signInErrors = response.errors;
         } else {
