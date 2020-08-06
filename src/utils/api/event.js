@@ -14,7 +14,12 @@ const events = async () => {
         }
     `;
 	const headers = token();
-	return await request(query, {}, headers);
+	const response = await request(query, {}, headers);
+	if (response.errors) {
+		console.log(response.errors);
+		return [];
+	}
+	return response.data.events;
 };
 
 const create = async (eventFields) => {
