@@ -1,6 +1,6 @@
 <template>
   <div>
-    <TheNewEventModal v-show="isModalVisible" />
+    <TheEventModal :event="selectedEvent" v-show="isModalVisible" />
 
     <div class="pt-10">
       <div class="flex flex-row justify-between pb-5">
@@ -43,7 +43,9 @@
             >
               <span class="lg:hidden absolute top-0 left-0 px-2 py-1 text-xs uppercase block">TITLE</span>
               {{ event.title }}
+              <!-- event settings desktop -->
               <IconifyIcon
+                @click="showModal(event)"
                 :icon="icons.settingOutlined"
                 class="visible lg:invisible text-orange fill-current h-6 w-6 absolute top-0 right-0 m-1"
               />
@@ -71,7 +73,9 @@
             <td
               class="w-full lg:w-auto p-3 lg:pl-0 lg:pr-0 border border-b-0 text-center block border-opacity-60 font-display text-base text-orange lg:align-top lg:table-cell relative lg:static lg:mb-0 lg:text-left lg:border-r-0 lg:border-l-0 lg:border-t-1 lg:border-orange lg:relative lg:pt-6 lg:pb-1 pt-6 pb-2"
             >
+              <!-- event settings mobile -->
               <IconifyIcon
+                @click="showModal(event)"
                 :icon="icons.settingOutlined"
                 class="invisible lg:visible text-orange fill-current h-6 w-6 absolute top-0 right-0 p-1 transform rotate-45 hover:rotate-180 transition-transform duration-1000 ease-out"
               />
@@ -105,7 +109,7 @@
 </template>
 
 <script>
-import TheNewEventModal from "../event/TheNewEventModal.vue";
+import TheEventModal from "../event/TheEventModal.vue";
 import bus from "../../bus";
 
 import IconifyIcon from "@iconify/vue";
@@ -119,13 +123,14 @@ export default {
   name: "TheEventTable",
   components: {
     IconifyIcon,
-    TheNewEventModal,
+    TheEventModal,
   },
   props: {},
   data() {
     return {
       events: [],
       isModalVisible: false,
+      selectedEvent: null,
       icons: {
         eyeOutlined,
         eyeInvisibleOutlined,
@@ -145,12 +150,11 @@ export default {
     bus.$off("modal-close", this.closeModal);
   },
   methods: {
-    showModal() {
-      // bus.$emit("form-switch", form);
+    showModal(event) {
+      this.selectedEvent = event ? event : null;
       this.isModalVisible = true;
     },
     closeModal() {
-      // bus.$emit("form-switch", "");
       this.isModalVisible = false;
     },
   },
