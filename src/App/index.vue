@@ -1,6 +1,6 @@
 <!-- src/App/index.vue -->
 <template>
-  <div class="xl:container mx-auto p-6">
+  <div class="xl:container mx-auto px-6 sm:px-12 pt-6">
     <TheHeader :loggedIn="loggedIn"></TheHeader>
     <TheLanding v-if="!loggedIn"></TheLanding>
     <TheHome v-else></TheHome>

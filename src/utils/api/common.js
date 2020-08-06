@@ -24,6 +24,8 @@ export const request = async (query, variables, headers = {}) => {
 				//authentication error, token expired most likely
 				bus.$emit('log-out');
 				return { errors: err.response.data.errors[0].message };
+			} else {
+				console.log(err.response);
 			}
 		} else if (err.request) {
 			// client never received a response, or request never left
