@@ -3,7 +3,7 @@
   <div
     class="flex flex-col align-center overflow-hidden font-display w-100% py-16 md:w-4/5 mx-auto mr-0"
   >
-    <img class="object-contain py-2 px-2 -mb-10" src="src/assets/curved-text.svg" />
+    <img class="object-contain py-2 px-2 -mb-10" src="img/curved-text.svg" />
     <div class="text-orange text-xl text-center">{{ callToAction }}</div>
     <div class="text-orange text-lg text-center pt-10">{{ textBody }}</div>
     <div class="text-orange text-lg text-center pt-3">{{ enjoy }}</div>

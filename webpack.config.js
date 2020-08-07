@@ -5,6 +5,12 @@ const HtmlWebPackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const webpack = require('webpack');
 const Dotenv = require('dotenv-webpack');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+
+const path = require('path');
+function resolve(dir) {
+	return path.join(__dirname, '..', dir);
+}
 
 module.exports = {
 	entry: ['./src/index.js'],
@@ -28,10 +34,16 @@ module.exports = {
 				test: /\.css$/,
 				use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader'],
 			},
-			{
-				test: /\.(png|svg|jpg|gif)$/,
-				use: ['file-loader'],
-			},
+			// {
+			// 	test: /\.(png|svg|jpg|gif)$/,
+			// 	use: {
+			// 		loader: 'file-loader',
+			// 		options: {
+			// 			name: '[name].[ext]',
+			// 			outputPath: './frontend/src/assets/',
+			// 		},
+			// 	},
+			// },
 			{
 				test: /\.(woff|woff2|eot|ttf|otf)$/,
 				use: {
@@ -55,6 +67,9 @@ module.exports = {
 		new HtmlWebPackPlugin({
 			template: './src/index.html',
 			inject: true,
+		}),
+		new CopyWebpackPlugin({
+			patterns: [{ from: './img', to: './img' }],
 		}),
 	],
 };

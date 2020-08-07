@@ -2,7 +2,7 @@
   <div class="font-sans antialiased" id="app">
     <nav class="flex items-center justify-between flex-no-wrap bg-white">
       <div class="flex items-center">
-        <img class="object-contain" src="src/assets/logo.svg" />
+        <img class="object-contain" src="img/logo.svg" />
       </div>
       <div class="block sm:hidden">
         <button @click="showModal('Login')" class="flex items-end flex-shrink-1 pt-2 ml-5">
