@@ -53,6 +53,7 @@ module.exports = {
 	},
 	plugins: [
 		new Dotenv({ silent: false }),
+		new webpack.EnvironmentPlugin(['API_URL']),
 		new webpack.HotModuleReplacementPlugin(),
 		new VueLoaderPlugin(),
 		new MiniCssExtractPlugin({
