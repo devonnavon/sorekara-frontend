@@ -4,8 +4,10 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
-		"start": "webpack-dev-server --mode development --hot",
-		"build": "webpack --mode production"
+		"dev": "webpack-dev-server --mode development --hot",
+		"build": "webpack --mode production",
+		"start": "node server.js",
+		"heroku-postbuild": "webpack -p"
 	},
 	"repository": {
 		"type": "git",
@@ -22,6 +24,7 @@
 		"axios": "^0.19.2",
 		"core-js": "^3.6.5",
 		"dotenv": "^8.2.0",
+		"express": "^4.17.1",
 		"moment": "^2.27.0",
 		"vue": "^2.6.11"
 	},
