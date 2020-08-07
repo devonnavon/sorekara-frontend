@@ -196,7 +196,6 @@ export default {
 		removeEvent(eventId) {
 			const index = this.events.findIndex((item) => item.id === eventId);
 			this.events.splice(index, 1);
-			// this.$set(this.events, index, updatedEvent);
 		},
 	},
 };
