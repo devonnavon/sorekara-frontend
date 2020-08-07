@@ -87,4 +87,22 @@ const update = async (eventFields) => {
 	return response.data.updateEvent;
 };
 
-export default { events, create, update };
+const deleteEvent = async (eventFields) => {
+	const query = `
+        mutation ($id:ID!) {
+        deleteEvent(id:$id)
+        }
+    `;
+	const variables = eventFields;
+	const header = token();
+	const response = await request(query, variables, header);
+	return response.data.deleteEvent;
+};
+
+// delete query
+
+// mutation ($id:ID!) {
+// 	deleteEvent(id:$id)
+// }
+
+export default { events, create, update, deleteEvent };

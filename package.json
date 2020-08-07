@@ -23,8 +23,7 @@
 		"core-js": "^3.6.5",
 		"dotenv": "^8.2.0",
 		"moment": "^2.27.0",
-		"vue": "^2.6.11",
-		"vuetable-2": "^2.0.0-beta.4"
+		"vue": "^2.6.11"
 	},
 	"devDependencies": {
 		"@babel/core": "^7.11.0",
@@ -32,6 +31,7 @@
 		"@iconify/icons-ant-design": "^1.0.8",
 		"@iconify/icons-carbon": "^1.0.4",
 		"@iconify/icons-gg": "^1.0.0",
+		"@iconify/icons-wpf": "^1.0.5",
 		"@iconify/vue": "^1.0.2",
 		"autoprefixer": "^9.8.6",
 		"babel-loader": "^8.1.0",

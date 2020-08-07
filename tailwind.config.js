@@ -8,6 +8,7 @@ module.exports = {
 		colors: {
 			orange: '#E85A0B',
 			white: '#FFFFFF',
+			red: '#FF0000',
 		},
 		extend: {
 			opacity: {
