@@ -4,13 +4,8 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const webpack = require('webpack');
-const Dotenv = require('dotenv-webpack');
+// const Dotenv = require('dotenv-webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-
-const path = require('path');
-function resolve(dir) {
-	return path.join(__dirname, '..', dir);
-}
 
 module.exports = {
 	entry: ['./src/index.js'],
@@ -57,7 +52,7 @@ module.exports = {
 		],
 	},
 	plugins: [
-		new Dotenv({ silent: false }),
+		// new Dotenv({ silent: false }),
 		new webpack.HotModuleReplacementPlugin(),
 		new VueLoaderPlugin(),
 		new MiniCssExtractPlugin({
