@@ -58,7 +58,7 @@
             class="appearance-none block w-full bg-blue-600 text-gray-100 border border-gray-200 rounded-lg py-3 px-3 transition ease-in duration-200 hover:bg-orange hover:text-white focus:bg-orange focus:text-white focus:bg-orange focus:text-white"
           >Sign up</button>
         </div>
-        <div class="mx-auto -mb-6 pb-1">
+        <!-- <div class="mx-auto -mb-6 pb-1">
           <span class="text-center text-xs text-gray-700">or sign up with</span>
         </div>
         <div class="flex items-center w-full mt-2">
@@ -95,7 +95,7 @@
               </svg>
             </button>
           </div>
-        </div>
+        </div>-->
       </div>
     </form>
   </div>

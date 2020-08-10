@@ -41,21 +41,21 @@
         </div>
         <div v-if="signInErrors" class="w-full md:w-full mb-6 text-xs font-base">{{ signInErrors }}</div>
         <div class="w-full flex items-center justify-between px-3 mb-3">
-          <label for="remember" class="flex items-center w-1/2">
+          <!-- <label for="remember" class="flex items-center w-1/2">
             <input type="checkbox" name id class="mr-1 bg-white shadow" />
             <span class="text-sm text-gray-700">Remember Me</span>
-          </label>
-          <div class="w-1/2 text-right">
+          </label>-->
+          <div class="w-full text-right">
             <a href="#" class="text-sm pb-1">Forget your password?</a>
           </div>
         </div>
-        <!-- <div class="w-full md:w-full px-3 mb-6">
+        <div class="w-full md:w-full px-3 mb-6">
           <button
             @click.prevent="signIn"
             class="appearance-none block w-full border border-gray-200 rounded-lg py-3 px-3 transition ease-in duration-200 hover:bg-orange hover:text-white focus:outline-none focus:bg-orange focus:text-white"
           >Log in</button>
         </div>
-        <div class="mx-auto -mb-6 pb-1">
+        <!-- <div class="mx-auto -mb-6 pb-1">
           <span class="text-center text-xs text-gray-700">or log in with</span>
         </div>
         <div class="flex items-center w-full mt-2">
