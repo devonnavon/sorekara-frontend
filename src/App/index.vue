@@ -1,17 +1,15 @@
 <!-- src/App/index.vue -->
 <template>
 	<div class="xl:container mx-auto px-6 sm:px-12 pt-6">
-		<!-- <TheHeader :loggedIn="loggedIn"></TheHeader>÷ -->
 		<RouterView />
-		<!-- <TheLanding v-if="!loggedIn"></TheLanding>
-		<TheHome v-else></TheHome> -->
 	</div>
 </template>
 <script>
 import bus from '../bus';
-// import TheHeader from '../components/layout/TheHeader.vue';
 import TheLanding from '../pages/TheLanding/index.vue';
 import TheHome from '../pages/TheHome/index.vue';
+
+import jwt from 'jsonwebtoken';
 
 export default {
 	name: 'App',
@@ -19,8 +17,10 @@ export default {
 		TheLanding,
 		TheHome,
 	},
+	data() {
+		return { user: {} };
+	},
 	created() {
-		console.log(this.$router.currentRoute);
 		bus.$on('log-out', () => {
 			localStorage.clear();
 			this.loggedIn = false;
@@ -28,22 +28,24 @@ export default {
 		});
 		bus.$on('login-success', (token) => {
 			localStorage.token = token;
+			this.user = jwt.decode(token);
 			this.loggedIn = true;
-			this.$router.push('/home');
+			this.$router.push(`/${this.user.username}`);
 		});
 		if (localStorage.token) {
 			this.loggedIn = true;
-			// this.$router.push('/home');
 		}
+	},
+	beforeUpdate() {
+		if (this.$router.currentRoute.path === '/' && this.loggedIn)
+			this.$router.push(`/${this.user.username}`);
 	},
 	data() {
 		return {
 			loggedIn: false,
 		};
 	},
-	methods: {
-		login(e) {},
-	},
+	methods: {},
 };
 </script>
 <style></style>
