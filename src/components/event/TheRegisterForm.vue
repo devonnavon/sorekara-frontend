@@ -54,7 +54,7 @@
 
         <div class="w-full md:w-full px-3 mb-6">
           <button
-            @click="signUp"
+            @click.prevent="signUp"
             class="appearance-none block w-full bg-blue-600 text-gray-100 border border-gray-200 rounded-lg py-3 px-3 transition ease-in duration-200 hover:bg-orange hover:text-white focus:bg-orange focus:text-white focus:bg-orange focus:text-white"
           >Sign up</button>
         </div>

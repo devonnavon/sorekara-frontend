@@ -49,9 +49,9 @@
             <a href="#" class="text-sm pb-1">Forget your password?</a>
           </div>
         </div>
-        <div class="w-full md:w-full px-3 mb-6">
+        <!-- <div class="w-full md:w-full px-3 mb-6">
           <button
-            @click="signIn"
+            @click.prevent="signIn"
             class="appearance-none block w-full border border-gray-200 rounded-lg py-3 px-3 transition ease-in duration-200 hover:bg-orange hover:text-white focus:outline-none focus:bg-orange focus:text-white"
           >Log in</button>
         </div>
@@ -92,7 +92,7 @@
               </svg>
             </button>
           </div>
-        </div>
+        </div>-->
       </div>
     </form>
   </div>
