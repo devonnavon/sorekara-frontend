@@ -19,7 +19,7 @@ const routes = [
 		component: TheLanding,
 	},
 	{
-		path: '/go/:eventID',
+		path: '/edit/:eventID',
 		name: 'edit',
 		component: TheEditor,
 	},

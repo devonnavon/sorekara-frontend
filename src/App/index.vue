@@ -38,7 +38,7 @@ export default {
       this.loggedIn = true;
     }
     bus.$on("edit-event", (event) => {
-      let route = this.$router.resolve(`/go/${event.id}`);
+      let route = this.$router.resolve(`/edit/${event.id}`);
       window.open(route.href, "_blank");
     });
   },
