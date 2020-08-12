@@ -29,16 +29,6 @@ module.exports = {
 				test: /\.css$/,
 				use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader'],
 			},
-			// {
-			// 	test: /\.(png|svg|jpg|gif)$/,
-			// 	use: {
-			// 		loader: 'file-loader',
-			// 		options: {
-			// 			name: '[name].[ext]',
-			// 			outputPath: './frontend/src/assets/',
-			// 		},
-			// 	},
-			// },
 			{
 				test: /\.(woff|woff2|eot|ttf|otf)$/,
 				use: {
@@ -53,7 +43,7 @@ module.exports = {
 	},
 	plugins: [
 		new Dotenv({ silent: false }),
-		new webpack.EnvironmentPlugin(['API_URL']),
+		new webpack.EnvironmentPlugin({ API_URL: '' }),
 		new webpack.HotModuleReplacementPlugin(),
 		new VueLoaderPlugin(),
 		new MiniCssExtractPlugin({

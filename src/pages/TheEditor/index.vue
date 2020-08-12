@@ -2,6 +2,7 @@
 <template>
   <div>
     <TheAppHeader></TheAppHeader>
+    <div>{{eventId}}</div>
   </div>
 </template>
 <script>
@@ -14,7 +15,12 @@ export default {
     TheAppHeader,
   },
   data() {
-    return {};
+    return {
+      eventId: this.$route.params.eventID,
+    };
+  },
+  created() {
+    console.log(id);
   },
 };
 </script>
