@@ -31,7 +31,9 @@ export default {
     IconifyIcon,
     TheEventCard,
   },
-  props: {},
+  props: {
+    eventCard: { type: Array, default: [] },
+  },
   data() {
     return {
       icons: {

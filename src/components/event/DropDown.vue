@@ -1,34 +1,48 @@
 <!-- src/pages/TheHome/TheCallToAction.vue -->
 <template>
-  <div>
-    <button @click="toggleShow" class="anchor">Plus</button>
-    <div v-if="showMenu" class="menu">
-      <div class="menu-item" v-for="item in this.items" @click="itemClicked(item)">{{item}}</div>
+  <div class="flex flex-col">
+    <button @click="toggleShow" class="self-center focus:outline-none outline-none">
+      <slot>Yo</slot>
+    </button>
+
+    <div
+      v-if="showMenu"
+      class="font-display text-orange bg-white rounded-lg border border-orange self-center -mt-2"
+    >
+      <div
+        class="py-3 px-6 cursor-pointer hover:text-opacity-60"
+        v-for="item in this.items"
+        :key="item"
+        @click="itemClicked(item)"
+      >{{item}}</div>
     </div>
   </div>
 </template>
 <script>
 import IconifyIcon from "@iconify/vue";
 import closeOutline from "@iconify/icons-carbon/close-outline";
+import plusCircleOutlined from "@iconify/icons-ant-design/plus-circle-outlined";
 import bus from "../../bus";
 
 export default {
   name: "DropDown",
+  components: {
+    IconifyIcon,
+  },
   data: function () {
     return {
+      icons: {
+        plusCircleOutlined,
+      },
       showMenu: false,
     };
   },
-  props: function () {
-    return {
-      onClick: "function",
-      items: {
-        type: "Object",
-        default: function () {
-          return [];
-        },
-      },
-    };
+  props: {
+    onClick: Function,
+    items: {
+      type: Array,
+      default: ["yo", "yo"],
+    },
   },
   methods: {
     toggleShow: function () {
@@ -60,9 +74,6 @@ export default {
 .menu {
   background-color: #fff;
   background-clip: padding-box;
-  border: 1px solid rgba(0, 0, 0, 0.15);
-  border-radius: 0.25rem;
-  color: #212529;
   cursor: pointer;
   display: flex;
   flex-direction: column;
@@ -75,8 +86,6 @@ export default {
 }
 
 .menu-item {
-  color: #212529;
-  padding: 0.25rem 1.5rem;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
     border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }

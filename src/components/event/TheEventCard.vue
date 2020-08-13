@@ -12,14 +12,21 @@
     </button>
     <div class="border border-dotted border-orange w-11/12 relative mx-auto p-5">yo</div>
     <div class="flex flex-row justify-center py-3">
-      <button class="font-display text-orange text-xl focus:outline-none outline-none self-center">
+      <!-- <button class="font-display text-orange text-xl focus:outline-none outline-none self-center">
         <IconifyIcon
           :icon="icons.plusCircleOutlined"
           class="text-orange text-center fill-current transform hover:rotate-180 transition-transform duration-1000 ease-out self-center outline-none focus:outline-none"
         />
-      </button>
+      </button>-->
+      <DropDown :on-click="chooseMedia" :items="media" class="self-center">
+        <!-- <button class="font-display text-orange text-xl focus:outline-none outline-none self-center"> -->
+        <IconifyIcon
+          :icon="icons.plusCircleOutlined"
+          class="text-orange text-center fill-current bg-white transform hover:rotate-180 transition-transform duration-1000 ease-out self-center outline-none focus:outline-none"
+        />
+        <!-- </button> -->
+      </DropDown>
     </div>
-    <DropDown :on-click="chooseMedia" :items="media"></DropDown>
   </div>
 </template>
 <script>
@@ -39,10 +46,9 @@ export default {
   },
   data() {
     return {
-      data: {
-        activeMedia: "Text",
-        media: ["Text", "Image"],
-      },
+      activeMedia: "",
+      media: ["Text", "Image"],
+
       icons: {
         plusCircleOutlined,
         deleteIcon,

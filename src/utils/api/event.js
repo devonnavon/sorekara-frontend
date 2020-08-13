@@ -22,6 +22,40 @@ const events = async () => {
 	return response.data.events;
 };
 
+const event = async (id) => {
+	const query = `
+        query ($id: ID!) {
+            event(id:$id){
+                id
+                title
+                description
+                eventDate
+                published
+                password
+                eventCards {
+                    id
+                    size
+                    sortOrder
+                    cardMedia {
+                        id
+                        type
+                        url
+                        sortOrder
+                        text
+                    }
+                }
+            }
+        }
+    `;
+	const header = token();
+	const response = await request(query, { id }, header);
+	if (response.errors) {
+		console.log(response.errors);
+		return {};
+	}
+	return response.data.event;
+};
+
 const create = async (eventFields) => {
 	const query = `
         mutation(
@@ -99,10 +133,4 @@ const deleteEvent = async (eventFields) => {
 	return response.data.deleteEvent;
 };
 
-// delete query
-
-// mutation ($id:ID!) {
-// 	deleteEvent(id:$id)
-// }
-
-export default { events, create, update, deleteEvent };
+export default { events, event, create, update, deleteEvent };
