@@ -10,7 +10,7 @@
         class="text-orange h-5 w-5 transition duration-500 hover:text-red"
       />
     </button>
-    <div class="border border-dotted border-orange w-11/12 relative mx-auto p-5">yo</div>
+    <div class="border border-dotted border-orange w-11/12 relative mx-auto p-5">cardMediaComponent</div>
     <div class="flex flex-row justify-center py-3">
       <!-- <button class="font-display text-orange text-xl focus:outline-none outline-none self-center">
         <IconifyIcon
@@ -44,11 +44,15 @@ export default {
     DropDown,
     IconifyIcon,
   },
+  props: {
+    size: { type: String, default: "full" },
+    sortOrder: { type: Number, default: 0 },
+    cardMedia: { type: Array, default: () => [] },
+  },
   data() {
     return {
       activeMedia: "",
       media: ["Text", "Image"],
-
       icons: {
         plusCircleOutlined,
         deleteIcon,
@@ -56,7 +60,7 @@ export default {
     };
   },
   methods: {
-    chooseMedia: function (media) {
+    chooseMedia(media) {
       this.activeMedia = media;
     },
   },

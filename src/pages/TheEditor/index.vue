@@ -2,8 +2,11 @@
 <template>
   <div>
     <TheAppHeader></TheAppHeader>
+
+    <div class="lg:p-3">{{eventInfo.title}}</div>
+    <div class="lg:p-3">{{eventInfo.description}}</div>
+
     <TheEventEditor :eventCards="eventInfo.eventCards"></TheEventEditor>
-    <div>{{eventId}}</div>
   </div>
 </template>
 <script>
@@ -18,69 +21,15 @@ export default {
   },
   data() {
     return {
-      eventId: this.$route.params.eventID,
-      eventInfo: {
-        id: "1",
-        title: "my super sick concert",
-        description:
-          "its gonna be cool, we wont touch, no germs etc. gOOd vIBes onLY",
-        eventDate: "2020-08-13T19:08:24.033Z",
-        published: false,
-        password: "password",
-        eventCards: [
-          {
-            id: "2",
-            size: "full",
-            sortOrder: 1,
-            cardMedia: [],
-          },
-          {
-            id: "3",
-            size: "half",
-            sortOrder: 2,
-            cardMedia: [
-              {
-                id: "1",
-                type: "text",
-                url: null,
-                sortOrder: 1,
-                text: "hey man yo",
-              },
-              {
-                id: "2",
-                type: "image",
-                url: null,
-                sortOrder: 2,
-                text: "please!",
-              },
-            ],
-          },
-          {
-            id: "4",
-            size: "half",
-            sortOrder: 3,
-            cardMedia: [
-              {
-                id: "3",
-                type: "text",
-                url: null,
-                sortOrder: 1,
-                text: "hey man yo",
-              },
-              {
-                id: "4",
-                type: "image",
-                url: null,
-                sortOrder: 2,
-                text: "please!",
-              },
-            ],
-          },
-        ],
-      },
+      eventInfo: {},
     };
   },
-  created() {},
+  async created() {
+    //request info for the event page we've been routed to
+    //need to ensure this route checks that you are event owner (maybe? although how to we display)
+    let response = await this.$api.event.event(this.$route.params.eventID);
+    this.eventInfo = response;
+  },
 };
 </script>
 <style></style>

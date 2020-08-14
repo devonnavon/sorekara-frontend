@@ -1,6 +1,12 @@
 <template>
   <div class="pt-6">
-    <TheEventCard></TheEventCard>
+    <TheEventCard
+      v-for="eventCard in eventCards"
+      :key="eventCard.id"
+      :size="eventCard.size"
+      :sortOrder="eventCard.sortOrder"
+      :cardMedia="eventCard.cardMedia"
+    ></TheEventCard>
     <div class="flex flex-row justify-center py-4">
       <button class="font-display text-orange text-4xl focus:outline-none outline-none self-center">
         <IconifyIcon
@@ -26,13 +32,13 @@ import plusCircleFilled from "@iconify/icons-ant-design/plus-circle-filled";
 import deleteIcon from "@iconify/icons-wpf/delete";
 
 export default {
-  name: "TheEventTable",
+  name: "TheEventEditor",
   components: {
     IconifyIcon,
     TheEventCard,
   },
   props: {
-    eventCard: { type: Array, default: [] },
+    eventCards: { type: Array, default: () => [] },
   },
   data() {
     return {
