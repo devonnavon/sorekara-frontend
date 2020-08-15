@@ -53,7 +53,9 @@ const event = async (id) => {
 		console.log(response.errors);
 		return {};
 	}
-	return response.data.event;
+	let event = response.data.event;
+	// event.eventCards = event.eventCards.sort((a, b) => a.sortOrder > b.sortOrder);
+	return event;
 };
 
 const create = async (eventFields) => {
