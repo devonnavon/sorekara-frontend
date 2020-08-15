@@ -1,6 +1,6 @@
 <template>
   <div class="pt-6">
-    <SortableList lockAxis="y" v-model="eventCardsCopy" :pressDelay="150">
+    <SortableList lockAxis="y" v-model="eventCardsCopy" :distance="5">
       <TheEventCard
         v-for="(eventCard, index) in eventCardsCopy"
         :index="index"

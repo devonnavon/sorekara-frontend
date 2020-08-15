@@ -11,7 +11,7 @@
       />
     </button>
     <div class="border border-dotted border-orange w-11/12 relative mx-auto p-5">{{ cardMedia }}</div>
-    <SortableList v-model="cardMediaCopy" :pressDelay="150">
+    <SortableList v-model="cardMediaCopy" :distance="5">
       <TheCardMedia
         v-for="(media, index) in cardMediaCopy"
         :index="index"
