@@ -19,10 +19,8 @@ const create = async (variables) => {
 		console.log(response.errors);
 		return [];
 	}
-	return response.data.events;
+	return response.data.createEventCard;
 };
-
-import { request, token } from './common';
 
 const update = async (variables) => {
 	const query = `
@@ -51,17 +49,19 @@ const update = async (variables) => {
 	return response.data.events;
 };
 
-const deleteEventCard = async (variables) => {
+const deleteEventCard = async (id) => {
 	const query = `
             mutation($id: ID!) {
                 deleteEventCard(id: $id)
             }
     `;
 	const header = token();
-	const response = await request(query, variables, header);
+	const response = await request(query, { id }, header);
 	if (response.errors) {
 		console.log(response.errors);
 		return [];
 	}
-	return response.data.events;
+	return response.data.deleteEventCard;
 };
+
+export default { create, update, deleteEventCard };

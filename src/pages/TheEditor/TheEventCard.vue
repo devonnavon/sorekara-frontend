@@ -4,6 +4,7 @@
       type="button"
       class="btn-close absolute left-0 top-0 ml-2 mt-2 focus:outline-none transition duration-500 ease-in-out self-center outline-none transform hover:-translate-y-1 hover:scale-105"
       aria-label="Delete event"
+      @click="deleteEventCard"
     >
       <IconifyIcon
         :icon="icons.deleteIcon"
@@ -59,6 +60,7 @@ export default {
   props: {
     size: { type: String, default: "full" },
     cardMedia: { type: Array, default: () => [] },
+    id: { type: String },
   },
   mixins: [ElementMixin],
   data() {
@@ -75,6 +77,13 @@ export default {
   methods: {
     chooseMedia(mediaType) {
       this.activeMedia = mediaType;
+    },
+    async deleteEventCard() {
+      console.log(this.id);
+      let response = await this.$api.eventCard.deleteEventCard(this.id);
+      if (response) {
+        bus.$emit("event-card-delete", this.id);
+      }
     },
   },
   // watch: {

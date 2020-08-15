@@ -5,6 +5,7 @@
         v-for="(eventCard, index) in eventCardsCopy"
         :index="index"
         :key="eventCard.id"
+        :id="eventCard.id"
         :size="eventCard.size"
         :cardMedia="eventCard.cardMedia"
       ></TheEventCard>
@@ -17,7 +18,10 @@
       ></TheEventCard>-->
     </SortableList>
     <div class="flex flex-row justify-center py-4">
-      <button class="font-display text-orange text-4xl focus:outline-none outline-none self-center">
+      <button
+        class="font-display text-orange text-4xl focus:outline-none outline-none self-center"
+        @click="createEventCard"
+      >
         <IconifyIcon
           :icon="icons.plusCircleOutlined"
           class="text-orange text-center fill-current transform hover:rotate-180 transition-transform duration-1000 ease-out self-center outline-none focus:outline-none"
@@ -62,6 +66,9 @@ export default {
       eventCardsCopy: [],
     };
   },
+  created() {
+    bus.$on("event-card-delete", this.removeEventCard);
+  },
   watch: {
     eventCards: function (newVal, oldVal) {
       // watch it
@@ -71,6 +78,20 @@ export default {
   computed: {
     eventCardsSorted() {
       return this.eventCards.sort((a, b) => a.sortOrder > b.sortOrder);
+    },
+  },
+  methods: {
+    async createEventCard() {
+      let response = await this.$api.eventCard.create({
+        eventId: this.$route.params.eventID,
+        size: "full",
+        sortOrder: this.eventCardsCopy.length + 1,
+      });
+      this.eventCardsCopy.push(response);
+    },
+    removeEventCard(id) {
+      const index = this.eventCardsCopy.findIndex((item) => item.id === id);
+      this.eventCardsCopy.splice(index, 1);
     },
   },
 };
