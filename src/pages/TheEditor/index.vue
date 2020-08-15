@@ -10,8 +10,8 @@
   </div>
 </template>
 <script>
-import TheAppHeader from "../../components/layout/TheAppHeader.vue";
-import TheEventEditor from "../../components/layout/TheEventEditor.vue";
+import TheAppHeader from "../TheHome/TheAppHeader.vue";
+import TheEventEditor from "./TheEventEditor.vue";
 
 export default {
   name: "TheEditor",

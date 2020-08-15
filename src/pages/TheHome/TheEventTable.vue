@@ -110,7 +110,7 @@
 </template>
 
 <script>
-import TheEventModal from "../event/TheEventModal.vue";
+import TheEventModal from "./TheEventModal.vue";
 import bus from "../../bus";
 import moment from "moment";
 
