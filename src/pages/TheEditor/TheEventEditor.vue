@@ -1,6 +1,6 @@
 <template>
   <div class="pt-6">
-    <SortableList lockAxis="y" v-model="eventCardsCopy" :distance="5">
+    <SortableList lockAxis="y" v-model="eventCardsCopy" :distance="5" @sort-end="itemMove">
       <TheEventCard
         v-for="(eventCard, index) in eventCardsCopy"
         :index="index"
@@ -8,7 +8,7 @@
         :id="eventCard.id"
         :size="eventCard.size"
         :cardMedia="eventCard.cardMedia"
-      ></TheEventCard>
+      >SortOrder: {{eventCard.sortOrder}}</TheEventCard>
 
       <!-- <TheEventCard
 			v-for="eventCard in eventCardsSorted"
@@ -72,7 +72,9 @@ export default {
   watch: {
     eventCards: function (newVal, oldVal) {
       // watch it
-      this.eventCardsCopy = newVal;
+      this.eventCardsCopy = newVal
+        .slice()
+        .sort((a, b) => a.sortOrder - b.sortOrder);
     },
   },
   computed: {
@@ -92,6 +94,13 @@ export default {
     removeEventCard(id) {
       const index = this.eventCardsCopy.findIndex((item) => item.id === id);
       this.eventCardsCopy.splice(index, 1);
+    },
+    itemMove(e) {
+      let eventCardId = this.eventCardsCopy[e.oldIndex].id;
+      this.$api.eventCard.update({
+        id: eventCardId,
+        sortOrder: e.newIndex + 1,
+      });
     },
   },
 };

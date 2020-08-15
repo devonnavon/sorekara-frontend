@@ -1,5 +1,6 @@
 <template>
   <div class="border border-orange w-full relative pt-8">
+    <slot>yo</slot>
     <button
       type="button"
       class="btn-close absolute left-0 top-0 ml-2 mt-2 focus:outline-none transition duration-500 ease-in-out self-center outline-none transform hover:-translate-y-1 hover:scale-105"
@@ -79,7 +80,6 @@ export default {
       this.activeMedia = mediaType;
     },
     async deleteEventCard() {
-      console.log(this.id);
       let response = await this.$api.eventCard.deleteEventCard(this.id);
       if (response) {
         bus.$emit("event-card-delete", this.id);

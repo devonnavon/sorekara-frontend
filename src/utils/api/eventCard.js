@@ -46,7 +46,7 @@ const update = async (variables) => {
 		console.log(response.errors);
 		return [];
 	}
-	return response.data.events;
+	return response.data.updateEventCard;
 };
 
 const deleteEventCard = async (id) => {
