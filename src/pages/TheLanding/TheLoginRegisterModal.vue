@@ -11,7 +11,7 @@
   </div>
 </template>
 <script>
-import BaseModal from "./BaseModal.vue";
+import BaseModal from "../../components/event/BaseModal.vue";
 import TheLoginForm from "./TheLoginForm.vue";
 import TheRegisterForm from "./TheRegisterForm.vue";
 import bus from "../../bus";
