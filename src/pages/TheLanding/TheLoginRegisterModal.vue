@@ -1,4 +1,4 @@
-<!-- src/components/layout/The LoginModal  -->
+<!-- src/components/layout/The LoginModal TEST -->
 <template>
   <div>
     <BaseModal>
