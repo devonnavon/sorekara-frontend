@@ -23,6 +23,8 @@ module.exports = {
 			},
 		},
 	},
-	variants: {},
+	variants: {
+		textOpacity: ['responsive', 'hover', 'focus', 'group-hover'],
+	},
 	plugins: [],
 };
