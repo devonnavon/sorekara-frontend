@@ -8,6 +8,7 @@
         :id="eventCard.id"
         :size="eventCard.size"
         :cardMedia="eventCard.cardMedia"
+        class="my-6 select-none"
       >SortOrder: {{eventCard.sortOrder}}</TheEventCard>
 
       <!-- <TheEventCard

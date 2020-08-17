@@ -1,5 +1,5 @@
 <template>
-  <div class="border border-orange w-full relative pt-8">
+  <div class="border border-orange w-full relative pt-8 border-opacity-60">
     <slot>yo</slot>
     <button
       type="button"
@@ -19,6 +19,7 @@
         :index="index"
         :media="media"
         :key="media.id"
+        class="my-4"
       ></TheCardMedia>
     </SortableList>
 
