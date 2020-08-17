@@ -6,6 +6,7 @@
 			type="button"
 			class="btn-close absolute left-0 top-0 ml-2 mt-2 focus:outline-none transition duration-500 ease-in-out self-center outline-none transform hover:-translate-y-1 hover:scale-105"
 			aria-label="Delete event"
+			@click="deleteCardMedia"
 		>
 			<IconifyIcon
 				:icon="icons.deleteIcon"
@@ -15,7 +16,7 @@
 		<button
 			type="button"
 			class="btn-close absolute right-0 top-0 mr-2 mt-2 focus:outline-none transition duration-500 ease-in-out self-center outline-none transform hover:-translate-y-1 hover:scale-105"
-			aria-label="Delete event"
+			aria-label="Edit event"
 		>
 			<IconifyIcon
 				:icon="icons.editOutlined"
@@ -54,7 +55,14 @@ export default {
 		};
 	},
 	mixins: [ElementMixin],
-	methods: {},
+	methods: {
+		async deleteCardMedia() {
+			let response = await this.$api.cardMedia.deleteCardMedia(this.media.id);
+			if (response) {
+				bus.$emit('card-media-delete', this.media.id);
+			}
+		},
+	},
 };
 </script>
 <style></style>

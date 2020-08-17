@@ -13,7 +13,7 @@
 				class="text-orange h-5 w-5 transition duration-500 ease-in-out hover:text-red sm:text-opacity-0 sm:group-hover:text-opacity-100"
 			/>
 		</button>
-		<SortableList v-model="cardMediaCopy" :distance="5">
+		<SortableList v-model="cardMediaCopy" :distance="5" @sort-end="itemMove">
 			<TheCardMedia
 				v-for="(media, index) in cardMediaCopy"
 				:index="index"
@@ -77,6 +77,9 @@ export default {
 				.sort((a, b) => a.sortOrder - b.sortOrder),
 		};
 	},
+	created() {
+		bus.$on('card-media-delete', this.removeCardMedia);
+	},
 	methods: {
 		async deleteEventCard() {
 			let response = await this.$api.eventCard.deleteEventCard(this.id);
@@ -91,6 +94,18 @@ export default {
 				sortOrder: this.cardMedia.length + 1,
 			});
 			this.cardMediaCopy.push(response);
+		},
+		removeCardMedia(id) {
+			const index = this.cardMediaCopy.findIndex((item) => item.id === id);
+			this.cardMediaCopy.splice(index, 1);
+		},
+		async itemMove(e) {
+			//card media!!!
+			let cardMediaId = this.cardMediaCopy[e.oldIndex].id;
+			await this.$api.cardMedia.update({
+				id: cardMediaId,
+				sortOrder: e.newIndex + 1,
+			});
 		},
 	},
 };
