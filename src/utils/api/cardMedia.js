@@ -20,6 +20,10 @@ const create = async (variables) => {
                     sortOrder: $sortOrder
                 ) {
                     id
+                    type
+                    options
+                    url
+                    text
                     sortOrder
                 }
             }
@@ -53,6 +57,10 @@ const update = async (variables) => {
                     sortOrder: $sortOrder
                 ) {
                     id
+                    type
+                    options
+                    url
+                    text
                     sortOrder
                 }
             }

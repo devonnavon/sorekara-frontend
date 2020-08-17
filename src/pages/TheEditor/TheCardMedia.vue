@@ -22,7 +22,9 @@
 				class="text-orange h-4 w-4 transition duration-500 hover:text-red sm:text-opacity-0 sm:group-hover:text-opacity-100"
 			/>
 		</button>
-		<div>{{ media.id }}</div>
+		<div>Sort Order: {{ media.sortOrder }}</div>
+		<div>Id: {{ media.id }}</div>
+		<div>Type: {{ media.type }}</div>
 	</div>
 </template>
 <script>

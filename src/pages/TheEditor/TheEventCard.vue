@@ -2,7 +2,6 @@
 	<div
 		class="group border border-dashed border-orange w-full relative pt-8 border-opacity-25 hover:border-opacity-100"
 	>
-		<slot>yo</slot>
 		<button
 			type="button"
 			class="btn-close absolute left-0 top-0 ml-2 mt-2 focus:outline-none transition duration-500 ease-in-out self-center outline-none transform hover:-translate-y-1 hover:scale-105"
@@ -14,11 +13,6 @@
 				class="text-orange h-5 w-5 transition duration-500 ease-in-out hover:text-red sm:text-opacity-0 sm:group-hover:text-opacity-100"
 			/>
 		</button>
-		<div
-			class="border border-dotted border-orange w-11/12 relative mx-auto p-5"
-		>
-			{{ cardMedia }}
-		</div>
 		<SortableList v-model="cardMediaCopy" :distance="5">
 			<TheCardMedia
 				v-for="(media, index) in cardMediaCopy"
@@ -29,14 +23,9 @@
 			></TheCardMedia>
 		</SortableList>
 
-		<!-- <TheCardMedia
-			v-for="media in cardMedia"
-			:media="media"
-			:key="media.id"
-    ></TheCardMedia>-->
 		<div class="flex flex-row justify-center py-3">
 			<DropDown
-				:on-click="chooseMedia"
+				:on-click="createCardMedia"
 				:items="mediaType"
 				class="self-center z-50"
 			>
@@ -77,32 +66,33 @@ export default {
 	mixins: [ElementMixin],
 	data() {
 		return {
-			activeMedia: '',
-			mediaType: ['Text', 'Image'],
+			// activeMedia: '',
+			mediaType: ['text', 'image'],
 			icons: {
 				plusCircleOutlined,
 				deleteIcon,
 			},
-			cardMediaCopy: this.cardMedia,
+			cardMediaCopy: this.cardMedia
+				.slice()
+				.sort((a, b) => a.sortOrder - b.sortOrder),
 		};
 	},
 	methods: {
-		chooseMedia(mediaType) {
-			this.activeMedia = mediaType;
-		},
 		async deleteEventCard() {
 			let response = await this.$api.eventCard.deleteEventCard(this.id);
 			if (response) {
 				bus.$emit('event-card-delete', this.id);
 			}
 		},
+		async createCardMedia(type) {
+			let response = await this.$api.cardMedia.create({
+				eventCardId: this.id,
+				type,
+				sortOrder: this.cardMedia.length + 1,
+			});
+			this.cardMediaCopy.push(response);
+		},
 	},
-	// watch: {
-	// 	cardMedia: function(newVal, oldVal) {
-	// 		// watch it
-	// 		this.cardMediaCopy = newVal;
-	// 	},
-	// },
 };
 </script>
 <style></style>
