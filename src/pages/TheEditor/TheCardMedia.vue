@@ -34,6 +34,9 @@
 				class="border border-dotted border-orange border-opacity-25 font-display text-base text-orange hover:bg-orange hover:bg-opacity-25 text-lg text-opacity-75"
 			></vue-dropzone>
 		</div>
+		<div v-show="media.type === 'text'">
+			<VueFileToolbarMenu />
+		</div>
 	</div>
 </template>
 <script>
@@ -50,6 +53,8 @@ import bus from '../../bus';
 
 import { ElementMixin } from 'vue-slicksort';
 
+import VueFileToolbarMenu from '../../components/ui/toolbar/Toolbar.vue';
+
 let uuid = require('uuid');
 
 export default {
@@ -57,6 +62,7 @@ export default {
 	components: {
 		IconifyIcon,
 		vueDropzone: vue2Dropzone,
+		VueFileToolbarMenu,
 	},
 	props: { media: { type: Object, default: () => [] } },
 	data() {
