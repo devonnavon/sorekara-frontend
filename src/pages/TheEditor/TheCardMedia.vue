@@ -31,6 +31,7 @@
 				ref="myVueDropzone"
 				id="dropzone"
 				:options="dropzoneOptions"
+				class="border border-dotted border-orange border-opacity-25 font-display text-base text-orange hover:bg-orange hover:bg-opacity-25 text-lg text-opacity-75"
 			></vue-dropzone>
 		</div>
 	</div>

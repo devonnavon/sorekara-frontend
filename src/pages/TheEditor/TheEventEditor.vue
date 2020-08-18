@@ -97,6 +97,7 @@ export default {
 			this.eventCardsCopy.splice(index, 1);
 		},
 		async itemMove(e) {
+			//event Card!!!
 			let eventCardId = this.eventCardsCopy[e.oldIndex].id;
 			await this.$api.eventCard.update({
 				id: eventCardId,
