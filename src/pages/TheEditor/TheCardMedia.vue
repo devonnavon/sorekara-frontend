@@ -26,9 +26,19 @@
 		<div>Sort Order: {{ media.sortOrder }}</div>
 		<div>Id: {{ media.id }}</div>
 		<div>Type: {{ media.type }}</div>
+		<div v-show="media.type === 'image'">
+			<vue-dropzone
+				ref="myVueDropzone"
+				id="dropzone"
+				:options="dropzoneOptions"
+			></vue-dropzone>
+		</div>
 	</div>
 </template>
 <script>
+import vue2Dropzone from 'vue2-dropzone';
+import 'vue2-dropzone/dist/vue2Dropzone.min.css';
+
 import IconifyIcon from '@iconify/vue';
 import plusCircleOutlined from '@iconify/icons-ant-design/plus-circle-outlined';
 import plusCircleFilled from '@iconify/icons-ant-design/plus-circle-filled';
@@ -39,14 +49,25 @@ import bus from '../../bus';
 
 import { ElementMixin } from 'vue-slicksort';
 
+let uuid = require('uuid');
+
 export default {
 	name: 'TheCardMedia',
 	components: {
 		IconifyIcon,
+		vueDropzone: vue2Dropzone,
 	},
 	props: { media: { type: Object, default: () => [] } },
 	data() {
 		return {
+			images: [],
+			dropzoneOptions: {
+				url: 'https://man.com',
+				thumbnailWidth: 250,
+				thumbnailHeight: 250,
+				addRemoveLinks: false,
+				acceptedFiles: '.jpg, .jpeg, .png, .gif',
+			},
 			icons: {
 				plusCircleOutlined,
 				deleteIcon,
@@ -60,6 +81,17 @@ export default {
 			let response = await this.$api.cardMedia.deleteCardMedia(this.media.id);
 			if (response) {
 				bus.$emit('card-media-delete', this.media.id);
+			}
+		},
+
+		async afterComplete() {
+			try {
+				const imageName = uuid.v1();
+				var metaData = {
+					contentType: 'image/png',
+				};
+			} catch (error) {
+				console.log(error);
 			}
 		},
 	},
