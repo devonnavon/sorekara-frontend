@@ -10,4 +10,89 @@
 		url('./Karrik-Regular.woff') format('woff');
 }
 
+@font-face {
+	font-family: 'Happy Times at the IKOB';
+	src: url('./happy-times-NG_regular_master_web.woff2') format('woff2'),
+		url('./happy-times-NG_regular_master_web.woff') format('woff');
+}
+
+@font-face {
+	font-family: 'Happy Times at the IKOB';
+	src: url('./happy-times-NG_italic_master_web.woff2') format('woff2'),
+		url('./happy-times-NG_italic_master_web.woff') format('woff');
+	font-weight: italic;
+}
+
+@font-face {
+	font-family: 'Happy Times at the IKOB';
+	src: url('./happy-times-NG_bold_master_web.woff2') format('woff2'),
+		url('./happy-times-NG_bold_master_web.woff') format('woff');
+	font-weight: bold;
+}
+
+@font-face {
+	font-family: 'Compagnon';
+	src: url('./Compagnon-Roman.woff2') format('woff2'),
+		url('./Compagnon-Roman.woff') format('woff');
+}
+
+@font-face {
+	font-family: 'Compagnon';
+	src: url('./Compagnon-Bold.woff2') format('woff2'),
+		url('./Compagnon-Bold.woff') format('woff');
+	font-weight: bold;
+}
+
+@font-face {
+	font-family: 'Compagnon';
+	src: url('./Compagnon-Italic.woff2') format('woff2'),
+		url('./Compagnon-Italic.woff') format('woff');
+	font-weight: italic;
+}
+
+@font-face {
+	font-family: 'Lack Regular';
+	src: url('./lack-regular-webfont.woff2') format('woff2'),
+		url('./lack-regular-webfont.woff') format('woff');
+}
+
+@font-face {
+	font-family: 'Lack Regular';
+	src: url('./lack-italic-webfont.woff2') format('woff2'),
+		url('./lack-italic-webfont.woff') format('woff');
+	weight: italic;
+}
+
+@font-face {
+	font-family: 'Lack Line';
+	src: url('./lack-line-regular-webfont.woff2') format('woff2'),
+		url('./lack-line-regular-webfont.woff') format('woff');
+}
+
+@font-face {
+	font-family: 'Lack Line';
+	src: url('./lack-line-italic-webfont.woff2') format('woff2'),
+		url('./lack-line-italic-webfont.woff') format('woff');
+	font-weight: italic;
+}
+
+@font-face {
+	font-family: 'Typefesse';
+	src: url('./Typefesse_Claire-Obscure.woff2') format('woff2'),
+		url('./Typefesse_Claire-Obscure.woff') format('woff');
+}
+
+@font-face {
+	font-family: 'Minipax';
+	src: url('./Minipax-Regular.woff2') format('woff2'),
+		url('./Minipax-Regular.woff') format('woff');
+}
+
+@font-face {
+	font-family: 'Minipax';
+	src: url('./Minipax-Bold.woff2') format('woff2'),
+		url('./Minipax-Bold.woff') format('woff');
+	font-weight: bold;
+}
+
 /* local('Karrik-Regular') */

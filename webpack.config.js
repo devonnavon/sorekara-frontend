@@ -6,9 +6,15 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const webpack = require('webpack');
 const Dotenv = require('dotenv-webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const jQueryPath = 'jquery/dist/jquery.js';
 
 module.exports = {
 	entry: ['./src/index.js'],
+	resolve: {
+		alias: {
+			jquery$: jQueryPath,
+		},
+	},
 	module: {
 		rules: [
 			{
@@ -39,6 +45,10 @@ module.exports = {
 					},
 				},
 			},
+			{
+				test: /\.svg$/,
+				use: 'file-loader',
+			},
 		],
 	},
 	plugins: [
@@ -55,7 +65,18 @@ module.exports = {
 			inject: true,
 		}),
 		new CopyWebpackPlugin({
-			patterns: [{ from: './img', to: './img' }],
+			patterns: [
+				{ from: './img', to: './img' },
+				// {
+				// 	from: './node_modules/trumbowyg/dist/ui/*.svg',
+				// },
+			],
+		}),
+		new webpack.ProvidePlugin({
+			Vue: ['vue/dist/vue.esm.js', 'default'],
+			jQuery: jQueryPath,
+			$: jQueryPath,
+			'window.jQuery': jQueryPath,
 		}),
 	],
 };
