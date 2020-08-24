@@ -56,12 +56,12 @@
 		url('./lack-regular-webfont.woff') format('woff');
 }
 
-@font-face {
+/* @font-face {
 	font-family: 'Lack Regular';
 	src: url('./lack-italic-webfont.woff2') format('woff2'),
 		url('./lack-italic-webfont.woff') format('woff');
 	weight: italic;
-}
+} */
 
 @font-face {
 	font-family: 'Lack Line';
@@ -78,8 +78,8 @@
 
 @font-face {
 	font-family: 'Typefesse';
-	src: url('./Typefesse_Claire-Obscure.woff2') format('woff2'),
-		url('./Typefesse_Claire-Obscure.woff') format('woff');
+	src: url('./Typefesse_Pleine.woff2') format('woff2'),
+		url('./Typefesse_Pleine.woff') format('woff');
 }
 
 @font-face {
@@ -93,6 +93,63 @@
 	src: url('./Minipax-Bold.woff2') format('woff2'),
 		url('./Minipax-Bold.woff') format('woff');
 	font-weight: bold;
+}
+
+@font-face {
+	font-family: 'Avara';
+	src: url('./Avara-Black_web.woff2') format('woff2'),
+		url('./Avara-Black_web.woff') format('woff');
+}
+
+/* @font-face {
+	font-family: 'Avara';
+	src: url('./Avara-Bold_Italic_web.woff2') format('woff2'),
+		url('./Avara-Bold_Italic_web.woff') format('woff');
+	font-weight: italic;
+} */
+
+@font-face {
+	font-family: 'Bluu Next';
+	src: url('./bluunext-bold-webfont.woff2') format('woff2'),
+		url('./bluunext-bold-webfont.woff') format('woff');
+}
+
+@font-face {
+	font-family: 'Bluu Next';
+	src: url('./bluunext-bolditalic-webfont.woff2') format('woff2'),
+		url('./bluunext-bolditalic-webfont.woff') format('woff');
+	font-weight: italic;
+}
+
+@font-face {
+	font-family: 'Format 1452';
+	src: url('./Format_1452.woff2') format('woff2'),
+		url('./Format_1452.woff') format('woff');
+}
+
+@font-face {
+	font-family: 'Kaeru Kaeru';
+	src: url('./kaerukaeru-Regular.woff2') format('woff2'),
+		url('./kaerukaeru-Regular.woff') format('woff');
+}
+
+@font-face {
+	font-family: 'Sporting Grotesque';
+	src: url('./Sporting_Grotesque-Regular_web.woff2') format('woff2'),
+		url('./Sporting_Grotesque-Regular_web.woff') format('woff');
+}
+
+@font-face {
+	font-family: 'Sporting Grotesque';
+	src: url('./Sporting_Grotesque-Bold_web.woff2') format('woff2'),
+		url('./Sporting_Grotesque-Bold_web.woff') format('woff');
+	font-weight: bold;
+}
+
+@font-face {
+	font-family: 'Terminal Grotesque';
+	src: url('./terminal-grotesque-webfont.woff2') format('woff2'),
+		url('./terminal-grotesque-webfont.woff') format('woff');
 }
 
 /* local('Karrik-Regular') */
