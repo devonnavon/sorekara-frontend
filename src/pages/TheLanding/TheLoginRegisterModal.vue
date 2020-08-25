@@ -5,8 +5,6 @@
       <transition name="fade" mode="out-in">
         <component v-bind:is="currentFormComponent"></component>
       </transition>
-
-      <!-- <component v-bind:is="currentFormComponent"></component> -->
     </BaseModal>
   </div>
 </template>
