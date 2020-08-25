@@ -20,7 +20,7 @@
 	font-family: 'Happy Times at the IKOB';
 	src: url('./happy-times-NG_italic_master_web.woff2') format('woff2'),
 		url('./happy-times-NG_italic_master_web.woff') format('woff');
-	font-weight: italic;
+	font-style: italic;
 }
 
 @font-face {
@@ -47,7 +47,7 @@
 	font-family: 'Compagnon';
 	src: url('./Compagnon-Italic.woff2') format('woff2'),
 		url('./Compagnon-Italic.woff') format('woff');
-	font-weight: italic;
+	font-style: italic;
 }
 
 @font-face {
@@ -60,7 +60,7 @@
 	font-family: 'Lack Regular';
 	src: url('./lack-italic-webfont.woff2') format('woff2'),
 		url('./lack-italic-webfont.woff') format('woff');
-	weight: italic;
+	font-style: italic;
 } */
 
 @font-face {
@@ -69,12 +69,12 @@
 		url('./lack-line-regular-webfont.woff') format('woff');
 }
 
-@font-face {
+/* @font-face {
 	font-family: 'Lack Line';
 	src: url('./lack-line-italic-webfont.woff2') format('woff2'),
 		url('./lack-line-italic-webfont.woff') format('woff');
-	font-weight: italic;
-}
+	font-style: italic;
+} */
 
 @font-face {
 	font-family: 'Typefesse';
@@ -101,12 +101,12 @@
 		url('./Avara-Black_web.woff') format('woff');
 }
 
-/* @font-face {
+@font-face {
 	font-family: 'Avara';
 	src: url('./Avara-Bold_Italic_web.woff2') format('woff2'),
 		url('./Avara-Bold_Italic_web.woff') format('woff');
-	font-weight: italic;
-} */
+	font-style: italic;
+}
 
 @font-face {
 	font-family: 'Bluu Next';
@@ -118,7 +118,7 @@
 	font-family: 'Bluu Next';
 	src: url('./bluunext-bolditalic-webfont.woff2') format('woff2'),
 		url('./bluunext-bolditalic-webfont.woff') format('woff');
-	font-weight: italic;
+	font-style: italic;
 }
 
 @font-face {
