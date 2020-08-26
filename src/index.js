@@ -8,6 +8,8 @@ import Vue from 'vue';
 import router from './router';
 
 import AppComponent from './App/index.vue';
+import VueEllipseProgress from 'vue-ellipse-progress';
+Vue.use(VueEllipseProgress);
 
 import './assets/style.css';
 
