@@ -67,7 +67,6 @@ const update = async (variables) => {
 
     `;
 	const header = token();
-	console.log(variables);
 	const response = await request(query, variables, header);
 	if (response.errors) {
 		console.log(response.errors);
