@@ -21,7 +21,7 @@ const upload = async (file, filename) => {
 		return {};
 	}
 	const { signedRequest, url } = response.data.signS3;
-	ß;
+
 	const options = { headers: { 'Content-Type': file.type } };
 	await axios.put(signedRequest, file, options);
 

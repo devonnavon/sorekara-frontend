@@ -45,7 +45,7 @@ const update = async (variables) => {
             $options: String
             $url: String
             $text: String
-            $sortOrder: Int!
+            $sortOrder: Int
             ) 
             {
                 updateCardMedia(
@@ -58,7 +58,6 @@ const update = async (variables) => {
                 ) {
                     id
                     type
-                    options
                     url
                     text
                     sortOrder
@@ -68,12 +67,13 @@ const update = async (variables) => {
 
     `;
 	const header = token();
+	console.log(variables);
 	const response = await request(query, variables, header);
 	if (response.errors) {
 		console.log(response.errors);
 		return [];
 	}
-	return response.data.updateEventCard;
+	return response.data.updateCardMedia;
 };
 
 const deleteCardMedia = async (id) => {
