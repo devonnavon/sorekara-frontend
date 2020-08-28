@@ -11,7 +11,7 @@ const create = async (variables) => {
             $sortOrder: Int!
             ) 
             {
-                createCardMedia(
+                createCardItem(
                     eventCardId: $eventCardId
                     type: $type
                     options: $options
@@ -34,7 +34,7 @@ const create = async (variables) => {
 		console.log(response.errors);
 		return [];
 	}
-	return response.data.createCardMedia;
+	return response.data.createCardItem;
 };
 
 const update = async (variables) => {
@@ -48,7 +48,7 @@ const update = async (variables) => {
             $sortOrder: Int
             ) 
             {
-                updateCardMedia(
+                updateCardItem(
                     id: $id
                     type: $type
                     options: $options
@@ -72,13 +72,13 @@ const update = async (variables) => {
 		console.log(response.errors);
 		return [];
 	}
-	return response.data.updateCardMedia;
+	return response.data.updateCardItem;
 };
 
-const deleteCardMedia = async (id) => {
+const deleteCardItem = async (id) => {
 	const query = `
             mutation($id: ID!) {
-                deleteCardMedia(id: $id)
+                deleteCardItem(id: $id)
             }
     `;
 	const header = token();
@@ -87,7 +87,7 @@ const deleteCardMedia = async (id) => {
 		console.log(response.errors);
 		return [];
 	}
-	return response.data.deleteCardMedia;
+	return response.data.deleteCardItem;
 };
 
-export default { create, update, deleteCardMedia };
+export default { create, update, deleteCardItem };

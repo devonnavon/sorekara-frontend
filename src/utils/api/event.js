@@ -36,7 +36,7 @@ const event = async (id) => {
                     id
                     size
                     sortOrder
-                    cardMedia {
+                    cardItems {
                         id
                         type
                         url

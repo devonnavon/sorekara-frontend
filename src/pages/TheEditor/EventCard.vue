@@ -108,7 +108,7 @@ import dragHorizontal from "@iconify/icons-mdi/drag-horizontal";
 
 import bus from "../../bus";
 
-const cardItemInfo = [
+const cardItems = [
   {
     id: 0,
     type: "text",
@@ -131,8 +131,8 @@ const cardItemInfo = [
   },
 ];
 
-const layoutsArray = cardItemInfo.map((e) => e.layout);
-const cardItemCopy = {
+const layoutsArray = cardItems.map((e) => e.layout);
+const layoutsObject = {
   md: layoutsArray.map((e) => e.md),
   sm: layoutsArray.map((e) => e.sm),
 };
@@ -149,7 +149,7 @@ export default {
   },
   props: {
     size: { type: String, default: "full" },
-    cardItem: { type: Array, default: () => [] },
+    cardItems: { type: Array, default: () => [] },
     id: { type: String },
   },
   mixins: [ElementMixin],
@@ -164,8 +164,8 @@ export default {
       },
 
       baseHeight: 30,
-      layout: cardItemCopy["md"],
-      layouts: cardItemCopy,
+      layout: layoutsObject["md"],
+      layouts: layoutsObject,
       // cardItemCopy: this.cardItem
       // 	.slice()
       // 	.sort((a, b) => a.sortOrder - b.sortOrder),

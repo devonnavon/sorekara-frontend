@@ -13,16 +13,9 @@
         :key="eventCard.id"
         :id="eventCard.id"
         :size="eventCard.size"
-        :cardMedia="eventCard.cardMedia"
+        :cardItems="eventCard.cardItem"
         class="my-6 select-none"
       ></EventCard>
-
-      <!-- <TheEventCard
-			v-for="eventCard in eventCardsSorted"
-			:key="eventCard.id"
-			:size="eventCard.size"
-			:cardMedia="eventCard.cardMedia"
-      ></TheEventCard>-->
     </SortableList>
     <div class="flex flex-row justify-center py-4">
       <button

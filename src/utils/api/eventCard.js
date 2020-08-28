@@ -7,7 +7,7 @@ const create = async (variables) => {
                 id
                 size
                 sortOrder
-                cardMedia {
+                cardItem {
                     id
                 }
             }
@@ -29,7 +29,7 @@ const update = async (variables) => {
                 id
                 size
                 sortOrder
-                cardMedia {
+                cardItem {
                     id
                     type
                     url
