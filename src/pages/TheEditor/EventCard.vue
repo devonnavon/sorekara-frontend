@@ -27,17 +27,17 @@
       </button>
     </div>
     <!-- <SortableList
-			v-model="cardMediaCopy"
+			v-model="cardItemCopy"
 			:useDragHandle="true"
 			@sort-end="itemMove"
 		>
-			<TheCardMedia
-				v-for="(media, index) in cardMediaCopy"
+			<CardItem
+				v-for="(media, index) in cardItemCopy"
 				:index="index"
 				:media="media"
 				:key="media.id"
 				class="my-4"
-			></TheCardMedia>
+			></CardItem>
     </SortableList>-->
 
     <grid-layout
@@ -78,11 +78,11 @@
         class="group border border-dotted border-orange relative mx-auto border-opacity-25 hover:border-opacity-100"
       >
         {{ 'i: '+ item.i }}
-        <!-- <TheCardMedia :index="index" :media="item" :key="item.id" :ref="item.id"></TheCardMedia> -->
+        <!-- <CardItem :index="index" :media="item" :key="item.id" :ref="item.id"></CardItem> -->
       </grid-item>
     </grid-layout>
     <div class="flex flex-row justify-center py-3">
-      <DropDown :on-click="createCardMedia" :items="mediaType" class="self-center z-50">
+      <DropDown :on-click="createCardItem" :items="mediaType" class="self-center z-50">
         <IconifyIcon
           :icon="icons.plusCircleOutlined"
           class="text-orange text-center fill-current bg-white transform hover:rotate-180 transition-transform duration-1000 ease-out self-center outline-none focus:outline-none sm:text-opacity-0 sm:group-hover:text-opacity-100 transition duration-500 ease-in-out"
@@ -93,7 +93,7 @@
 </template>
 <script>
 import DropDown from "../../components/event/DropDown.vue";
-import TheCardMedia from "./TheCardMedia.vue";
+import CardItem from "./CardItem.vue";
 
 import { ElementMixin, HandleDirective } from "vue-slicksort";
 import SortableList from "../../components/ui/SortableList.vue";
@@ -108,7 +108,7 @@ import dragHorizontal from "@iconify/icons-mdi/drag-horizontal";
 
 import bus from "../../bus";
 
-const cardMediaInfo = [
+const cardItemInfo = [
   {
     id: 0,
     type: "text",
@@ -125,23 +125,23 @@ const cardMediaInfo = [
     url: "xxx.com",
     text: "hello",
     layout: {
-      md: { x: 0, y: 0, w: 3, h: 2, i: 1 },
-      sm: { x: 0, y: 3, w: 3, h: 2, i: 1 },
+      md: { x: 3, y: 0, w: 3, h: 2, i: 1 },
+      sm: { x: 0, y: 0, w: 3, h: 2, i: 1 },
     },
   },
 ];
 
-const layoutsArray = cardMediaInfo.map((e) => e.layout);
-const cardMediaCopy = {
+const layoutsArray = cardItemInfo.map((e) => e.layout);
+const cardItemCopy = {
   md: layoutsArray.map((e) => e.md),
   sm: layoutsArray.map((e) => e.sm),
 };
 
 export default {
-  name: "TheEventCard",
+  name: "EventCard",
   components: {
     DropDown,
-    TheCardMedia,
+    CardItem,
     IconifyIcon,
     SortableList,
     GridLayout: VueGridLayout.GridLayout,
@@ -149,7 +149,7 @@ export default {
   },
   props: {
     size: { type: String, default: "full" },
-    cardMedia: { type: Array, default: () => [] },
+    cardItem: { type: Array, default: () => [] },
     id: { type: String },
   },
   mixins: [ElementMixin],
@@ -164,16 +164,16 @@ export default {
       },
 
       baseHeight: 30,
-      layout: cardMediaCopy["md"],
-      layouts: cardMediaCopy,
-      // cardMediaCopy: this.cardMedia
+      layout: cardItemCopy["md"],
+      layouts: cardItemCopy,
+      // cardItemCopy: this.cardItem
       // 	.slice()
       // 	.sort((a, b) => a.sortOrder - b.sortOrder),
     };
   },
   created() {
-    bus.$on("card-media-delete", this.removeCardMedia);
-    // this.cardMediaCopy.forEach((element, i) => {
+    bus.$on("card-media-delete", this.removeCardItem);
+    // this.cardItemCopy.forEach((element, i) => {
     // 	this.$set(element, 'x', i);
     // 	this.$set(element, 'y', i);
     // 	this.$set(element, 'w', 1);
@@ -283,28 +283,28 @@ export default {
         bus.$emit("event-card-delete", this.id);
       }
     },
-    async createCardMedia(type) {
-      let response = await this.$api.cardMedia.create({
+    async createCardItem(type) {
+      let response = await this.$api.cardItem.create({
         eventCardId: this.id,
         type,
-        sortOrder: this.cardMedia.length + 1,
+        sortOrder: this.cardItem.length + 1,
       });
-      this.$set(response, "x", this.cardMediaCopy.length);
-      this.$set(response, "y", this.cardMediaCopy.length);
+      this.$set(response, "x", this.cardItemCopy.length);
+      this.$set(response, "y", this.cardItemCopy.length);
       this.$set(response, "w", 10);
       this.$set(response, "h", 10);
       this.$set(response, "i", response.id);
-      this.cardMediaCopy.push(response);
+      this.cardItemCopy.push(response);
     },
-    removeCardMedia(id) {
-      const index = this.cardMediaCopy.findIndex((item) => item.id === id);
-      this.cardMediaCopy.splice(index, 1);
+    removeCardItem(id) {
+      const index = this.cardItemCopy.findIndex((item) => item.id === id);
+      this.cardItemCopy.splice(index, 1);
     },
     async itemMove(e) {
       //card media!!!
-      let cardMediaId = this.cardMediaCopy[e.oldIndex].id;
-      await this.$api.cardMedia.update({
-        id: cardMediaId,
+      let cardItemId = this.cardItemCopy[e.oldIndex].id;
+      await this.$api.cardItem.update({
+        id: cardItemId,
         sortOrder: e.newIndex + 1,
       });
     },
