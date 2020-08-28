@@ -5,6 +5,7 @@
 			v-model="eventCardsCopy"
 			:distance="5"
 			@sort-end="itemMove"
+			:useDragHandle="true"
 		>
 			<TheEventCard
 				v-for="(eventCard, index) in eventCardsCopy"

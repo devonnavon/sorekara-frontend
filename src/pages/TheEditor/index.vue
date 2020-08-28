@@ -29,6 +29,7 @@ export default {
     //need to ensure this route checks that you are event owner (maybe? although how to we display)
     let response = await this.$api.event.event(this.$route.params.eventID);
     this.eventInfo = response;
+    console.log(response);
   },
 };
 </script>
