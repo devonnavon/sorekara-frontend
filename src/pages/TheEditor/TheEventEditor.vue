@@ -13,7 +13,7 @@
         :key="eventCard.id"
         :id="eventCard.id"
         :size="eventCard.size"
-        :cardItems="eventCard.cardItem"
+        :cardItems="eventCard.cardItems"
         class="my-6 select-none"
       ></EventCard>
     </SortableList>
