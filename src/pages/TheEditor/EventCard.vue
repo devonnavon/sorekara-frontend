@@ -41,6 +41,7 @@
     </SortableList>-->
 
     <grid-layout
+      ref="grid"
       :layout.sync="layout"
       :responsive-layouts="layouts"
       :col-num="3"
@@ -48,20 +49,16 @@
       :is-draggable="true"
       :is-resizable="true"
       :is-mirrored="false"
-      :vertical-compact="true"
+      :autoSize="true"
       :margin="[10, 10]"
       :responsive="true"
       :use-css-transforms="true"
       :cols="{ md: 12, sm: 1}"
       :breakpoints="{md: 996, sm: 768}"
-      @layout-created="layoutCreatedEvent"
-      @layout-before-mount="layoutBeforeMountEvent"
-      @layout-mounted="layoutMountedEvent"
       @layout-ready="layoutReadyEvent"
-      @layout-updated="layoutUpdatedEvent"
-      @breakpoint-changed="breakpointChangedEvent"
     >
       <grid-item
+        :ref="`item_${item.i}`"
         v-for="item in layout"
         :x="item.x"
         :y="item.y"
@@ -70,14 +67,17 @@
         :i="item.i"
         :key="item.i"
         :minW="3"
-        @resize="resizeEvent"
-        @move="moveEvent"
-        @resized="resizedEvent"
-        @container-resized="containerResizedEvent"
-        @moved="movedEvent"
         class="group border border-dotted border-orange relative mx-auto border-opacity-25 hover:border-opacity-100"
       >
-        {{ 'i: '+ item.i }}
+        <!-- <CardItemX class="wrapper"></CardItemX> -->
+        <!-- <CardItemY :text="cardItemsData[item.i].text"></CardItemY> -->
+        <div
+          v-if="cardItemsData[item.i].type==='image'"
+          :style="{ backgroundImage: `url(${cardItemsData[item.i].url})` }"
+          class="image"
+        ></div>
+        <!-- :style="`{ backgroundImage: url('${cardItemsData[item.i].url}')}`" -->
+        <div v-show="cardItemsData[item.i].type==='text'">{{cardItemsData[item.i].text}}</div>
         <!-- <CardItem :index="index" :media="item" :key="item.id" :ref="item.id"></CardItem> -->
       </grid-item>
     </grid-layout>
@@ -93,7 +93,8 @@
 </template>
 <script>
 import DropDown from "../../components/event/DropDown.vue";
-import CardItem from "./CardItem.vue";
+import CardItemX from "./CardItemX.vue";
+import CardItemY from "./CardItemY.vue";
 
 import { ElementMixin, HandleDirective } from "vue-slicksort";
 import SortableList from "../../components/ui/SortableList.vue";
@@ -112,8 +113,10 @@ const cardItems = [
   {
     id: 0,
     type: "text",
-    url: "xxx.com",
-    text: "hello",
+    url: null,
+    text:
+      "Hello Testing a small one Hello Testing a small one Hello Testing a small one Hello Testing a small one",
+    // "hello myy man swell is firing today pretty cool huh gonna get pitted and shit hello myy man swell is firing today pretty cool huh gonna get pitted and shit hello myy man swell is firing today pretty cool huh gonna get pitted and shit hello myy man swell is firing today pretty cool huh gonna get pitted and shit hello myy man swell is firing today pretty cool huh gonna get pitted and shit hello myy man swell is firing today pretty cool huh gonna get pitted and shit hello myy man swell is firing today pretty cool huh gonna get pitted and shit hello myy man swell is firing today pretty cool huh gonna get pitted and shit ",
     layout: {
       md: { x: 0, y: 0, w: 3, h: 2, i: 0 },
       sm: { x: 0, y: 3, w: 3, h: 2, i: 0 },
@@ -121,9 +124,10 @@ const cardItems = [
   },
   {
     id: 1,
-    type: "text",
-    url: "xxx.com",
-    text: "hello",
+    type: "image",
+    url:
+      "https://sorekara.s3-us-west-1.amazonaws.com/0c98dc0e-bd56-45fd-a2d8-fc1f2b9fc474",
+    text: null,
     layout: {
       md: { x: 3, y: 0, w: 3, h: 2, i: 1 },
       sm: { x: 0, y: 0, w: 3, h: 2, i: 1 },
@@ -137,11 +141,18 @@ const layoutsObject = {
   sm: layoutsArray.map((e) => e.sm),
 };
 
+const cardItemsObject = cardItems.reduce((obj, item) => {
+  delete item.layout;
+  obj[item.id] = item;
+  return obj;
+}, {});
+
 export default {
   name: "EventCard",
   components: {
     DropDown,
-    CardItem,
+    CardItemX,
+    CardItemY,
     IconifyIcon,
     SortableList,
     GridLayout: VueGridLayout.GridLayout,
@@ -162,7 +173,7 @@ export default {
         deleteIcon,
         dragHorizontal,
       },
-
+      cardItemsData: cardItemsObject,
       baseHeight: 30,
       layout: layoutsObject["md"],
       layouts: layoutsObject,
@@ -173,110 +184,48 @@ export default {
   },
   created() {
     bus.$on("card-media-delete", this.removeCardItem);
-    // this.cardItemCopy.forEach((element, i) => {
-    // 	this.$set(element, 'x', i);
-    // 	this.$set(element, 'y', i);
-    // 	this.$set(element, 'w', 1);
-    // 	this.$set(element, 'h', 1);
-    // 	this.$set(element, 'i', element.id);
-    // });
+  },
+  mounted() {
+    // this.autoLayout();
   },
   methods: {
-    layoutCreatedEvent: function (newLayout) {
-      console.log("Created layout: ", newLayout);
+    layoutReadyEvent(newLayout) {
+      newLayout.forEach((e) => {
+        const itemDOM = this.$refs[`item_${e.i}`][0].$el;
+        // if (this.cardItemsData[e.i].type === "image") {
+
+        //   itemDOM.style.backgroundImage = `url(${this.cardItemsData[e.i].url})`;
+        //   itemDOM.style.backgroundSize = "cover";
+        //   itemDOM.style.backgroundPosition = "center center";
+        // }
+      });
     },
-    layoutBeforeMountEvent: function (newLayout) {
-      console.log("beforeMount layout: ", newLayout);
-    },
-    layoutMountedEvent: function (newLayout) {
-      console.log("Mounted layout: ", newLayout);
-    },
-    layoutReadyEvent: function (newLayout) {
-      console.log("Ready layout: ", newLayout);
-    },
-    layoutUpdatedEvent: function (newLayout) {
-      console.log("Updated layout: ", newLayout);
-    },
-    moveEvent: function (i, newX, newY) {
-      console.log("MOVE i=" + i + ", X=" + newX + ", Y=" + newY);
-    },
-    resizeEvent: function (i, newH, newW, newHPx, newWPx) {
-      console.log(
-        "RESIZE i=" +
-          i +
-          ", H=" +
-          newH +
-          ", W=" +
-          newW +
-          ", H(px)=" +
-          newHPx +
-          ", W(px)=" +
-          newWPx
-      );
-    },
-    movedEvent: function (i, newX, newY) {
-      console.log("MOVED i=" + i + ", X=" + newX + ", Y=" + newY);
-    },
-    /**
-     *
-     * @param i the item id/index
-     * @param newH new height in grid rows
-     * @param newW new width in grid columns
-     * @param newHPx new height in pixels
-     * @param newWPx new width in pixels
-     *
-     */
-    resizedEvent: function (i, newH, newW, newHPx, newWPx) {
-      console.log(
-        "RESIZED i=" +
-          i +
-          ", H=" +
-          newH +
-          ", W=" +
-          newW +
-          ", H(px)=" +
-          newHPx +
-          ", W(px)=" +
-          newWPx
-      );
-    },
-    /**
-     *
-     * @param i the item id/index
-     * @param newH new height in grid rows
-     * @param newW new width in grid columns
-     * @param newHPx new height in pixels
-     * @param newWPx new width in pixels
-     *
-     */
-    containerResizedEvent: function (i, newH, newW, newHPx, newWPx) {
-      console.log(
-        "CONTAINER RESIZED i=" +
-          i +
-          ", H=" +
-          newH +
-          ", W=" +
-          newW +
-          ", H(px)=" +
-          newHPx +
-          ", W(px)=" +
-          newWPx
-      );
-    },
-    /**
-     *
-     * @param newBreakpoint the breakpoint name
-     * @param newLayout the chosen layout for the breakpoint
-     *
-     */
-    breakpointChangedEvent: function (newBreakpoint, newLayout) {
-      console.log(
-        "BREAKPOINT CHANGED breakpoint=",
-        newBreakpoint,
-        ", layout: ",
-        newLayout
-      );
-    },
+    // autoLayout() {
+    //   this.layout.forEach((x) => {
+    //     // -- Fetch from refs instance of grid-item
+    //     let item = this.$refs[`item_${x.i}`][0];
+    //     console.log(item);
+
+    //     let innerItem = item.$slots.default[0].elm;
+    //     console.log(innerItem, "itemmmmm");
+    //     let totalHeight = Array.from(innerItem.children)
+    //       .map((x) => x.scrollHeight)
+    //       .reduce((acc, x) => acc + x);
+    //     let totalWidth = Array.from(innerItem.children)
+    //       .map((x) => x.scrollWidth)
+    //       .reduce((acc, x) => acc + x);
+
+    //     let sizeInGridUnits = item.calcWH(totalWidth, totalHeight);
+
+    //     // -- Change layout accordingly
+    //     x["w"] = sizeInGridUnits.w;
+    //     x["h"] = sizeInGridUnits.h;
+    //     x["minH"] = sizeInGridUnits.h;
+    //   });
+
+    //   // -- Refresh grid
+    //   this.$refs.grid.layoutUpdate();
+    // },
     async deleteEventCard() {
       let response = await this.$api.eventCard.deleteEventCard(this.id);
       if (response) {
@@ -284,17 +233,17 @@ export default {
       }
     },
     async createCardItem(type) {
-      let response = await this.$api.cardItem.create({
-        eventCardId: this.id,
-        type,
-        sortOrder: this.cardItem.length + 1,
-      });
-      this.$set(response, "x", this.cardItemCopy.length);
-      this.$set(response, "y", this.cardItemCopy.length);
-      this.$set(response, "w", 10);
-      this.$set(response, "h", 10);
-      this.$set(response, "i", response.id);
-      this.cardItemCopy.push(response);
+      // let response = await this.$api.cardItem.create({
+      //   eventCardId: this.id,
+      //   type,
+      //   sortOrder: this.cardItem.length + 1,
+      // });
+      // this.$set(response, "x", this.cardItemCopy.length);
+      // this.$set(response, "y", this.cardItemCopy.length);
+      // this.$set(response, "w", 10);
+      // this.$set(response, "h", 10);
+      // this.$set(response, "i", response.id);
+      // this.cardItemCopy.push(response);
     },
     removeCardItem(id) {
       const index = this.cardItemCopy.findIndex((item) => item.id === id);
@@ -312,4 +261,20 @@ export default {
   directives: { handle: HandleDirective },
 };
 </script>
-<style></style>
+<style>
+.wrapper {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+
+.image {
+  position: relative;
+  /* top: 0;
+  bottom: 0; */
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center center;
+}
+</style>
