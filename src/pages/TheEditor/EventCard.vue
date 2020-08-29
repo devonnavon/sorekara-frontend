@@ -44,16 +44,16 @@
       ref="grid"
       :layout.sync="layout"
       :responsive-layouts="layouts"
-      :col-num="3"
+      :col-num="12"
       :row-height="baseHeight"
       :is-draggable="true"
       :is-resizable="true"
       :is-mirrored="false"
       :autoSize="true"
-      :margin="[10, 10]"
-      :responsive="true"
+      :margin="margin"
       :use-css-transforms="true"
-      :cols="{ md: 12, sm: 1}"
+      :cols="{ md: 12, sm: 3}"
+      :responsive="true"
       :breakpoints="{md: 996, sm: 768}"
       @layout-ready="layoutReadyEvent"
     >
@@ -71,11 +71,12 @@
       >
         <!-- <CardItemX class="wrapper"></CardItemX> -->
         <!-- <CardItemY :text="cardItemsData[item.i].text"></CardItemY> -->
-        <div
+
+        <ImageCard
           v-if="cardItemsData[item.i].type==='image'"
-          :style="{ backgroundImage: `url(${cardItemsData[item.i].url})` }"
-          class="image"
-        ></div>
+          :url="cardItemsData[item.i].url"
+          :id="item.i"
+        ></ImageCard>
         <!-- :style="`{ backgroundImage: url('${cardItemsData[item.i].url}')}`" -->
         <div v-show="cardItemsData[item.i].type==='text'">{{cardItemsData[item.i].text}}</div>
         <!-- <CardItem :index="index" :media="item" :key="item.id" :ref="item.id"></CardItem> -->
@@ -95,6 +96,7 @@
 import DropDown from "../../components/event/DropDown.vue";
 import CardItemX from "./CardItemX.vue";
 import CardItemY from "./CardItemY.vue";
+import ImageCard from "./ImageCard.vue";
 
 import { ElementMixin, HandleDirective } from "vue-slicksort";
 import SortableList from "../../components/ui/SortableList.vue";
@@ -151,6 +153,7 @@ export default {
   name: "EventCard",
   components: {
     DropDown,
+    ImageCard,
     CardItemX,
     CardItemY,
     IconifyIcon,
@@ -175,6 +178,7 @@ export default {
       },
       cardItemsData: cardItemsObject,
       baseHeight: 30,
+      margin: [10, 10],
       layout: layoutsObject["md"],
       layouts: layoutsObject,
       // cardItemCopy: this.cardItem
@@ -184,11 +188,65 @@ export default {
   },
   created() {
     bus.$on("card-media-delete", this.removeCardItem);
+    bus.$on("resize-card", this.resizeCard);
   },
   mounted() {
     // this.autoLayout();
   },
   methods: {
+    resizeCard(id, height, width) {
+      const item = this.$refs[`item_${id}`][0];
+      console.log(item);
+      console.log(width, "width px");
+      console.log(height, "height px");
+      const sizeInGrid = this.calcWH(height, width, item);
+      console.log(sizeInGrid, "plz");
+      this.layout.forEach((e) => {
+        if (e.i === id) {
+          e.h = sizeInGrid.h;
+          e.w = sizeInGrid.w;
+          // e.w = 13;
+        }
+      });
+      this.$refs.grid.layoutUpdate();
+    },
+    calcColWidth(item) {
+      const colWidth =
+        (item.containerWidth - this.margin[0] * (item.cols + 1)) / item.cols;
+      console.log(
+        "### COLS=" +
+          item.cols +
+          " COL WIDTH=" +
+          colWidth +
+          " MARGIN " +
+          this.margin[0] +
+          " CONTAINER WIDTH " +
+          item.containerWidth
+      );
+      return colWidth;
+    },
+    calcWH(height, width, item) {
+      console.log("this means that calcWH is hitting");
+      const colWidth = this.calcColWidth(item);
+      // width = colWidth * w - (margin * (w - 1))
+      // ...
+      // w = (width + margin) / (colWidth + margin)
+      let w = Math.round(
+        (width + this.margin[0]) / (colWidth + this.margin[0])
+      );
+      let h = Math.round(
+        (height + this.margin[1]) / (item.rowHeight + this.margin[1])
+      );
+      console.log("this his the height pre cap" + h);
+      // Capping
+      // w = Math.max(Math.min(w, item.cols - item.innerX), 0);
+      // h = Math.max(Math.min(h, item.maxRows - item.innerY), 0);
+      return { w, h };
+    },
+    getLayoutItem(id) {
+      for (let key in this.layouts) {
+      }
+    },
     layoutReadyEvent(newLayout) {
       newLayout.forEach((e) => {
         const itemDOM = this.$refs[`item_${e.i}`][0].$el;
