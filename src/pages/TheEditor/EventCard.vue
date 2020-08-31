@@ -44,7 +44,6 @@
       ref="grid"
       :layout.sync="layout"
       :responsive-layouts="layouts"
-      :col-num="12"
       :row-height="baseHeight"
       :is-draggable="true"
       :is-resizable="true"
@@ -116,23 +115,42 @@ const cardItems = [
     id: 0,
     type: "text",
     url: null,
-    text:
-      "Hello Testing a small one Hello Testing a small one Hello Testing a small one Hello Testing a small one",
+    text: "some albums I like",
     // "hello myy man swell is firing today pretty cool huh gonna get pitted and shit hello myy man swell is firing today pretty cool huh gonna get pitted and shit hello myy man swell is firing today pretty cool huh gonna get pitted and shit hello myy man swell is firing today pretty cool huh gonna get pitted and shit hello myy man swell is firing today pretty cool huh gonna get pitted and shit hello myy man swell is firing today pretty cool huh gonna get pitted and shit hello myy man swell is firing today pretty cool huh gonna get pitted and shit hello myy man swell is firing today pretty cool huh gonna get pitted and shit ",
     layout: {
-      md: { x: 0, y: 0, w: 3, h: 2, i: 0 },
-      sm: { x: 0, y: 3, w: 3, h: 2, i: 0 },
+      md: { x: 0, y: 0, w: 12, h: 1, i: 0 },
+      sm: { x: 0, y: 0, w: 3, h: 1, i: 0 },
     },
   },
   {
     id: 1,
     type: "image",
-    url:
-      "https://sorekara.s3-us-west-1.amazonaws.com/0c98dc0e-bd56-45fd-a2d8-fc1f2b9fc474",
+    url: "https://sorekara.s3-us-west-1.amazonaws.com/0015185617_10.jpg",
     text: null,
     layout: {
-      md: { x: 3, y: 0, w: 3, h: 2, i: 1 },
-      sm: { x: 0, y: 0, w: 3, h: 2, i: 1 },
+      md: { x: 0, y: 1, w: 4, h: 4, i: 1 },
+      sm: { x: 0, y: 1, w: 4, h: 4, i: 1 },
+    },
+  },
+  {
+    id: 2,
+    type: "image",
+    url:
+      "https://sorekara.s3-us-west-1.amazonaws.com/Are_You_Experienced_-_US_cover-edit.jpg",
+    text: null,
+    layout: {
+      md: { x: 4, y: 1, w: 4, h: 4, i: 2 },
+      sm: { x: 0, y: 10, w: 4, h: 4, i: 2 },
+    },
+  },
+  {
+    id: 3,
+    type: "image",
+    url: "https://sorekara.s3-us-west-1.amazonaws.com/61Tioa2nMYL.jpg",
+    text: null,
+    layout: {
+      md: { x: 8, y: 10, w: 4, h: 4, i: 3 },
+      sm: { x: 0, y: 20, w: 4, h: 4, i: 3 },
     },
   },
 ];
@@ -167,6 +185,11 @@ export default {
     id: { type: String },
   },
   mixins: [ElementMixin],
+  created() {
+    bus.$on("card-media-delete", this.removeCardItem);
+    bus.$on("resize-card", this.resizeCard);
+  },
+  mounted() {},
   data() {
     return {
       // activeMedia: '',
@@ -177,7 +200,8 @@ export default {
         dragHorizontal,
       },
       cardItemsData: cardItemsObject,
-      baseHeight: 30,
+      columnNumber: 12,
+      baseHeight: 87.66666666667,
       margin: [10, 10],
       layout: layoutsObject["md"],
       layouts: layoutsObject,
@@ -186,26 +210,15 @@ export default {
       // 	.sort((a, b) => a.sortOrder - b.sortOrder),
     };
   },
-  created() {
-    bus.$on("card-media-delete", this.removeCardItem);
-    bus.$on("resize-card", this.resizeCard);
-  },
-  mounted() {
-    // this.autoLayout();
-  },
   methods: {
     resizeCard(id, height, width) {
+      console.log(id, "hey");
       const item = this.$refs[`item_${id}`][0];
-      console.log(item);
-      console.log(width, "width px");
-      console.log(height, "height px");
       const sizeInGrid = this.calcWH(height, width, item);
-      console.log(sizeInGrid, "plz");
       this.layout.forEach((e) => {
         if (e.i === id) {
           e.h = sizeInGrid.h;
           e.w = sizeInGrid.w;
-          // e.w = 13;
         }
       });
       this.$refs.grid.layoutUpdate();
@@ -243,10 +256,6 @@ export default {
       // h = Math.max(Math.min(h, item.maxRows - item.innerY), 0);
       return { w, h };
     },
-    getLayoutItem(id) {
-      for (let key in this.layouts) {
-      }
-    },
     layoutReadyEvent(newLayout) {
       newLayout.forEach((e) => {
         const itemDOM = this.$refs[`item_${e.i}`][0].$el;
@@ -258,32 +267,6 @@ export default {
         // }
       });
     },
-    // autoLayout() {
-    //   this.layout.forEach((x) => {
-    //     // -- Fetch from refs instance of grid-item
-    //     let item = this.$refs[`item_${x.i}`][0];
-    //     console.log(item);
-
-    //     let innerItem = item.$slots.default[0].elm;
-    //     console.log(innerItem, "itemmmmm");
-    //     let totalHeight = Array.from(innerItem.children)
-    //       .map((x) => x.scrollHeight)
-    //       .reduce((acc, x) => acc + x);
-    //     let totalWidth = Array.from(innerItem.children)
-    //       .map((x) => x.scrollWidth)
-    //       .reduce((acc, x) => acc + x);
-
-    //     let sizeInGridUnits = item.calcWH(totalWidth, totalHeight);
-
-    //     // -- Change layout accordingly
-    //     x["w"] = sizeInGridUnits.w;
-    //     x["h"] = sizeInGridUnits.h;
-    //     x["minH"] = sizeInGridUnits.h;
-    //   });
-
-    //   // -- Refresh grid
-    //   this.$refs.grid.layoutUpdate();
-    // },
     async deleteEventCard() {
       let response = await this.$api.eventCard.deleteEventCard(this.id);
       if (response) {
@@ -320,19 +303,4 @@ export default {
 };
 </script>
 <style>
-.wrapper {
-  position: relative;
-  height: 100%;
-  width: 100%;
-}
-
-.image {
-  position: relative;
-  /* top: 0;
-  bottom: 0; */
-  width: 100%;
-  height: 100%;
-  background-size: cover;
-  background-position: center center;
-}
 </style>
