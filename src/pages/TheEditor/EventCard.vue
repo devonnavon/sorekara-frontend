@@ -68,33 +68,31 @@
         :minW="3"
         class="group border border-dotted border-orange relative mx-auto border-opacity-25 hover:border-opacity-100"
       >
-        <!-- <CardItemX class="wrapper"></CardItemX> -->
-        <!-- <CardItemY :text="cardItemsData[item.i].text"></CardItemY> -->
-
         <ImageCard
           v-if="cardItemsData[item.i].type==='image'"
           :url="cardItemsData[item.i].url"
           :id="item.i"
         ></ImageCard>
-        <!-- :style="`{ backgroundImage: url('${cardItemsData[item.i].url}')}`" -->
         <div v-show="cardItemsData[item.i].type==='text'">{{cardItemsData[item.i].text}}</div>
-        <!-- <CardItem :index="index" :media="item" :key="item.id" :ref="item.id"></CardItem> -->
       </grid-item>
     </grid-layout>
     <div class="flex flex-row justify-center py-3">
-      <DropDown :on-click="createCardItem" :items="mediaType" class="self-center z-50">
+      <button
+        type="button"
+        class="btn-close focus:outline-none transition duration-500 ease-in-out self-center outline-none transform hover:-translate-y-1 hover:scale-105"
+        aria-label="Add Item"
+        @click="addItem"
+      >
         <IconifyIcon
           :icon="icons.plusCircleOutlined"
           class="text-orange text-center fill-current bg-white transform hover:rotate-180 transition-transform duration-1000 ease-out self-center outline-none focus:outline-none sm:text-opacity-0 sm:group-hover:text-opacity-100 transition duration-500 ease-in-out"
         />
-      </DropDown>
+      </button>
     </div>
   </div>
 </template>
 <script>
 import DropDown from "../../components/event/DropDown.vue";
-import CardItemX from "./CardItemX.vue";
-import CardItemY from "./CardItemY.vue";
 import ImageCard from "./ImageCard.vue";
 
 import { ElementMixin, HandleDirective } from "vue-slicksort";
@@ -140,7 +138,7 @@ const cardItems = [
     text: null,
     layout: {
       md: { x: 4, y: 1, w: 4, h: 4, i: 2 },
-      sm: { x: 0, y: 10, w: 4, h: 4, i: 2 },
+      sm: { x: 0, y: 5, w: 4, h: 4, i: 2 },
     },
   },
   {
@@ -149,8 +147,8 @@ const cardItems = [
     url: "https://sorekara.s3-us-west-1.amazonaws.com/61Tioa2nMYL.jpg",
     text: null,
     layout: {
-      md: { x: 8, y: 10, w: 4, h: 4, i: 3 },
-      sm: { x: 0, y: 20, w: 4, h: 4, i: 3 },
+      md: { x: 8, y: 1, w: 4, h: 4, i: 3 },
+      sm: { x: 0, y: 9, w: 4, h: 4, i: 3 },
     },
   },
 ];
@@ -172,8 +170,6 @@ export default {
   components: {
     DropDown,
     ImageCard,
-    CardItemX,
-    CardItemY,
     IconifyIcon,
     SortableList,
     GridLayout: VueGridLayout.GridLayout,
@@ -273,17 +269,26 @@ export default {
         bus.$emit("event-card-delete", this.id);
       }
     },
+    addItem() {
+      console.log(this.layout);
+      this.layout[3].y = 5;
+      const item = {
+        id: 3,
+        type: "image",
+        url: null,
+        text: null,
+        layout: {
+          md: { x: 8, y: 10, w: 4, h: 4, i: 3 },
+          sm: { x: 0, y: 20, w: 4, h: 4, i: 3 },
+        },
+      };
+    },
     async createCardItem(type) {
       // let response = await this.$api.cardItem.create({
       //   eventCardId: this.id,
       //   type,
       //   sortOrder: this.cardItem.length + 1,
       // });
-      // this.$set(response, "x", this.cardItemCopy.length);
-      // this.$set(response, "y", this.cardItemCopy.length);
-      // this.$set(response, "w", 10);
-      // this.$set(response, "h", 10);
-      // this.$set(response, "i", response.id);
       // this.cardItemCopy.push(response);
     },
     removeCardItem(id) {

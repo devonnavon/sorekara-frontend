@@ -17,8 +17,8 @@ export default {
     const img = new Image();
     const id = this.id;
     img.onload = function () {
-      console.log(img.width, "yoyo");
-      console.log(img.height, "yoyo");
+      // console.log(img.width, "yoyo");
+      // console.log(img.height, "yoyo");
       // bus.$emit("resize-card", id, img.height, img.width);
     };
     img.src = this.url;
