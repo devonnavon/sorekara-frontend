@@ -53,7 +53,7 @@
       :use-css-transforms="true"
       :cols="{ md: 12, sm: 3}"
       :responsive="true"
-      :breakpoints="{md: 996, sm: 768}"
+      :breakpoints="gridBreakPoints"
       @layout-ready="layoutReadyEvent"
     >
       <grid-item
@@ -201,10 +201,17 @@ export default {
       margin: [10, 10],
       layout: layoutsObject["md"],
       layouts: layoutsObject,
+      gridBreakPoints: { md: 996, sm: 768 },
       // cardItemCopy: this.cardItem
       // 	.slice()
       // 	.sort((a, b) => a.sortOrder - b.sortOrder),
     };
+  },
+  computed: {
+    currentSize() {
+      if (window.screen.width > this.gridBreakPoints.md) return "md";
+      return "sm";
+    },
   },
   methods: {
     resizeCard(id, height, width) {
@@ -270,18 +277,38 @@ export default {
       }
     },
     addItem() {
-      console.log(this.layout);
-      this.layout[3].y = 5;
-      const item = {
-        id: 3,
-        type: "image",
+      const nextLine = this.getNextLine();
+      const itemData = {
+        //api call soon!
+        id: 4,
+        type: "text",
         url: null,
-        text: null,
-        layout: {
-          md: { x: 8, y: 10, w: 4, h: 4, i: 3 },
-          sm: { x: 0, y: 20, w: 4, h: 4, i: 3 },
-        },
+        text: "testing testing 123",
       };
+      this.cardItemsData[itemData.id] = itemData;
+
+      const newLayout = { x: 0, w: 12, h: 1, i: itemData.id };
+      const newLayouts = {
+        md: { ...newLayout },
+        sm: { ...newLayout },
+      };
+      newLayouts.md.y = nextLine.md;
+      newLayouts.sm.y = nextLine.sm;
+
+      this.layout.push(newLayouts[this.currentSize]);
+      this.layouts["md"].push(newLayouts.md);
+      this.layouts["sm"].push(newLayouts.sm);
+    },
+    getNextLine() {
+      const nextLine = {};
+      for (let key in this.layouts) {
+        nextLine[key] = this.layouts[key].reduce((acc, val) => {
+          const heightFromTop = val.y + val.h;
+          if (heightFromTop > acc) return heightFromTop;
+          else return acc;
+        }, 0);
+      }
+      return nextLine;
     },
     async createCardItem(type) {
       // let response = await this.$api.cardItem.create({
