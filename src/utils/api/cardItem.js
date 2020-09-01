@@ -5,26 +5,20 @@ const create = async (variables) => {
         mutation(
             $eventCardId: ID!,
             $type: String!,
-            $options: String,
             $url: String,
             $text: String,
-            $sortOrder: Int!
             ) 
             {
                 createCardItem(
                     eventCardId: $eventCardId
                     type: $type
-                    options: $options
                     url: $url
                     text: $text
-                    sortOrder: $sortOrder
                 ) {
                     id
                     type
-                    options
                     url
                     text
-                    sortOrder
                 }
             }
     `;
@@ -42,25 +36,20 @@ const update = async (variables) => {
         mutation(
             $id: ID!
             $type: String
-            $options: String
             $url: String
             $text: String
-            $sortOrder: Int
             ) 
             {
                 updateCardItem(
                     id: $id
                     type: $type
-                    options: $options
                     url: $url
                     text: $text
-                    sortOrder: $sortOrder
                 ) {
                     id
                     type
                     url
                     text
-                    sortOrder
                 }
             }
 

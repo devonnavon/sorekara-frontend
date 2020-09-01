@@ -2,10 +2,9 @@ import { request, token } from './common';
 
 const create = async (variables) => {
 	const query = `
-        mutation($eventId: ID!, $size: String!, $sortOrder: Int!) {
-            createEventCard(eventId: $eventId, size: $size, sortOrder: $sortOrder) {
+        mutation($eventId: ID!, $sortOrder: Int!) {
+            createEventCard(eventId: $eventId,  sortOrder: $sortOrder) {
                 id
-                size
                 sortOrder
                 cardItem {
                     id
@@ -24,10 +23,10 @@ const create = async (variables) => {
 
 const update = async (variables) => {
 	const query = `
-        mutation($id: ID!, $size: String, $sortOrder: Int) {
-            updateEventCard(id: $id, size: $size, sortOrder: $sortOrder) {
+        mutation($id: ID!, $sortOrder: Int) {
+            updateEventCard(id: $id,  sortOrder: $sortOrder) {
                 id
-                size
+ 
                 sortOrder
                 cardItem {
                     id
