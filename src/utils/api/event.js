@@ -34,14 +34,20 @@ const event = async (id) => {
                 password
                 eventCards {
                     id
-                    size
                     sortOrder
                     cardItems {
                         id
                         type
                         url
-                        sortOrder
                         text
+                        layout {
+                            screen
+                            x
+                            y
+                            h
+                            w
+                            i:cardItemId
+                        }
                     }
                 }
             }

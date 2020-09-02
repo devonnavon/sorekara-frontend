@@ -1,36 +1,104 @@
 <template>
-	<div v-if="text">{{ text }}</div>
-	<Trumbowyg v-else></Trumbowyg>
+  <div v-if="text">{{ text }}</div>
+  <Trumbowyg :width="width" v-else></Trumbowyg>
+  <!-- :style="`--margin-top: ${computedMargin}`" -->
+  <!-- :style="margin-top: calculateWidth()" -->
 </template>
 <script>
-import bus from '../../bus';
-import Trumbowyg from '../../components/ui/Toolbar.vue';
+import bus from "../../bus";
+import Trumbowyg from "../../components/ui/Toolbar.vue";
+
+// buttons.style.marginTop = "-109px";
 
 export default {
-	name: 'TextItem',
-	components: {
-		Trumbowyg,
-	},
-	props: {
-		id: Number,
-		text: String,
-	},
-	data() {
-		return {};
-	},
-	mounted() {},
+  name: "TextItem",
+  components: {
+    Trumbowyg,
+  },
+  props: {
+    id: Number,
+    text: String,
+    width: Number,
+  },
+  data() {
+    return {};
+  },
+  //   created() {
+  //     if (!this.$refs.trumbo) {
+  //       console.log("This doesn't exist yet!");
+  //     }
+
+  //     this.$nextTick(() => {
+  //       if (this.$refs.trumbo) {
+  //         console.log(this.$refs.trumbo);
+  //         console.log(this.$refs.trumbo.$parent.$parent.$el.clientWidth);
+  //       }
+  //     });
+  //   },
+  //   updated() {
+  //     this.$nextTick(() => {
+  //       if (this.$refs.trumbo) {
+  //         console.log(this.$refs.trumbo);
+  //         console.log(this.$refs.trumbo.$parent.$parent.$el.clientWidth);
+  //       }
+  //     });
+  //   },
+  //   this.$refs.trumbo.querySelector("trumbowyg-button-pane")
+  mounted() {},
+  //   computed: {
+  //     toolbarMargin: function () {
+  //       return {
+  //         "one-line": this.width >= 8,
+  //         "two-line": this.width >= 5 && this.width < 8,
+  //       };
+  //     },
+  //   },
+
+  methods: {
+    toggleView() {
+      console.log("yo");
+    },
+  },
 };
 </script>
 <style>
 .trumbowyg-box {
-	background-color: blue;
-	height: 100%;
-	min-height: 88px;
-	margin: auto;
-	flex: 1;
+  background-color: blue;
+  height: 100%;
+  min-height: 88px;
+  margin: auto;
+  flex: 1;
 }
 .trumbowyg-editor,
 .trumbowyg-textarea {
-	min-height: calc(100% - 39px);
+  min-height: calc(100% - 39px);
+  height: 100%;
 }
+
+/* .one-line {
+  padding-top: -37px;
+}
+
+.two-line {
+  margin-top: -73px;
+} */
+/* .trumbowyg-button-pane {
+  --margin-top: -109px;
+  margin-top: var(--margin-top);
+} */
+
+/* @media only screen and (min-width: 600px) {
+  .trumbowyg-button-pane {
+    margin-top: -73px;
+  }
+}
+
+@media only screen and (min-width: 767px) {
+  .trumbowyg-button-pane {
+    margin-top: -37px;
+  }
+}
+
+@media only screen and (min-width: 865px) {
+} */
 </style>

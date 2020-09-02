@@ -10,7 +10,7 @@
   </div>
 </template>
 <script>
-import TheAppHeader from "../TheHome/TheAppHeader.vue";
+import TheAppHeader from "../TheHome/TheAppHeader.vue"; //this will be different!!!
 import TheEventEditor from "./TheEventEditor.vue";
 
 export default {
@@ -26,9 +26,10 @@ export default {
   },
   async created() {
     //request info for the event page we've been routed to
-    //need to ensure this route checks that you are event owner (maybe? although how to we display)
+    //need to ensure this route checks that you are event owner
     let response = await this.$api.event.event(this.$route.params.eventID);
     this.eventInfo = response;
+    console.log(response);
   },
 };
 </script>
