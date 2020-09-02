@@ -8,6 +8,15 @@ const create = async (variables) => {
                 sortOrder
                 cardItems {
                     id
+                    type
+                    layout {
+                            screen
+                            x
+                            y
+                            h
+                            w
+                            i:cardItemId
+                        }
                 }
             }
         }
