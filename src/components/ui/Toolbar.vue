@@ -246,8 +246,8 @@ export default {
       console.log("listen to init event");
     },
     toggleView() {
-      console.log(this.$refs.trumbo);
-      this.$refs.trumbo("toggle");
+      console.log(this.$refs.trumbo("html"));
+
       console.log("yo");
     },
   },

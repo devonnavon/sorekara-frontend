@@ -81,9 +81,9 @@ export default {
     async createEventCard() {
       let response = await this.$api.eventCard.create({
         eventId: this.$route.params.eventID,
-        size: "full",
         sortOrder: this.eventCardsCopy.length + 1,
       });
+
       this.eventCardsCopy.push(response);
     },
     removeEventCard(id) {

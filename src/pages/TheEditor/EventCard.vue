@@ -106,7 +106,7 @@ export default {
   },
   props: {
     size: { type: String, default: "full" },
-    cardItems: { type: Array, default: () => Promise() },
+    cardItems: { type: Array, default: () => [] },
     id: { type: String },
   },
   mixins: [ElementMixin],
@@ -141,10 +141,13 @@ export default {
       obj[parseInt(data.id)] = data;
       return obj;
     }, {});
-
-    this.cardItemsData = await cardItemsObject;
-    this.layout = await layoutsObject["md"];
-    this.layouts = await layoutsObject;
+    console.log(this.cardItems, "cardItems");
+    console.log(cardItemsObject, "cardItemsObject");
+    if (this.cardItems.length > 0) {
+      this.cardItemsData = await cardItemsObject;
+      this.layout = await layoutsObject["md"];
+      this.layouts = await layoutsObject;
+    }
   },
   data() {
     return {

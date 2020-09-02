@@ -6,7 +6,7 @@ const create = async (variables) => {
             createEventCard(eventId: $eventId,  sortOrder: $sortOrder) {
                 id
                 sortOrder
-                cardItem {
+                cardItems {
                     id
                 }
             }
@@ -26,13 +26,11 @@ const update = async (variables) => {
         mutation($id: ID!, $sortOrder: Int) {
             updateEventCard(id: $id,  sortOrder: $sortOrder) {
                 id
- 
                 sortOrder
-                cardItem {
+                cardItems {
                     id
                     type
                     url
-                    sortOrder
                     text
                 }
             }
