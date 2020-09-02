@@ -141,8 +141,6 @@ export default {
       obj[parseInt(data.id)] = data;
       return obj;
     }, {});
-    console.log(this.cardItems, "cardItems");
-    console.log(cardItemsObject, "cardItemsObject");
     if (this.cardItems.length > 0) {
       this.cardItemsData = await cardItemsObject;
       this.layout = await layoutsObject["md"];
@@ -162,12 +160,9 @@ export default {
       columnNumber: 12,
       baseHeight: 87.66666666667,
       margin: [10, 10],
-      layout: [], //layoutsObject["md"],
-      layouts: {}, //layoutsObject,
+      layout: [],
+      layouts: {},
       gridBreakPoints: { md: 996, sm: 768 },
-      // cardItemCopy: this.cardItem
-      // 	.slice()
-      // 	.sort((a, b) => a.sortOrder - b.sortOrder),
     };
   },
   computed: {
@@ -191,35 +186,32 @@ export default {
       // this.$set(this.cardItemsData, id )
       this.cardItemsData[id].type = type;
     },
-    async deleteEventCard() {
-      let response = await this.$api.eventCard.deleteEventCard(this.id);
-      if (response) {
-        bus.$emit("event-card-delete", this.id);
-      }
-    },
-    addItem() {
+    async addItem() {
       const nextLine = this.getNextLine();
-      const itemData = {
-        //api call soon!
-        id: 4,
-        type: null,
-        url: null,
-        text: null,
-      };
-      this.cardItemsData[itemData.id] = itemData;
+      const newLayout = { x: 0, w: 12, h: 1 };
+      const newLayouts = [
+        { screen: "md", ...newLayout, y: nextLine.md },
+        { screen: "sm", ...newLayout, y: nextLine.sm },
+      ];
+      const cardItem = await this.$api.cardItem.create({
+        eventCardId: "" + this.id,
+        layouts: newLayouts,
+      });
 
-      const newLayout = { x: 0, w: 12, h: 1, i: itemData.id };
-      const newLayouts = {
-        md: { ...newLayout },
-        sm: { ...newLayout },
-      };
-      newLayouts.md.y = nextLine.md;
-      newLayouts.sm.y = nextLine.sm;
+      const newLayoutsBackend = cardItem.layout.reduce((obj, item) => {
+        let { screen, i, ...info } = item;
+        obj[screen] = { ...info, i: parseInt(i) };
+        return obj;
+      }, {});
+
+      this.cardItemsData[cardItem.id] = { type: null };
+
       //we have to update both the dynamic layouts and the current layout
       //annoying but no better solution as of now
-      this.layout.push(newLayouts[this.currentSize]);
-      this.layouts["md"].push(newLayouts.md);
-      this.layouts["sm"].push(newLayouts.sm);
+
+      this.layout.push(newLayoutsBackend[this.currentSize]);
+      this.layouts["md"].push(newLayoutsBackend.md);
+      this.layouts["sm"].push(newLayoutsBackend.sm);
     },
     getNextLine() {
       //gets the next line in the event card for both screen sizes
@@ -232,6 +224,12 @@ export default {
         }, 0);
       }
       return nextLine;
+    },
+    async deleteEventCard() {
+      let response = await this.$api.eventCard.deleteEventCard(this.id);
+      if (response) {
+        bus.$emit("event-card-delete", this.id);
+      }
     },
     // *********************************************************************************************************************************************
     //all this stuff needs to be refactored later!!!!

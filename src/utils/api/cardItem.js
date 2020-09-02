@@ -4,23 +4,31 @@ const create = async (variables) => {
 	const query = `
         mutation(
             $eventCardId: ID!,
-            $type: String!,
+            $type: String,
             $url: String,
             $text: String,
-            ) 
+            $layouts: [layoutInput!]!,
+        ) 
             {
-                createCardItem(
-                    eventCardId: $eventCardId
-                    type: $type
-                    url: $url
-                    text: $text
-                ) {
-                    id
-                    type
-                    url
-                    text
+            createCardItem(
+                eventCardId: $eventCardId
+                type: $type
+                url: $url
+                text: $text
+                layouts:$layouts
+            ) 
+                {
+                id
+                layout {
+                    screen
+                    x
+                    y
+                    h
+                    w
+                    i:cardItemId
                 }
             }
+        }
     `;
 	const header = token();
 	const response = await request(query, variables, header);
@@ -52,7 +60,7 @@ const update = async (variables) => {
                     text
                 }
             }
-
+        )
 
     `;
 	const header = token();
