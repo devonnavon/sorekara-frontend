@@ -1,81 +1,88 @@
 <template>
-  <!-- <div v-if="text">{{ text }}</div> -->
-  <Trumbowyg :width="width"></Trumbowyg>
-  <!-- <HtmlItem :contentHTML="contentHTML" v-else></HtmlItem> -->
-  <!-- :style="`--margin-top: ${computedMargin}`" -->
-  <!-- :style="margin-top: calculateWidth()" -->
+	<!-- <div v-if="text">{{ text }}</div> -->
+	<Trumbowyg :width="width" :containerWidth="containerWidth"></Trumbowyg>
+	<!-- <HtmlItem :contentHTML="contentHTML" v-else></HtmlItem> -->
+	<!-- :style="`--margin-top: ${computedMargin}`" -->
+	<!-- :style="margin-top: calculateWidth()" -->
 </template>
 <script>
-import bus from "../../bus";
-import Trumbowyg from "../../components/ui/Toolbar.vue";
+import bus from '../../bus';
+import Trumbowyg from '../../components/ui/Toolbar.vue';
 
-import HtmlItem from "./HtmlItem.vue";
+import HtmlItem from './HtmlItem.vue';
 
 // buttons.style.marginTop = "-109px";
 
 export default {
-  name: "TextItem",
-  components: {
-    Trumbowyg,
-    HtmlItem,
-  },
-  props: {
-    id: Number,
-    text: String,
-    width: Number,
-  },
-  data() {
-    return {
-      contentHTML: String,
-    };
-  },
-  //   created() {
-  //     if (!this.$refs.trumbo) {
-  //       console.log("This doesn't exist yet!");
-  //     }
+	name: 'TextItem',
+	components: {
+		Trumbowyg,
+		HtmlItem,
+	},
+	props: {
+		id: Number,
+		text: String,
+		width: Number,
+		containerWidth: Number,
+	},
 
-  //     this.$nextTick(() => {
-  //       if (this.$refs.trumbo) {
-  //         console.log(this.$refs.trumbo);
-  //         console.log(this.$refs.trumbo.$parent.$parent.$el.clientWidth);
-  //       }
-  //     });
-  //   },
-  //   updated() {
-  //     this.$nextTick(() => {
-  //       if (this.$refs.trumbo) {
-  //         console.log(this.$refs.trumbo);
-  //         console.log(this.$refs.trumbo.$parent.$parent.$el.clientWidth);
-  //       }
-  //     });
-  //   },
-  //   this.$refs.trumbo.querySelector("trumbowyg-button-pane")
-  mounted() {},
-  //   computed: {
-  //     toolbarMargin: function () {
-  //       return {
-  //         "one-line": this.width >= 8,
-  //         "two-line": this.width >= 5 && this.width < 8,
-  //       };
-  //     },
-  //   },
-  created() {},
-  methods: {},
-  // },
+	data() {
+		return {
+			contentHTML: String,
+		};
+	},
+	//   created() {
+	//     if (!this.$refs.trumbo) {
+	//       console.log("This doesn't exist yet!");
+	//     }
+
+	//     this.$nextTick(() => {
+	//       if (this.$refs.trumbo) {
+	//         console.log(this.$refs.trumbo);
+	//         console.log(this.$refs.trumbo.$parent.$parent.$el.clientWidth);
+	//       }
+	//     });
+	//   },
+	//   updated() {
+	//     this.$nextTick(() => {
+	//       if (this.$refs.trumbo) {
+	//         console.log(this.$refs.trumbo);
+	//         console.log(this.$refs.trumbo.$parent.$parent.$el.clientWidth);
+	//       }
+	//     });
+	//   },
+	//   this.$refs.trumbo.querySelector("trumbowyg-button-pane")
+	mounted() {},
+	//   computed: {
+	//     toolbarMargin: function () {
+	//       return {
+	//         "one-line": this.width >= 8,
+	//         "two-line": this.width >= 5 && this.width < 8,
+	//       };
+	//     },
+	//   },
+	created() {},
+	methods: {
+		closeMethod() {
+			this.$refs.trumbo.el.trumbowyg('disable');
+			this.$refs.trumbo.el.trumbowyg('destroy');
+			this.isHTML = true;
+		},
+	},
+	// },
 };
 </script>
 <style>
 .trumbowyg-box {
-  background-color: blue;
-  height: 100%;
-  min-height: 88px;
-  margin: auto;
-  flex: 1;
+	height: 100%;
+	min-height: 88px;
+	margin: auto;
+	flex: 1;
 }
 .trumbowyg-editor,
 .trumbowyg-textarea {
-  min-height: calc(100% - 39px);
-  height: 100%;
+	min-height: calc(100% - 39px);
+	height: 100%;
 }
 
 /* .one-line {

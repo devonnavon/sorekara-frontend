@@ -29,6 +29,7 @@
 		"jsonwebtoken": "^8.5.1",
 		"moment": "^2.27.0",
 		"vue": "^2.6.11",
+		"vue-clickaway": "^2.2.2",
 		"vue-ellipse-progress": "^1.2.0",
 		"vue-file-agent": "^1.7.3",
 		"vue-grid-layout": "^2.3.8",
