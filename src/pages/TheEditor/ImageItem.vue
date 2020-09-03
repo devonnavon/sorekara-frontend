@@ -65,7 +65,7 @@ export default {
   },
   watch: {
     newUrl(newOne, oldOne) {
-      console.log(newOne);
+      // console.log(newOne);
       this.componentState = "ImageMediaItem";
     },
   },
@@ -167,5 +167,6 @@ export default {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
+  z-index: -1;
 }
 </style>

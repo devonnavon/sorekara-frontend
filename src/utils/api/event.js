@@ -41,6 +41,7 @@ const event = async (id) => {
                         url
                         text
                         layout {
+                            id
                             screen
                             x
                             y

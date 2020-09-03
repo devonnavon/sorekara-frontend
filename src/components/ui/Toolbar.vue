@@ -2,7 +2,18 @@
   <!-- <div>
 		<form method="post" action="/" @submit.prevent="submit()">
   <div>-->
-  <trumbowyg ref="trumbo" v-model="form.content" @tbw-blur="toggleView" :config="configs.basic"></trumbowyg>
+  <trumbowyg
+    v-if="!isHTML"
+    ref="trumbo"
+    @tbw-blur="toggleView"
+    @tbw-init="triggerFocus()"
+    v-model="content"
+    :config="configs.basic"
+  ></trumbowyg>
+  <div v-else v-html="content" @click="toggleHTML" class="p-5 h-full"></div>
+  <!-- @click="toggleHTML -->
+
+  <!-- <htmlitem v-else :contentHTML="form.content"></htmlitem> -->
 </template>
 
 <script>
@@ -17,6 +28,10 @@ import "trumbowyg/dist/plugins/emoji/trumbowyg.emoji.min.js";
 import "trumbowyg/dist/plugins/fontfamily/trumbowyg.fontfamily.min.js";
 import "trumbowyg/dist/plugins/fontsize/trumbowyg.fontsize.min.js";
 
+// import HtmlItem from "../../pages/TheEditor/HtmlItem.vue";
+
+import bus from "../../bus";
+
 // :style="`margin-top: ${toolbarMargin}`"
 
 export default {
@@ -27,119 +42,114 @@ export default {
     width: {
       immediate: false,
       handler: function () {
-        if (this.width >= 8) {
-          this.$refs.trumbo.$parent.$parent.$parent.$el.childNodes[0].childNodes[0].style.marginTop =
-            "-37px";
+        this.setMargin();
+        // if (this.width >= 8) {
+        //   this.$refs.trumbo.$parent.$parent.$parent.$el.childNodes[2].childNodes[0].style.marginTop =
+        //     "-37px";
 
-          for (
-            let i = 3;
-            i <
-            this.$refs.trumbo.$parent.$parent.$parent.$el.childNodes[0]
-              .childNodes.length;
-            i++
-          ) {
-            this.$refs.trumbo.$parent.$parent.$parent.$el.childNodes[0].childNodes[
-              i
-            ].style.marginTop = "-37px";
-          }
-        } else if (this.width >= 5 && this.width < 8) {
-          this.$refs.trumbo.$parent.$parent.$parent.$el.childNodes[0].childNodes[0].style.marginTop =
-            "-73px";
-          for (
-            let i = 3;
-            i <
-            this.$refs.trumbo.$parent.$parent.$parent.$el.childNodes[0]
-              .childNodes.length;
-            i++
-          ) {
-            this.$refs.trumbo.$parent.$parent.$parent.$el.childNodes[0].childNodes[
-              i
-            ].style.marginTop = "-73px";
-          }
-        } else {
-          this.$refs.trumbo.$parent.$parent.$parent.$el.childNodes[0].childNodes[0].style.marginTop =
-            "-109px";
-          for (
-            let i = 3;
-            i <
-            this.$refs.trumbo.$parent.$parent.$parent.$el.childNodes[0]
-              .childNodes.length;
-            i++
-          ) {
-            this.$refs.trumbo.$parent.$parent.$parent.$el.childNodes[0].childNodes[
-              i
-            ].style.marginTop = "-109px";
-          }
-        }
+        //   for (
+        //     let i = 3;
+        //     i <
+        //     this.$refs.trumbo.$parent.$parent.$parent.$el.childNodes[2]
+        //       .childNodes.length;
+        //     i++
+        //   ) {
+        //     this.$refs.trumbo.$parent.$parent.$parent.$el.childNodes[2].childNodes[
+        //       i
+        //     ].style.marginTop = "-37px";
+        //   }
+        // } else if (this.width >= 5 && this.width < 8) {
+        //   this.$refs.trumbo.$parent.$parent.$parent.$el.childNodes[2].childNodes[0].style.marginTop =
+        //     "-73px";
+        //   for (
+        //     let i = 3;
+        //     i <
+        //     this.$refs.trumbo.$parent.$parent.$parent.$el.childNodes[2]
+        //       .childNodes.length;
+        //     i++
+        //   ) {
+        //     this.$refs.trumbo.$parent.$parent.$parent.$el.childNodes[2].childNodes[
+        //       i
+        //     ].style.marginTop = "-73px";
+        //   }
+        // } else {
+        //   this.$refs.trumbo.$parent.$parent.$parent.$el.childNodes[2].childNodes[0].style.marginTop =
+        //     "-109px";
+        //   for (
+        //     let i = 3;
+        //     i <
+        //     this.$refs.trumbo.$parent.$parent.$parent.$el.childNodes[2]
+        //       .childNodes.length;
+        //     i++
+        //   ) {
+        //     this.$refs.trumbo.$parent.$parent.$parent.$el.childNodes[2].childNodes[
+        //       i
+        //     ].style.marginTop = "-109px";
+        //   }
+        // }
       },
     },
   },
-  created() {
-    this.$nextTick(() => {
-      if (this.$refs.trumbo) {
-        if (this.width >= 8) {
-          this.$refs.trumbo.$parent.$parent.$parent.$el.childNodes[0].childNodes[0].style.marginTop =
-            "-37px";
-
-          for (
-            let i = 3;
-            i <
-            this.$refs.trumbo.$parent.$parent.$parent.$el.childNodes[0]
-              .childNodes.length;
-            i++
-          ) {
-            this.$refs.trumbo.$parent.$parent.$parent.$el.childNodes[0].childNodes[
-              i
-            ].style.marginTop = "-37px";
-          }
-        } else if (this.width >= 5 && this.width < 8) {
-          this.$refs.trumbo.$parent.$parent.$parent.$el.childNodes[0].childNodes[0].style.marginTop =
-            "-73px";
-          for (
-            let i = 3;
-            i <
-            this.$refs.trumbo.$parent.$parent.$parent.$el.childNodes[0]
-              .childNodes.length;
-            i++
-          ) {
-            this.$refs.trumbo.$parent.$parent.$parent.$el.childNodes[0].childNodes[
-              i
-            ].style.marginTop = "-73px";
-          }
-        } else {
-          this.$refs.trumbo.$parent.$parent.$parent.$el.childNodes[0].childNodes[0].style.marginTop =
-            "-109px";
-          for (
-            let i = 3;
-            i <
-            this.$refs.trumbo.$parent.$parent.$parent.$el.childNodes[0]
-              .childNodes.length;
-            i++
-          ) {
-            this.$refs.trumbo.$parent.$parent.$parent.$el.childNodes[0].childNodes[
-              i
-            ].style.marginTop = "-109px";
-          }
-        }
-      }
-    });
+  mounted() {
+    this.setMargin();
   },
-  computed: {
-    toolbarMargin: function () {
-      return {
-        "-37px": this.width >= 8,
-        "-73px": this.width >= 5 && this.width < 8,
-      };
-    },
+  updated() {
+    this.setMargin();
+    // this.$nextTick(() => {
+    // if (this.$refs.trumbo) {
+    //   if (this.width >= 8) {
+    //     this.$refs.trumbo.$parent.$parent.$parent.$el.childNodes[2].childNodes[0].style.marginTop =
+    //       "-37px"
+    //     for (
+    //       let i = 3;
+    //       i <
+    //       this.$refs.trumbo.$parent.$parent.$parent.$el.childNodes[2].childNodes
+    //         .length;
+    //       i++
+    //     ) {
+    //       this.$refs.trumbo.$parent.$parent.$parent.$el.childNodes[2].childNodes[
+    //         i
+    //       ].style.marginTop = "-37px";
+    //     }
+    //   } else if (this.width >= 5 && this.width < 8) {
+    //     this.$refs.trumbo.$parent.$parent.$parent.$el.childNodes[2].childNodes[0].style.marginTop =
+    //       "-73px";
+    //     for (
+    //       let i = 3;
+    //       i <
+    //       this.$refs.trumbo.$parent.$parent.$parent.$el.childNodes[2].childNodes
+    //         .length;
+    //       i++
+    //     ) {
+    //       this.$refs.trumbo.$parent.$parent.$parent.$el.childNodes[2].childNodes[
+    //         i
+    //       ].style.marginTop = "-73px";
+    //     }
+    //   } else {
+    //     this.$refs.trumbo.$parent.$parent.$parent.$el.childNodes[2].childNodes[0].style.marginTop =
+    //       "-109px";
+    //     for (
+    //       let i = 3;
+    //       i <
+    //       this.$refs.trumbo.$parent.$parent.$parent.$el.childNodes[2].childNodes
+    //         .length;
+    //       i++
+    //     ) {
+    //       this.$refs.trumbo.$parent.$parent.$parent.$el.childNodes[2].childNodes[
+    //         i
+    //       ].style.marginTop = "-109px";
+    //     }
+    //   }
+    // }
+    // });
   },
 
   data() {
     return {
-      form: {
-        content: "<h1>You can put a whole lot of stuff in here</h1>",
-        body: null,
-      },
-      // http://alex-d.github.io/Trumbowyg/documentation.html#basic-options
+      isHTML: false,
+
+      content: "<p>You can put a whole lot of stuff in here</p>",
+
       configs: {
         basic: {
           //   btnsAdd: [
@@ -246,9 +256,69 @@ export default {
       console.log("listen to init event");
     },
     toggleView() {
-      console.log(this.$refs.trumbo("html"));
+      // bus.$emit("tbw-blur", this.form.content);
+      this.$refs.trumbo.el.trumbowyg("disable");
+      this.$refs.trumbo.el.trumbowyg("destroy");
+      this.isHTML = !this.isHTML;
+    },
+    toggleHTML() {
+      this.isHTML = !this.isHTML;
+    },
+    toggleFocus() {
+      this.$refs.trumbo.el.focus();
+    },
+    triggerFocus() {
+      const element = this.$refs.trumbo.el;
 
-      console.log("yo");
+      element.focus();
+    },
+    setMargin() {
+      if (this.$refs.trumbo) {
+        if (this.width >= 8) {
+          this.$refs.trumbo.$parent.$parent.$parent.$el.childNodes[2].childNodes[0].style.marginTop =
+            "-37px";
+
+          for (
+            let i = 3;
+            i <
+            this.$refs.trumbo.$parent.$parent.$parent.$el.childNodes[2]
+              .childNodes.length;
+            i++
+          ) {
+            this.$refs.trumbo.$parent.$parent.$parent.$el.childNodes[2].childNodes[
+              i
+            ].style.marginTop = "-37px";
+          }
+        } else if (this.width >= 5 && this.width < 8) {
+          this.$refs.trumbo.$parent.$parent.$parent.$el.childNodes[2].childNodes[0].style.marginTop =
+            "-73px";
+          for (
+            let i = 3;
+            i <
+            this.$refs.trumbo.$parent.$parent.$parent.$el.childNodes[2]
+              .childNodes.length;
+            i++
+          ) {
+            this.$refs.trumbo.$parent.$parent.$parent.$el.childNodes[2].childNodes[
+              i
+            ].style.marginTop = "-73px";
+          }
+        } else {
+          this.$refs.trumbo.$parent.$parent.$parent.$el.childNodes[2].childNodes[0].style.marginTop =
+            "-109px";
+          for (
+            let i = 3;
+            i <
+            this.$refs.trumbo.$parent.$parent.$parent.$el.childNodes[2]
+              .childNodes.length;
+            i++
+          ) {
+            this.$refs.trumbo.$parent.$parent.$parent.$el.childNodes[2].childNodes[
+              i
+            ].style.marginTop = "-109px";
+          }
+        }
+      }
     },
   },
 };

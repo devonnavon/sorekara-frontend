@@ -1,6 +1,7 @@
 <template>
-  <div v-if="text">{{ text }}</div>
-  <Trumbowyg :width="width" v-else></Trumbowyg>
+  <!-- <div v-if="text">{{ text }}</div> -->
+  <Trumbowyg :width="width"></Trumbowyg>
+  <!-- <HtmlItem :contentHTML="contentHTML" v-else></HtmlItem> -->
   <!-- :style="`--margin-top: ${computedMargin}`" -->
   <!-- :style="margin-top: calculateWidth()" -->
 </template>
@@ -8,12 +9,15 @@
 import bus from "../../bus";
 import Trumbowyg from "../../components/ui/Toolbar.vue";
 
+import HtmlItem from "./HtmlItem.vue";
+
 // buttons.style.marginTop = "-109px";
 
 export default {
   name: "TextItem",
   components: {
     Trumbowyg,
+    HtmlItem,
   },
   props: {
     id: Number,
@@ -21,7 +25,9 @@ export default {
     width: Number,
   },
   data() {
-    return {};
+    return {
+      contentHTML: String,
+    };
   },
   //   created() {
   //     if (!this.$refs.trumbo) {
@@ -53,12 +59,9 @@ export default {
   //       };
   //     },
   //   },
-
-  methods: {
-    toggleView() {
-      console.log("yo");
-    },
-  },
+  created() {},
+  methods: {},
+  // },
 };
 </script>
 <style>

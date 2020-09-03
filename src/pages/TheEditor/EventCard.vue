@@ -1,30 +1,32 @@
 <template>
   <div
-    class="group border border-dashed border-orange w-full relative pt-8 border-opacity-25 hover:border-opacity-100"
+    class="border border-dashed border-orange w-full relative pt-8 border-opacity-25 hover:border-opacity-100"
   >
-    <button
-      type="button"
-      class="btn-close absolute left-0 top-0 ml-2 mt-2 focus:outline-none transition duration-500 ease-in-out self-center outline-none transform hover:-translate-y-1 hover:scale-105"
-      aria-label="Delete event"
-      @click="deleteEventCard"
-    >
-      <IconifyIcon
-        :icon="icons.deleteIcon"
-        class="text-orange h-5 w-5 transition duration-500 ease-in-out hover:text-red sm:text-opacity-0 sm:group-hover:text-opacity-100"
-      />
-    </button>
-    <div class="flex justify-center -mt-6">
+    <div class="group">
       <button
         type="button"
-        v-handle
-        class="handle focus:outline-none transition duration-500 ease-in-out self-center outline-none transform hover:-translate-y-1 hover:scale-105"
-        aria-label="Reorder Event Media"
+        class="btn-close absolute left-0 top-0 ml-2 mt-2 focus:outline-none transition duration-500 ease-in-out self-center outline-none transform hover:-translate-y-1 hover:scale-105"
+        aria-label="Delete event"
+        @click="deleteEventCard"
       >
         <IconifyIcon
-          :icon="icons.dragHorizontal"
-          class="text-orange h-6 w-6 transition duration-500 hover:text-red sm:text-opacity-0 sm:group-hover:text-opacity-100"
+          :icon="icons.deleteIcon"
+          class="text-orange h-5 w-5 transition duration-500 ease-in-out hover:text-red sm:text-opacity-0 sm:group-hover:text-opacity-100"
         />
       </button>
+      <div class="flex justify-center -mt-6">
+        <button
+          type="button"
+          v-handle
+          class="handle focus:outline-none transition duration-500 ease-in-out self-center outline-none transform hover:-translate-y-1 hover:scale-105"
+          aria-label="Reorder Event Media"
+        >
+          <IconifyIcon
+            :icon="icons.dragHorizontal"
+            class="text-orange h-6 w-6 transition duration-500 hover:text-red sm:text-opacity-0 sm:group-hover:text-opacity-100"
+          />
+        </button>
+      </div>
     </div>
 
     <grid-layout
@@ -53,7 +55,20 @@
         :key="item.i"
         :minW="3"
         class="group border border-dotted border-orange relative mx-auto border-opacity-25 hover:border-opacity-100"
+        @resized="resizedEvent"
+        @moved="movedEvent"
       >
+        <button
+          type="button"
+          class="z-99 btn-close absolute left-0 top-0 ml-2 mt-2 focus:outline-none transition duration-500 ease-in-out self-center outline-none transform hover:-translate-y-1 hover:scale-105"
+          aria-label="Delete event"
+          @click="deleteCardItem(item.i)"
+        >
+          <IconifyIcon
+            :icon="icons.deleteIcon"
+            class="text-orange h-5 w-5 absolute transition duration-500 ease-in-out hover:text-red sm:text-opacity-0 sm:group-hover:text-opacity-100"
+          />
+        </button>
         <component
           :is="getItemType(cardItemsData[item.i].type)"
           :id="item.i"
@@ -68,11 +83,11 @@
         type="button"
         class="btn-close focus:outline-none transition duration-500 ease-in-out self-center outline-none transform hover:-translate-y-1 hover:scale-105"
         aria-label="Add Item"
-        @click="addItem"
+        @click="addCardItem"
       >
         <IconifyIcon
           :icon="icons.plusCircleOutlined"
-          class="text-orange text-center fill-current bg-white transform hover:rotate-180 transition-transform duration-1000 ease-out self-center outline-none focus:outline-none sm:text-opacity-0 sm:group-hover:text-opacity-100 transition duration-500 ease-in-out"
+          class="text-orange text-center fill-current bg-white transform hover:rotate-180 transition-transform duration-1000 ease-out self-center outline-none focus:outline-none transition duration-500 ease-in-out"
         />
       </button>
     </div>
@@ -174,19 +189,22 @@ export default {
   },
 
   methods: {
+    resizedEvent(i, newH, newW, newHPx, newWPx) {
+      console.log("resized");
+    },
+    movedEvent(i, newX, newY) {
+      console.log("resized");
+    },
     getItemType(type) {
       if (type) return `${type.charAt(0).toUpperCase() + type.slice(1)}Item`;
       return "NewItem";
     },
-    updateItemType(id, type) {
-      //API CALL ************************************************************************
-      //UPDATE TYPE AT ID
-      //this.$set(this.someObject, 'b', 2)
-      // console.log(this.cardItemsData[id]);
-      // this.$set(this.cardItemsData, id )
-      this.cardItemsData[id].type = type;
+    async updateItemType(id, type) {
+      const response = await this.$api.cardItem.update({ id, type });
+      console.log(this.cardItemsData[id]);
+      this.cardItemsData[id].type = await response.type;
     },
-    async addItem() {
+    async addCardItem() {
       const nextLine = this.getNextLine();
       const newLayout = { x: 0, w: 12, h: 1 };
       const newLayouts = [
@@ -198,20 +216,36 @@ export default {
         layouts: newLayouts,
       });
 
+      //back to grid item format, pull out screen convert i to int
       const newLayoutsBackend = cardItem.layout.reduce((obj, item) => {
         let { screen, i, ...info } = item;
         obj[screen] = { ...info, i: parseInt(i) };
         return obj;
       }, {});
 
-      this.cardItemsData[cardItem.id] = { type: null };
-
+      this.$set(this.cardItemsData, cardItem.id, { type: null });
       //we have to update both the dynamic layouts and the current layout
       //annoying but no better solution as of now
-
       this.layout.push(newLayoutsBackend[this.currentSize]);
       this.layouts["md"].push(newLayoutsBackend.md);
       this.layouts["sm"].push(newLayoutsBackend.sm);
+    },
+    async deleteCardItem(id) {
+      const response = await this.$api.cardItem.deleteCardItem(id);
+      if (response) {
+        this.$delete(this.cardItemsData, id);
+        [this.layout, this.layouts["md"], this.layouts["sm"]].forEach(
+          (layout) => {
+            layout.splice(layout.map((e) => e.i).indexOf(id), 1);
+          }
+        );
+      }
+    },
+    async deleteEventCard() {
+      const response = await this.$api.eventCard.deleteEventCard(this.id);
+      if (response) {
+        bus.$emit("event-card-delete", this.id);
+      }
     },
     getNextLine() {
       //gets the next line in the event card for both screen sizes
@@ -225,29 +259,9 @@ export default {
       }
       return nextLine;
     },
-    async deleteEventCard() {
-      let response = await this.$api.eventCard.deleteEventCard(this.id);
-      if (response) {
-        bus.$emit("event-card-delete", this.id);
-      }
-    },
     // *********************************************************************************************************************************************
     //all this stuff needs to be refactored later!!!!
     // *********************************************************************************************************************************************
-
-    async createCardItem(type) {
-      //will be replaced by addItem leave for now
-      // let response = await this.$api.cardItem.create({
-      //   eventCardId: this.id,
-      //   type,
-      //   sortOrder: this.cardItem.length + 1,
-      // });
-      // this.cardItemCopy.push(response);
-    },
-    removeItem(id) {
-      const index = this.cardItemCopy.findIndex((item) => item.id === id);
-      this.cardItemCopy.splice(index, 1);
-    },
     async itemMove(e) {
       //need to rewrite for grid
       //card media!!!

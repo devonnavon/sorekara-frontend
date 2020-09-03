@@ -20,6 +20,7 @@ const create = async (variables) => {
                 {
                 id
                 layout {
+                    id
                     screen
                     x
                     y
@@ -60,8 +61,6 @@ const update = async (variables) => {
                     text
                 }
             }
-        )
-
     `;
 	const header = token();
 	const response = await request(query, variables, header);
