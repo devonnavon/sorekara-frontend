@@ -1,6 +1,6 @@
 <template>
 	<!-- <div v-if="text">{{ text }}</div> -->
-	<Trumbowyg :width="width" :containerWidth="containerWidth"></Trumbowyg>
+	<Trumbowyg :width="width" :containerWidth="containerWidth()"></Trumbowyg>
 	<!-- <HtmlItem :contentHTML="contentHTML" v-else></HtmlItem> -->
 	<!-- :style="`--margin-top: ${computedMargin}`" -->
 	<!-- :style="margin-top: calculateWidth()" -->
@@ -23,14 +23,23 @@ export default {
 		id: Number,
 		text: String,
 		width: Number,
-		containerWidth: Number,
+		// containerWidth: Number,
 	},
-
 	data() {
 		return {
 			contentHTML: String,
 		};
 	},
+	computed: {},
+	mounted() {
+		console.log(this.$parent);
+	},
+	methods: {
+		containerWidth() {
+			return this.$parent.containerWidth;
+		},
+	},
+
 	//   created() {
 	//     if (!this.$refs.trumbo) {
 	//       console.log("This doesn't exist yet!");
@@ -52,7 +61,7 @@ export default {
 	//     });
 	//   },
 	//   this.$refs.trumbo.querySelector("trumbowyg-button-pane")
-	mounted() {},
+	// mounted() {},
 	//   computed: {
 	//     toolbarMargin: function () {
 	//       return {
@@ -61,14 +70,7 @@ export default {
 	//       };
 	//     },
 	//   },
-	created() {},
-	methods: {
-		closeMethod() {
-			this.$refs.trumbo.el.trumbowyg('disable');
-			this.$refs.trumbo.el.trumbowyg('destroy');
-			this.isHTML = true;
-		},
-	},
+
 	// },
 };
 </script>
