@@ -59,9 +59,16 @@
         @resized="resizedEvent"
         @moved="movedEvent"
       >
+        <component
+          :is="getItemType(cardItemsData[item.i].type)"
+          :id="item.i"
+          :text="cardItemsData[item.i].text"
+          :url="cardItemsData[item.i].url"
+          :width="item.w"
+        ></component>
         <button
           type="button"
-          class="z-99 btn-close absolute left-0 top-0 ml-2 mt-2 focus:outline-none transition duration-500 ease-in-out self-center outline-none transform hover:-translate-y-1 hover:scale-105"
+          class="z-50 btn-close absolute left-0 top-0 ml-2 mt-2 focus:outline-none transition duration-500 ease-in-out self-center outline-none transform hover:-translate-y-1 hover:scale-105"
           aria-label="Delete event"
           @click="deleteCardItem(item.i)"
         >
@@ -70,13 +77,6 @@
             class="text-orange h-5 w-5 absolute transition duration-500 ease-in-out hover:text-red sm:text-opacity-0 sm:group-hover:text-opacity-100"
           />
         </button>
-        <component
-          :is="getItemType(cardItemsData[item.i].type)"
-          :id="item.i"
-          :text="cardItemsData[item.i].text"
-          :url="cardItemsData[item.i].url"
-          :width="item.w"
-        ></component>
       </grid-item>
     </grid-layout>
     <div class="flex flex-row justify-center py-3">
@@ -128,11 +128,8 @@ export default {
   mixins: [ElementMixin],
   created() {
     bus.$on("type-selected", this.updateItemType);
+    bus.$on("resize-card", this.componentResize);
     window.addEventListener("resize", this.windowResize);
-    // bus.$on("resize", this.windowResize);
-    //not used rn
-    bus.$on("card-media-delete", this.removeItem);
-    bus.$on("resize-card", this.resizeCard);
   },
   async mounted() {
     //get the layoutsObject in proper form (tough)
@@ -203,16 +200,23 @@ export default {
         this.layout = this.layouts[this.currentSize];
       }
       //calc column size
-
-      console.log(this.columnNumber);
       const colSize =
-        // 		(item.containerWidth - this.margin[0] * (item.cols + 1)) / item.cols;
-
         (this.$refs.grid.$el.clientWidth -
           this.margin[0] * (this.columnNumber + 1)) /
         this.columnNumber;
-      console.log(colSize);
       this.baseHeight = colSize;
+    },
+    componentResize(id, h, w) {
+      console.log(id, "id");
+      console.log(h, "h");
+      console.log(w, "w");
+      const factor = h / w;
+      for (let i in this.layouts) {
+        let ref = this.layouts[i].filter((e) => e.i === id)[0];
+        ref.h = Math.round(ref.w * factor);
+        this.$refs.grid.layoutUpdate();
+      }
+      this.updateLayouts();
     },
     getCurrentSize() {
       //gets the current screen size (md or sm)
@@ -257,7 +261,6 @@ export default {
         eventCardId: "" + this.id,
         layouts: newLayouts,
       });
-
       //back to grid item format, pull out screen convert i to int
       const layoutKey = {};
 
@@ -274,10 +277,7 @@ export default {
       //we have to update both the dynamic layouts and the current layout
       //annoying but no better solution as of now
 
-      console.log(this.layoutKeys, "key1");
       this.layoutKeys = Object.assign({}, this.layoutKeys, layoutKey);
-      console.log(this.layoutKeys, "key1");
-      this.layout.push(newLayoutsBackend[this.getCurrentSize()]);
       this.layouts["md"].push(newLayoutsBackend.md);
       this.layouts["sm"].push(newLayoutsBackend.sm);
     },
@@ -285,11 +285,9 @@ export default {
       const response = await this.$api.cardItem.deleteCardItem(id);
       if (response) {
         this.$delete(this.cardItemsData, id);
-        [this.layout, this.layouts["md"], this.layouts["sm"]].forEach(
-          (layout) => {
-            layout.splice(layout.map((e) => e.i).indexOf(id), 1); //remove from everylayout where i = id
-          }
-        );
+        [this.layouts["md"], this.layouts["sm"]].forEach((layout) => {
+          layout.splice(layout.map((e) => e.i).indexOf(id), 1); //remove from everylayout where i = id
+        });
       }
     },
     async deleteEventCard() {

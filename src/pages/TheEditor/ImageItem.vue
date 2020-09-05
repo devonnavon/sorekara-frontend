@@ -1,6 +1,6 @@
 <template>
   <div v-if="newUrl" :style="{ backgroundImage: `url(${newUrl})` }" class="image"></div>
-  <div v-else>
+  <div class="h-full" v-else>
     <VueFileAgent
       v-show="componentState === 'VueFileAgent'"
       ref="vueFileAgent"
@@ -11,31 +11,21 @@
       :accept="'image/*,.zip'"
       :maxSize="'10MB'"
       :maxFiles="14"
-      :helpText="'Choose images or zip files'"
+      :helpText="'Drag an image file here!'"
       :errorText="{
-				type: 'Invalid file type. Only images or zip Allowed',
+				type: 'Invalid file type. Only images allowed',
 				size: 'Files should not exceed 10MB in size',
 			}"
       @select="filesSelected($event)"
       @beforedelete="onBeforeDelete($event)"
       @delete="fileDeleted($event)"
+      class="h-full text-orange font-display"
     ></VueFileAgent>
-    <div v-show="componentState === 'Loading'" class="flex flex-row justify-center py-4">
-      <!-- <vue-ellipse-progress
-        :progress="progress"
-        :determinate="false"
-        color="#E85A0B"
-        empty-color="#324c7e"
-        :size="35"
-        :thickness="thickness"
-        :emptyThickness="emptyThickness"
-        :lineMode="lineMode"
-        animation="rs 700 1000"
-        :loading="true"
-        :no-data="true"
-        :dot="dot"
-      ></vue-ellipse-progress>-->
-      <Loader />
+    <div
+      v-show="componentState === 'Loading'"
+      class="flex flex-row justify-center content-center h-full"
+    >
+      <Loader class="self-center justify-center" />
     </div>
   </div>
 </template>
@@ -63,12 +53,20 @@ export default {
       this.componentState = "ImageMediaItem";
       this.newUrl = this.url;
     } else {
+      this.newImageFlag = true;
       this.componentState = "VueFileAgent";
     }
   },
   watch: {
     newUrl(newOne, oldOne) {
-      // console.log(newOne);
+      if (this.newImageFlag) {
+        const img = new Image();
+        const id = this.id;
+        img.src = newOne;
+        img.onload = () => {
+          bus.$emit("resize-card", id, img.height, img.width);
+        };
+      }
       this.componentState = "ImageMediaItem";
     },
   },
@@ -89,29 +87,15 @@ export default {
       fileRecordsForUpload: [],
       componentState: null,
       newUrl: null,
-      // progress: 45,
-      // lineModes: [
-      //   "normal",
-      //   "in",
-      //   "in-over",
-      //   "out",
-      //   "out-over",
-      //   "top",
-      //   "bottom",
-      // ],
-      // thickness: 3,
-      // emptyThickness: 3,
-      // dot: { size: 1, width: "1px" },
-      // lineMode: "normal 0",
+      newImageFlag: false,
     };
   },
   methods: {
-    uploadFiles() {
-      // Using the default uploader. You may use another uploader instead.
-
-      this.$refs.vueFileAgent.upload(this.fileRecordsForUpload);
-      this.fileRecordsForUpload = [];
-    },
+    // uploadFiles() {
+    //   // Using the default uploader. You may use another uploader instead.
+    //   this.$refs.vueFileAgent.upload(this.fileRecordsForUpload);
+    //   this.fileRecordsForUpload = [];
+    // },
     async filesSelected(fileRecordsNewlySelected) {
       //of the files dropped in filter out thos with an error then concat them to upload list
       this.componentState = "Loading";
@@ -127,37 +111,19 @@ export default {
         this.fileRecordsForUpload[0].file,
         filename
       );
-      // const cardMedia = await this.$api.cardMedia.update({
-      // 	id: parseInt(this.id),
-      // 	url,
-      // });
+      const response = await this.$api.cardItem.update({ id: this.id, url });
       this.newUrl = url;
     },
-    onBeforeDelete(fileRecord) {
-      //find the index of file to be deleted, remove from record list trigger delete event (fileDeleted)
-      const i = this.fileRecordsForUpload.indexOf(fileRecord);
-      this.fileRecordsForUpload.splice(i, 1);
-      this.$refs.vueFileAgent.deleteFileRecord(fileRecord); // will trigger 'delete' event
-    },
-    fileDeleted(fileRecord) {
-      // Using the default uploader. You may use another uploader instead.
-      //delete file from fileagent
-      this.$refs.vueFileAgent.deleteUpload(fileRecord);
-    },
-    // randomNumberInRange() {
-    //   (min = 0, max = 100) => Math.floor(Math.random() * (max - min + 1)) + min;
+    // onBeforeDelete(fileRecord) {
+    //   //find the index of file to be deleted, remove from record list trigger delete event (fileDeleted)
+    //   const i = this.fileRecordsForUpload.indexOf(fileRecord);
+    //   this.fileRecordsForUpload.splice(i, 1);
+    //   this.$refs.vueFileAgent.deleteFileRecord(fileRecord); // will trigger 'delete' event
     // },
-    // randomizeOptions() {
-    //   const mode = this.lineModes[
-    //     this.randomNumberInRange(0, this.lineModes.length - 1)
-    //   ];
-    //   const offset = this.randomNumberInRange(0, 15);
-    //   this.lineMode = `${mode} ${offset}`.trim();
-    //   this.progress = this.randomNumberInRange(0, 100);
-    //   this.thickness = this.randomNumberInRange(1, 10);
-    //   this.emptyThickness = this.randomNumberInRange(1, 10);
-    //   this.dot.size = this.randomNumberInRange(1, 20);
-    //   this.dot.width = `${this.randomNumberInRange(1, 10)}px`;
+    // fileDeleted(fileRecord) {
+    //   // Using the default uploader. You may use another uploader instead.
+    //   //delete file from fileagent
+    //   this.$refs.vueFileAgent.deleteUpload(fileRecord);
     // },
   },
 };
@@ -172,4 +138,45 @@ export default {
   background-position: center center;
   z-index: -1;
 }
+
+.grid-block-wrapper,
+.vue-file-agent,
+.file-input-wrapper,
+.is-single {
+  height: 100%;
+}
+
+.grid-block-wrapper > div:nth-child(2) > div:nth-child(1),
+.grid-block-wrapper > div:nth-child(2),
+.file-preview-wrapper {
+  height: 100%;
+}
+
+.file-preview > span > .help-text {
+  height: 100%;
+  color: #e85a0b !important;
+}
+
+.file-preview {
+  align-items: center;
+  height: 100%;
+}
+
+.theme-list .vue-file-agent .file-preview-wrapper .file-preview {
+  height: 100%;
+}
+.theme-list .vue-file-agent .file-preview-new svg {
+  fill: #e85a0b;
+  width: 36px;
+  height: 100%;
+  position: absolute;
+  left: 10px;
+  top: -1px !important;
+}
+
+/* .theme-list .vue-file-agent .file-preview-wrapper .file-preview {
+  background: #00ffd5 !important;
+  border: none;
+  border-left: 0;
+} */
 </style>

@@ -70,7 +70,7 @@ export default {
 
   data() {
     return {
-      isHTML: false,
+      isHTML: true,
 
       content: "<p>You can put a whole lot of stuff in here</p>",
 
@@ -228,45 +228,45 @@ export default {
     setMargin() {
       if (this.$refs.trumbo) {
         if (this.width >= 8) {
-          this.$refs.trumbo.$parent.$parent.$parent.$el.childNodes[2].childNodes[0].style.marginTop =
+          this.$refs.trumbo.$parent.$parent.$parent.$el.childNodes[0].childNodes[0].style.marginTop =
             "-37px";
 
           for (
             let i = 3;
             i <
-            this.$refs.trumbo.$parent.$parent.$parent.$el.childNodes[2]
+            this.$refs.trumbo.$parent.$parent.$parent.$el.childNodes[0]
               .childNodes.length;
             i++
           ) {
-            this.$refs.trumbo.$parent.$parent.$parent.$el.childNodes[2].childNodes[
+            this.$refs.trumbo.$parent.$parent.$parent.$el.childNodes[0].childNodes[
               i
             ].style.marginTop = "-37px";
           }
         } else if (this.width >= 5 && this.width < 8) {
-          this.$refs.trumbo.$parent.$parent.$parent.$el.childNodes[2].childNodes[0].style.marginTop =
+          this.$refs.trumbo.$parent.$parent.$parent.$el.childNodes[0].childNodes[0].style.marginTop =
             "-73px";
           for (
             let i = 3;
             i <
-            this.$refs.trumbo.$parent.$parent.$parent.$el.childNodes[2]
+            this.$refs.trumbo.$parent.$parent.$parent.$el.childNodes[0]
               .childNodes.length;
             i++
           ) {
-            this.$refs.trumbo.$parent.$parent.$parent.$el.childNodes[2].childNodes[
+            this.$refs.trumbo.$parent.$parent.$parent.$el.childNodes[0].childNodes[
               i
             ].style.marginTop = "-73px";
           }
         } else {
-          this.$refs.trumbo.$parent.$parent.$parent.$el.childNodes[2].childNodes[0].style.marginTop =
+          this.$refs.trumbo.$parent.$parent.$parent.$el.childNodes[0].childNodes[0].style.marginTop =
             "-109px";
           for (
             let i = 3;
             i <
-            this.$refs.trumbo.$parent.$parent.$parent.$el.childNodes[2]
+            this.$refs.trumbo.$parent.$parent.$parent.$el.childNodes[0]
               .childNodes.length;
             i++
           ) {
-            this.$refs.trumbo.$parent.$parent.$parent.$el.childNodes[2].childNodes[
+            this.$refs.trumbo.$parent.$parent.$parent.$el.childNodes[0].childNodes[
               i
             ].style.marginTop = "-109px";
           }
@@ -276,73 +276,74 @@ export default {
     setMobileMargin() {
       if (this.width === 3) {
         if (this.$refs.trumbo) {
+          console.log(this.containerWidth);
           if (this.containerWidth <= 287) {
-            this.$refs.trumbo.$parent.$parent.$parent.$el.childNodes[2].childNodes[0].style.marginTop =
+            this.$refs.trumbo.$parent.$parent.$parent.$el.childNodes[0].childNodes[0].style.marginTop =
               "-146px";
             for (
               let i = 3;
               i <
-              this.$refs.trumbo.$parent.$parent.$parent.$el.childNodes[2]
+              this.$refs.trumbo.$parent.$parent.$parent.$el.childNodes[0]
                 .childNodes.length;
               i++
             ) {
-              this.$refs.trumbo.$parent.$parent.$parent.$el.childNodes[2].childNodes[
+              this.$refs.trumbo.$parent.$parent.$parent.$el.childNodes[0].childNodes[
                 i
               ].style.marginTop = "-146px";
             }
           } else if (this.containerWidth <= 405) {
-            this.$refs.trumbo.$parent.$parent.$parent.$el.childNodes[2].childNodes[0].style.marginTop =
+            this.$refs.trumbo.$parent.$parent.$parent.$el.childNodes[0].childNodes[0].style.marginTop =
               "-109px";
             for (
               let i = 3;
               i <
-              this.$refs.trumbo.$parent.$parent.$parent.$el.childNodes[2]
+              this.$refs.trumbo.$parent.$parent.$parent.$el.childNodes[0]
                 .childNodes.length;
               i++
             ) {
-              this.$refs.trumbo.$parent.$parent.$parent.$el.childNodes[2].childNodes[
+              this.$refs.trumbo.$parent.$parent.$parent.$el.childNodes[0].childNodes[
                 i
               ].style.marginTop = "-109px";
             }
           } else if (this.containerWidth <= 718) {
-            this.$refs.trumbo.$parent.$parent.$parent.$el.childNodes[2].childNodes[0].style.marginTop =
+            this.$refs.trumbo.$parent.$parent.$parent.$el.childNodes[0].childNodes[0].style.marginTop =
               "-73px";
             for (
               let i = 3;
               i <
-              this.$refs.trumbo.$parent.$parent.$parent.$el.childNodes[2]
+              this.$refs.trumbo.$parent.$parent.$parent.$el.childNodes[0]
                 .childNodes.length;
               i++
             ) {
-              this.$refs.trumbo.$parent.$parent.$parent.$el.childNodes[2].childNodes[
+              this.$refs.trumbo.$parent.$parent.$parent.$el.childNodes[0].childNodes[
                 i
               ].style.marginTop = "-73px";
             }
           } else if (this.containerWidth <= 996) {
-            this.$refs.trumbo.$parent.$parent.$parent.$el.childNodes[2].childNodes[0].style.marginTop =
+            this.$refs.trumbo.$parent.$parent.$parent.$el.childNodes[0].childNodes[0].style.marginTop =
               "-37px";
             for (
               let i = 3;
               i <
-              this.$refs.trumbo.$parent.$parent.$parent.$el.childNodes[2]
+              this.$refs.trumbo.$parent.$parent.$parent.$el.childNodes[0]
                 .childNodes.length;
               i++
             ) {
-              this.$refs.trumbo.$parent.$parent.$parent.$el.childNodes[2].childNodes[
+              this.$refs.trumbo.$parent.$parent.$parent.$el.childNodes[0].childNodes[
                 i
               ].style.marginTop = "-37px";
             }
           } else if (this.containerWidth <= 1120) {
-            this.$refs.trumbo.$parent.$parent.$parent.$el.childNodes[2].childNodes[0].style.marginTop =
+            this.$refs.trumbo.$parent.$parent.$parent.$el.childNodes[0].childNodes[0].style.marginTop =
               "-146px";
             for (
               let i = 3;
               i <
-              this.$refs.trumbo.$parent.$parent.$parent.$el.childNodes[2]
+              this.$refs.trumbo.$parent.$parent.$parent.$el.childNodes[0]
                 .childNodes.length;
               i++
             ) {
-              this.$refs.trumbo.$parent.$parent.$parent.$el.childNodes[2].childNodes[
+              this.$refs.trumbo.$parent.$parent.$parent.$el.childNodes[0].childNodes[
                 i
               ].style.marginTop = "-146px";
             }
