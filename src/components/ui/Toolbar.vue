@@ -42,6 +42,8 @@ export default {
   props: {
     width: Number,
     containerWidth: Number,
+    id: Number,
+    text: String,
   },
   mixins: [clickaway],
 
@@ -62,6 +64,13 @@ export default {
   mounted() {
     this.setMargin();
     this.setMobileMargin();
+    if (this.text) {
+      this.content = this.text;
+      this.lastContent = this.text;
+    } else {
+      this.content = "<p>You can put a whole lot of stuff in here!</p>";
+      this.lastContent = "<p>You can put a whole lot of stuff in here!</p>";
+    }
   },
   updated() {
     this.setMargin();
@@ -71,8 +80,8 @@ export default {
   data() {
     return {
       isHTML: true,
-
-      content: "<p>You can put a whole lot of stuff in here</p>",
+      lastContent: "",
+      content: "",
 
       configs: {
         basic: {
@@ -194,8 +203,8 @@ export default {
       });
     },
     closeMethod(e) {
-      var target = e.target;
-      var parentList = [];
+      let target = e.target;
+      let parentList = [];
       while (target) {
         parentList.unshift(target);
         target = target.parentElement;
@@ -203,10 +212,22 @@ export default {
       if (this.checkClass(parentList, "trumbowyg-editor")) return;
       if (this.checkClass(parentList, "trumbowyg-box")) return;
       if (this.checkClass(parentList, "trumbowyg-modal")) return;
-      console.log(parentList);
       this.$refs.trumbo.el.trumbowyg("disable");
       this.$refs.trumbo.el.trumbowyg("destroy");
       this.isHTML = true;
+      this.saveHtml();
+    },
+    async saveHtml() {
+      console.log(this.content, "content");
+      console.log(this.lastContent, "lastcontent");
+      if (this.content !== this.lastContent) {
+        const response = await this.$api.cardItem.update({
+          id: this.id,
+          text: this.content,
+        });
+        console.log(response, "resposne");
+        this.lastContent = this.content;
+      }
     },
     containsElement(editor, element) {
       function predicate(item) {
@@ -276,7 +297,6 @@ export default {
     setMobileMargin() {
       if (this.width === 3) {
         if (this.$refs.trumbo) {
-          console.log(this.containerWidth);
           if (this.containerWidth <= 287) {
             this.$refs.trumbo.$parent.$parent.$parent.$el.childNodes[0].childNodes[0].style.marginTop =
               "-146px";

@@ -207,9 +207,6 @@ export default {
       this.baseHeight = colSize;
     },
     componentResize(id, h, w) {
-      console.log(id, "id");
-      console.log(h, "h");
-      console.log(w, "w");
       const factor = h / w;
       for (let i in this.layouts) {
         let ref = this.layouts[i].filter((e) => e.i === id)[0];
